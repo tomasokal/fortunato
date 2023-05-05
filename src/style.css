@@ -10,7 +10,7 @@ body,
     background: #141414;
 }
 
-.interface
+.interface > *
 {
     position: absolute;
     margin-left: auto;
@@ -25,11 +25,6 @@ body,
     text-align: center;
     display: flex;
     justify-content: space-around;
-}
-
-.interface > *
-{
-    box-sizing: border-box;
 }
 
 .interface > *:hover

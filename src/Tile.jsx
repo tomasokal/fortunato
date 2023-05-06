@@ -22,10 +22,15 @@ export default function Tile()
     const [ hover, setHover ] = useState(false)
     const [ active, setActive ] = useState(false)
 
-    const { scale } = useSpring({
-        scale: active ? 1.5 : 1,
-        config: config.wobbly,
-      })
+    const { rotation } = useSpring({
+        rotation: active ? [Math.PI, 0, 0] : [0, 0, 0],
+        config: config.gentle,
+    })
+
+    const { position } = useSpring({
+        position: active ? 1 : hover ? 0.5 : 0,
+        config: config.stiff,
+    })
 
     return <>
 
@@ -34,7 +39,8 @@ export default function Tile()
             onClick={() => setActive(!active)}
             onPointerOver={() => setHover(true)}
             onPointerOut={() => setHover(false)}
-            scale={scale}
+            position-y={position}
+            rotation={rotation}
         >
             <boxBufferGeometry args={[2, 1, 2, 10, 10, 10]} />
             <meshStandardMaterial

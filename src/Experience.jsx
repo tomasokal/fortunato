@@ -1,7 +1,7 @@
 import { OrbitControls } from '@react-three/drei'
 
 import Interface from './Interface.jsx'
-import Tile from './Tile.jsx'
+import Grid from './Grid.jsx'
 
 export default function Experience()
 {
@@ -15,7 +15,7 @@ export default function Experience()
 
         <Interface />
 
-        <Tile />
+        <Grid rows={7} columns={7} />
 
     </>
 

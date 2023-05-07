@@ -4,7 +4,7 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader'
 import { useSpring, animated, config } from '@react-spring/three'
 import * as THREE from 'three'
 
-export default function Tile()
+export default function Tile({ positionX, positionZ })
 {
     
     // Loading textures
@@ -19,28 +19,63 @@ export default function Tile()
     // Creating a reference for the tile
     const tileRef = useRef()
 
+    // Creating state for hover and active
     const [ hover, setHover ] = useState(false)
     const [ active, setActive ] = useState(false)
 
-    const { rotation } = useSpring({
-        rotation: active ? [Math.PI, 0, 0] : [0, 0, 0],
-        config: config.gentle,
-    })
+    // Springs:
+    
+        // Creating a spring for rotation
+        const springRotation = useSpring({
+            rotation: active ? [Math.PI, 0, 0] : [0, 0, 0],
+            config: {
+                mass: 1,
+                tension: 210,
+                friction: 20,
+                precision: 0.01,
+                velocity: 0,
+            }
+        })
 
-    const { position } = useSpring({
-        position: active ? 1 : hover ? 0.5 : 0,
-        config: config.stiff,
-    })
+        // Creating a spring for position
+        const springPosition = useSpring({
+            position: hover | active ? 0.5 : 0,
+            config: {
+                mass: 1,
+                tension: 210,
+                friction: 20,
+                precision: 0.01,
+                velocity: -0.005,
+            }
+        })
+
+    // Creating a function for handling click, pointer over, and pointer out
+        const handleClick = (e) => {
+            e.stopPropagation()
+            setActive(!active)
+        }
+
+        const handlePointerOver = (e) => {
+            e.stopPropagation()
+            setHover(true)
+        }
+
+        const handlePointerOut = (e) => {
+            e.stopPropagation()
+            setHover(false)
+        }
 
     return <>
 
         <animated.mesh 
             ref={tileRef}
-            onClick={() => setActive(!active)}
-            onPointerOver={() => setHover(true)}
-            onPointerOut={() => setHover(false)}
-            position-y={position}
-            rotation={rotation}
+            onClick={handleClick}
+            onPointerOver={handlePointerOver}
+            onPointerOut={handlePointerOut}
+            position-y={springPosition.position}
+            position-x={positionX}
+            position-z={positionZ}
+            rotation={springRotation.rotation}
         >
             <boxBufferGeometry args={[2, 1, 2, 10, 10, 10]} />
             <meshStandardMaterial

@@ -7,7 +7,7 @@ export default {
     [
         react()
     ],
-    // root: 'src/',
+    root: 'src/',
     // publicDir: "../public/",
     base: '/cube-2/',
     // server:

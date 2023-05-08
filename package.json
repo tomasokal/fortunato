@@ -1,8 +1,8 @@
 {
-  "name": "transition-1",
+  "name": "cube-2",
   "private": true,
   "version": "0.0.1",
-  "homepage": "https://tomasokal.github.io/cube-2",
+  "homepage": "https://tomasokal.com/cube-2",
   "type": "module",
   "scripts": {
     "dev": "vite",

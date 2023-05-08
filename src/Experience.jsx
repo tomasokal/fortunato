@@ -1,4 +1,4 @@
-import { OrbitControls } from '@react-three/drei'
+import { Center, OrbitControls } from '@react-three/drei'
 
 import Interface from './Interface.jsx'
 import Grid from './Grid.jsx'
@@ -10,12 +10,14 @@ export default function Experience()
     
         <OrbitControls makeDefault />
 
-        <ambientLight intensity={0.2} />
+        <ambientLight intensity={2} />
         <directionalLight />  
 
         <Interface />
 
-        <Grid rows={7} columns={7} />
+        <Center>
+            <Grid rows={7} columns={7} />
+        </Center>
 
     </>
 

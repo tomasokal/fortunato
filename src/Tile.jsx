@@ -1,27 +1,65 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { useSpring, animated, config } from '@react-spring/three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { animated, useSpring } from '@react-spring/three'
 import * as THREE from 'three'
+
+import SelectedTile from './SelectedTile'
 
 export default function Tile({ positionX, positionZ })
 {
     
-    // Loading textures
-    const [colorMap, displacementMap, normalMap, roughnessMap, aoMap] = useLoader(TextureLoader, [
-        'Stylized_Stone_Floor_005_basecolor.jpg',
-        'Stylized_Stone_Floor_005_height.png',
-        'Stylized_Stone_Floor_005_normal.jpg',
-        'Stylized_Stone_Floor_005_roughness.jpg',
-        'Stylized_Stone_Floor_005_ambientOcclusion.jpg'
-    ])
+    // Loading tile models
+    const model1 = useLoader(GLTFLoader, '/dungeon-tile-base.glb')
 
-    // Creating a reference for the tile
-    const tileRef = useRef()
+    const model2 = useLoader(GLTFLoader, '/dungeon-tile-corner.glb')
+    const model3 = useLoader(GLTFLoader, '/dungeon-tile-deadend.glb')
+    const model4 = useLoader(GLTFLoader, '/dungeon-tile-escape.glb')
+    const model5 = useLoader(GLTFLoader, '/dungeon-tile-hall.glb')
+    const model6 = useLoader(GLTFLoader, '/dungeon-tile-markings.glb')
+    const model7 = useLoader(GLTFLoader, '/dungeon-tile-pillar.glb')
+    const model8 = useLoader(GLTFLoader, '/dungeon-tile-rubble.glb')
+    const model9 = useLoader(GLTFLoader, '/dungeon-tile-wall.glb')
+    const model10 = useLoader(GLTFLoader, '/dungeon-tile-wine.glb')
+
+    // States
+    const [ selectedModel, setSelectedModel ] = useState(model1)
+    const [ baseTile, setBaseTile ] = useState(true)
 
     // Creating state for hover and active
     const [ hover, setHover ] = useState(false)
     const [ active, setActive ] = useState(false)
+    
+    // Create a function to sample a tile
+    const sampleTile = () => {
+
+        if (baseTile) {
+            const models = [ model2, model3, model4, model5, model6, model7, model8, model9, model10 ]
+            const modelIndex = Math.floor(Math.random() * models.length)
+            const sampledModel = models[modelIndex]
+            setSelectedModel(sampledModel)
+            setBaseTile(false)
+        } else {
+            setSelectedModel(model1)
+            setBaseTile(true)
+        }
+
+    }
+
+    // useEffect(() => {
+    //     const models = [ model1, model2, model3, model4 ]
+    //     const modelIndex = Math.floor(Math.random() * models.length)
+    //     if(modelIndex === 0) {
+    //         console.log(modelIndex, positionX, positionZ)
+    //         setBaseTile(false)
+    //     }
+    //     const sampledModel = models[modelIndex]
+    //     setSelectedModel(sampledModel)
+    // }, [])
+
+    // Creating a reference for the tile
+    const tileRef = useRef()
 
     // Springs:
     
@@ -39,7 +77,8 @@ export default function Tile({ positionX, positionZ })
 
         // Creating a spring for position
         const springPosition = useSpring({
-            position: hover | active ? 0.5 : 0,
+            // Set position to 1 if active and 0.5 if hover and 0 if neither
+            position: active ? 1 : hover ? 0.25 : 0,
             config: {
                 mass: 1,
                 tension: 210,
@@ -53,6 +92,7 @@ export default function Tile({ positionX, positionZ })
         const handleClick = (e) => {
             e.stopPropagation()
             setActive(!active)
+            sampleTile()
         }
 
         const handlePointerOver = (e) => {
@@ -77,15 +117,7 @@ export default function Tile({ positionX, positionZ })
             position-z={positionZ}
             rotation={springRotation.rotation}
         >
-            <boxBufferGeometry args={[2, 1, 2, 10, 10, 10]} />
-            <meshStandardMaterial
-                displacementScale={1}
-                map={colorMap}
-                bumpMap={displacementMap}
-                normalMap={normalMap}
-                roughnessMap={roughnessMap}
-                aoMap={aoMap}
-            />
+            <SelectedTile model={selectedModel} baseTile={baseTile}/>
         </animated.mesh>
 
     </>

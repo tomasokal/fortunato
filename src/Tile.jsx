@@ -11,17 +11,17 @@ export default function Tile({ positionX, positionZ })
 {
     
     // Loading tile models
-    const model1 = useLoader(GLTFLoader, '/dungeon-tile-base.glb')
+    const model1 = useLoader(GLTFLoader, './dungeon-tile-base.glb')
 
-    const model2 = useLoader(GLTFLoader, '/dungeon-tile-corner.glb')
-    const model3 = useLoader(GLTFLoader, '/dungeon-tile-deadend.glb')
-    const model4 = useLoader(GLTFLoader, '/dungeon-tile-escape.glb')
-    const model5 = useLoader(GLTFLoader, '/dungeon-tile-hall.glb')
-    const model6 = useLoader(GLTFLoader, '/dungeon-tile-markings.glb')
-    const model7 = useLoader(GLTFLoader, '/dungeon-tile-pillar.glb')
-    const model8 = useLoader(GLTFLoader, '/dungeon-tile-rubble.glb')
-    const model9 = useLoader(GLTFLoader, '/dungeon-tile-wall.glb')
-    const model10 = useLoader(GLTFLoader, '/dungeon-tile-wine.glb')
+    const model2 = useLoader(GLTFLoader, './dungeon-tile-corner.glb')
+    const model3 = useLoader(GLTFLoader, './dungeon-tile-deadend.glb')
+    const model4 = useLoader(GLTFLoader, './dungeon-tile-escape.glb')
+    const model5 = useLoader(GLTFLoader, './dungeon-tile-hall.glb')
+    const model6 = useLoader(GLTFLoader, './dungeon-tile-markings.glb')
+    const model7 = useLoader(GLTFLoader, './dungeon-tile-pillar.glb')
+    const model8 = useLoader(GLTFLoader, './dungeon-tile-rubble.glb')
+    const model9 = useLoader(GLTFLoader, './dungeon-tile-wall.glb')
+    const model10 = useLoader(GLTFLoader, './dungeon-tile-wine.glb')
 
     // States
     const [ selectedModel, setSelectedModel ] = useState(model1)

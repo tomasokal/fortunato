@@ -8,17 +8,17 @@ export default {
         react()
     ],
     root: 'src/',
-    // publicDir: "../public/",
+    publicDir: "../public/",
     base: '/cube-2/',
     // server:
     // {
     //     host: true,
     //     open: !isCodeSandbox // Open if it's not a CodeSandbox
     // },
-    // build:
-    // {
-    //     outDir: '../dist',
-    //     emptyOutDir: true,
-    //     sourcemap: true
-    // }
+    build:
+    {
+        outDir: '../docs',
+        emptyOutDir: true,
+        sourcemap: true
+    }
 }

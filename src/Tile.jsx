@@ -7,7 +7,7 @@ import * as THREE from 'three'
 
 import SelectedTile from './SelectedTile'
 
-export default function Tile({ positionX, positionZ })
+export default function Tile({ positionX, positionZ, status })
 {
     
     // Loading tile models
@@ -32,6 +32,8 @@ export default function Tile({ positionX, positionZ })
     const [ active, setActive ] = useState(false)
     
     // Create a function to sample a tile
+    
+
     const sampleTile = () => {
 
         if (baseTile) {
@@ -46,17 +48,6 @@ export default function Tile({ positionX, positionZ })
         }
 
     }
-
-    // useEffect(() => {
-    //     const models = [ model1, model2, model3, model4 ]
-    //     const modelIndex = Math.floor(Math.random() * models.length)
-    //     if(modelIndex === 0) {
-    //         console.log(modelIndex, positionX, positionZ)
-    //         setBaseTile(false)
-    //     }
-    //     const sampledModel = models[modelIndex]
-    //     setSelectedModel(sampledModel)
-    // }, [])
 
     // Creating a reference for the tile
     const tileRef = useRef()
@@ -89,11 +80,11 @@ export default function Tile({ positionX, positionZ })
         })
 
     // Creating a function for handling click, pointer over, and pointer out
-        const handleClick = (e) => {
-            e.stopPropagation()
-            setActive(!active)
-            sampleTile()
-        }
+        // const handleClick = (e) => {
+        //     e.stopPropagation()
+        //     // sampleTile()
+        //     showTiles()
+        // }
 
         const handlePointerOver = (e) => {
             e.stopPropagation()
@@ -109,7 +100,7 @@ export default function Tile({ positionX, positionZ })
 
         <animated.mesh 
             ref={tileRef}
-            onClick={handleClick}
+            // onClick={handleClick}
             onPointerOver={handlePointerOver}
             onPointerOut={handlePointerOut}
             position-y={springPosition.position}

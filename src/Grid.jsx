@@ -16,13 +16,6 @@ export default function Grid({ rows, columns })
     // Set up states for the tiles
     const [selectedTiles, setSelectedTiles] = useState([])
 
-    // Create a function to set the selected tile
-    function handleTileClick(row, col) {
-        const neighbors = checkNeighbors(row, col)
-        setSelectedTiles([...neighbors, [row, col]])
-        console.log(neighbors)
-      }
-
     // Create a function to check other tiles around it
     const checkNeighbors = (row, col) => {
 
@@ -52,54 +45,42 @@ export default function Grid({ rows, columns })
 
     }
 
-
     // Create tile array to store tiles
-    // const tiles = []
+    const tiles = []
 
-    //     // Loop through all the tiles
-    //     for (let i = 0; i < totalTiles; i++)
-    //     {
+        // Loop through all the tiles
+        for (let i = 0; i < totalTiles; i++)
+        {
 
-    //         const x = i % columns * tileSize
-    //         const y = Math.floor(i / columns) * tileSize
+            const x = i % columns * tileSize
+            const y = Math.floor(i / columns) * tileSize
 
-    //         const row = x / tileSize
-    //         const col = y / tileSize
+            const row = x / tileSize
+            const col = y / tileSize
 
-    //         tiles.push(
-    //             <Tile 
-    //                 key={i}
-    //                 row={row}
-    //                 col={col}
-    //                 positionX={x} 
-    //                 positionZ={y}
-    //                 status={selectedTiles.some(
-    //                     (tile) => tile[0] === row && tile[1] === col
-    //                 )}
-    //                 onClick={() => handleTileClick(row, col)}
-    //             />
-    //         )
+            const neighbors = checkNeighbors(row, col)
 
-    //     }
+            tiles.push(
+                <Tile 
+                    key={i}
+                    row={row}
+                    col={col}
+                    positionX={x} 
+                    positionZ={y}
+                    neighbors={neighbors}
+                    selectedTiles={selectedTiles}
+                    setSelectedTiles={setSelectedTiles}
+                />
+            )
+
+        }
+    
+    console.log(selectedTiles)
 
     return <>
 
         <group>
-            {Array.from({ length: 7 }, (_, row) =>
-                Array.from({ length: 7 }, (_, col) => (
-                    <Tile
-                        key={`${row}-${col}`}
-                        row={row}
-                        col={col}
-                        positionX={row * tileSize}
-                        positionZ={col * tileSize}
-                        status={selectedTiles.some(
-                            (tile) => tile[0] === row && tile[1] === col
-                        )}
-                        onClick={() => handleTileClick(row, col)}
-                    />
-                ))
-            )}
+            {tiles}
         </group>
     
     </>

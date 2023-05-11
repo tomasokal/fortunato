@@ -7,7 +7,7 @@ import * as THREE from 'three'
 
 import SelectedTile from './SelectedTile'
 
-export default function Tile({ positionX, positionZ, status })
+export default function Tile({ row, col, positionX, positionZ, neighbors, selectedTiles, setSelectedTiles })
 {
     
     // Loading tile models
@@ -32,8 +32,6 @@ export default function Tile({ positionX, positionZ, status })
     const [ active, setActive ] = useState(false)
     
     // Create a function to sample a tile
-    
-
     const sampleTile = () => {
 
         if (baseTile) {
@@ -48,6 +46,18 @@ export default function Tile({ positionX, positionZ, status })
         }
 
     }
+
+    // Run sampleTile whenever selectedTiles changes
+    useEffect(() => {
+
+        const allTiles = selectedTiles
+        const clickedTile = [row, col]
+        const isPresent = allTiles.some(arr => arr.join(',') === clickedTile.join(','))
+        
+        if (isPresent) {
+            console.log('Tile selected at ' + row + ', ' + col)
+        }
+    }, [selectedTiles])
 
     // Creating a reference for the tile
     const tileRef = useRef()
@@ -80,11 +90,14 @@ export default function Tile({ positionX, positionZ, status })
         })
 
     // Creating a function for handling click, pointer over, and pointer out
-        // const handleClick = (e) => {
-        //     e.stopPropagation()
-        //     // sampleTile()
-        //     showTiles()
-        // }
+        const handleClick = (e) => {
+            e.stopPropagation()
+            setActive(!active)
+            sampleTile()
+            if(!active) {
+                setSelectedTiles([...neighbors, [row, col]])
+            }
+        }
 
         const handlePointerOver = (e) => {
             e.stopPropagation()
@@ -100,7 +113,7 @@ export default function Tile({ positionX, positionZ, status })
 
         <animated.mesh 
             ref={tileRef}
-            // onClick={handleClick}
+            onClick={handleClick}
             onPointerOver={handlePointerOver}
             onPointerOut={handlePointerOut}
             position-y={springPosition.position}

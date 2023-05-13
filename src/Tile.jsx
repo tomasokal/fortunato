@@ -45,6 +45,9 @@ export default function Tile({ row, col, positionX, positionZ, neighbors, select
 
     }
 
+    // When base tile changes (based on state of if the tile is in present neighbors)
+    // we resample the tile
+    // sampling tile with set state for the tile model and flip it
     useEffect(()=> {
         sampleTile()
     }, [baseTile])

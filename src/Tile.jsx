@@ -121,6 +121,7 @@ export default function Tile({ row, col, positionX, positionZ,
     // Creating a function for handling click, pointer over, and pointer out
         const handleClick = (e) => {
             e.stopPropagation()
+            if(isPrimaryTile) return
             const currentTile = [row, col]
             const allTiles = [...selectedTiles, primaryTile]
             const isNeighbor = allTiles.some(arr => arr.join(',') === currentTile.join(','))

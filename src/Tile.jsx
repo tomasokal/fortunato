@@ -39,13 +39,15 @@ export default function Tile({ row, col, positionX, positionZ, neighbors, select
             const modelIndex = Math.floor(Math.random() * models.length)
             const sampledModel = models[modelIndex]
             setSelectedModel(sampledModel)
-            setBaseTile(false)
         } else {
             setSelectedModel(model1)
-            setBaseTile(true)
         }
 
     }
+
+    useEffect(()=> {
+        sampleTile()
+    }, [baseTile])
 
     // Run sampleTile whenever selectedTiles changes
     useEffect(() => {
@@ -54,9 +56,9 @@ export default function Tile({ row, col, positionX, positionZ, neighbors, select
         const clickedTile = [row, col]
         const isPresent = allTiles.some(arr => arr.join(',') === clickedTile.join(','))
         
-        if (isPresent) {
-            console.log('Tile selected at ' + row + ', ' + col)
-        }
+        setBaseTile(isPresent)
+        setActive(isPresent)
+
     }, [selectedTiles])
 
     // Creating a reference for the tile
@@ -92,8 +94,6 @@ export default function Tile({ row, col, positionX, positionZ, neighbors, select
     // Creating a function for handling click, pointer over, and pointer out
         const handleClick = (e) => {
             e.stopPropagation()
-            setActive(!active)
-            sampleTile()
             if(!active) {
                 setSelectedTiles([...neighbors, [row, col]])
             }

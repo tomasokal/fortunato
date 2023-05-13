@@ -36,6 +36,12 @@ export default function Tile({ row, col, positionX, positionZ,
     // Creating state for hover and active
     const [ hover, setHover ] = useState(false)
     const [ active, setActive ] = useState(false)
+
+    // state to store if this tile is the primary one
+    const [ isPrimaryTile, setIsPrimaryTile] = useState(false)
+
+    // state that stores the height of the spring for hovers or unique tiles
+    const [springHeight, setSpringHeight] = useState(0)
     
     // Create a function to sample a tile
     const sampleTile = () => {
@@ -65,6 +71,9 @@ export default function Tile({ row, col, positionX, positionZ,
         const currentTile = [row, col]
         const isPresent = allTiles.some(arr => arr.join(',') === currentTile.join(','))
         
+        // check if the current tile is also the primary tile
+        setIsPrimaryTile(currentTile.toString()==primaryTile.toString())
+
         setBaseTile(isPresent)
         setActive(isPresent)
 
@@ -87,10 +96,19 @@ export default function Tile({ row, col, positionX, positionZ,
             }
         })
 
+        useEffect(()=> {
+
+            let newSpring = 0
+            if(active) newSpring += 1
+            if(hover && !isPrimaryTile) newSpring +=0.25
+            setSpringHeight(newSpring)
+
+        }, [primaryTile, active, hover])
+
         // Creating a spring for position
         const springPosition = useSpring({
             // Set position to 1 if active and 0.5 if hover and 0 if neither
-            position: active ? 1 : hover ? 0.25 : 0,
+            position: springHeight,
             config: {
                 mass: 1,
                 tension: 210,

@@ -7,7 +7,13 @@ import * as THREE from 'three'
 
 import SelectedTile from './SelectedTile'
 
-export default function Tile({ row, col, positionX, positionZ, neighbors, selectedTiles, setSelectedTiles })
+export default function Tile({ row, col, positionX, positionZ, 
+    neighbors, 
+    // neighbors and primary
+    selectedTiles, setSelectedTiles,
+    // primary tile and setter
+    primaryTile, setPrimaryTile
+ })
 {
     
     // Loading tile models
@@ -55,14 +61,14 @@ export default function Tile({ row, col, positionX, positionZ, neighbors, select
     // Run sampleTile whenever selectedTiles changes
     useEffect(() => {
 
-        const allTiles = selectedTiles
-        const clickedTile = [row, col]
-        const isPresent = allTiles.some(arr => arr.join(',') === clickedTile.join(','))
+        const allTiles = [...selectedTiles, primaryTile]
+        const currentTile = [row, col]
+        const isPresent = allTiles.some(arr => arr.join(',') === currentTile.join(','))
         
         setBaseTile(isPresent)
         setActive(isPresent)
 
-    }, [selectedTiles])
+    }, [primaryTile, selectedTiles])
 
     // Creating a reference for the tile
     const tileRef = useRef()
@@ -97,7 +103,12 @@ export default function Tile({ row, col, positionX, positionZ, neighbors, select
     // Creating a function for handling click, pointer over, and pointer out
         const handleClick = (e) => {
             e.stopPropagation()
-            if(!active) {
+            const currentTile = [row, col]
+            const allTiles = [...selectedTiles, primaryTile]
+            const isNeighbor = allTiles.some(arr => arr.join(',') === currentTile.join(','))
+            
+            if(isNeighbor) {
+                setPrimaryTile([row, col])
                 setSelectedTiles([...neighbors, [row, col]])
             }
         }

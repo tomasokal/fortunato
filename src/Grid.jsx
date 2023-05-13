@@ -13,8 +13,7 @@ export default function Grid({ rows, columns })
         // Set tile size to space out the tiles
         const tileSize = 2.25
 
-    // Set up states for the tiles
-    const [selectedTiles, setSelectedTiles] = useState([])
+    const [primaryTile, setPrimaryTile] = useState([3, 6])
 
     // Create a function to check other tiles around it
     const checkNeighbors = (row, col) => {
@@ -45,6 +44,9 @@ export default function Grid({ rows, columns })
 
     }
 
+    // Set up states for the tiles
+    const [selectedTiles, setSelectedTiles] = useState(checkNeighbors(3,6))
+
     // Create tile array to store tiles
     const tiles = []
 
@@ -70,12 +72,12 @@ export default function Grid({ rows, columns })
                     neighbors={neighbors}
                     selectedTiles={selectedTiles}
                     setSelectedTiles={setSelectedTiles}
+                    primaryTile={primaryTile}
+                    setPrimaryTile={setPrimaryTile}
                 />
             )
 
         }
-    
-    console.log(selectedTiles)
 
     return <>
 

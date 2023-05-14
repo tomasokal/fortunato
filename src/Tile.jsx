@@ -18,32 +18,19 @@ export default function Tile({ row, col, positionX, positionZ,
     
     // Loading tile models
     const model1 = useLoader(GLTFLoader, './dungeon-tile-base.glb')
-    const model2 = useLoader(GLTFLoader, './dungeon-tile-corner.glb')
-    const model3 = useLoader(GLTFLoader, './dungeon-tile-deadend.glb')
-    const model4 = useLoader(GLTFLoader, './dungeon-tile-escape.glb')
-    const model5 = useLoader(GLTFLoader, './dungeon-tile-hall.glb')
-    const model6 = useLoader(GLTFLoader, './dungeon-tile-markings.glb')
-    const model7 = useLoader(GLTFLoader, './dungeon-tile-pillar.glb')
-    const model8 = useLoader(GLTFLoader, './dungeon-tile-rubble.glb')
-    const model9 = useLoader(GLTFLoader, './dungeon-tile-wall2.glb')
-    const model10 = useLoader(GLTFLoader, './dungeon-tile-wine.glb')
-    const model11 = useLoader(GLTFLoader, './dungeon-tile-wall-edge.glb')
-    const model12 = useLoader(GLTFLoader, './dungeon-tile-hall-edge.glb')
 
-    // TODO -- set up traversion across all models
+    const debug_pillar = useLoader(GLTFLoader, './debug-pillar.glb')
 
-    // model2.scene.traverse((mesh) => {
-    //     mesh.receiveShadow = true
-    //     mesh.castShadow = true
-    // })
-    // model3.scene.traverse((mesh) => {
-    //     mesh.receiveShadow = true
-    //     mesh.castShadow = true
-    // })
-    // model4.scene.traverse((mesh) => {
-    //     mesh.receiveShadow = true
-    //     mesh.castShadow = true
-    // })
+    const debug_corner_l = useLoader(GLTFLoader, './debug-corner-left.glb')
+    const debug_corner_r = useLoader(GLTFLoader, './debug-corner-right.glb')
+
+    const debug_wall_l = useLoader(GLTFLoader, './debug-wall-left.glb')
+    const debug_wall_f = useLoader(GLTFLoader, './debug-wall-forward.glb')
+    const debug_wall_r = useLoader(GLTFLoader, './debug-wall-right.glb')
+    
+    const debug_hall = useLoader(GLTFLoader, './debug-hall.glb')
+
+    const debug_dead = useLoader(GLTFLoader, './debug-deadend.glb')
 
     // States
     const [ selectedModel, setSelectedModel ] = useState(model1)
@@ -72,14 +59,14 @@ export default function Tile({ row, col, positionX, positionZ,
 
             // If on the edge, we can have a corner, wall, deadend.
             models.length = 0
-            models.push(model2, model3, model9)
+            models.push(debug_pillar)
 
             // If the primary tile is on the edge as well, we can have a hall, deadend, corner, wall
             if ( primaryTile[0] === 0 || primaryTile[0] === 6 || primaryTile[1] === 0 || primaryTile[1] === 6 ) {
 
                 // Check direction and if direction is left then 
                 models.length = 0
-                models.push(model2, model3, model5, model11)
+                models.push(debug_pillar)
             }
 
             // If on the corner, we can have a corner or a deadend
@@ -88,10 +75,16 @@ export default function Tile({ row, col, positionX, positionZ,
                 models.push(model2, model3)
             }
 
-        // Anything not on edge can have any tile, but constrain to pillars for now.
+        // Anything not on edge can have any tile
         } else {
 
-            models.push(model7)
+            models.push(
+                debug_pillar, 
+                debug_dead, 
+                debug_hall, 
+                debug_corner_l, debug_corner_r, 
+                debug_wall_l, debug_wall_f, debug_wall_r
+            )
 
         }
 

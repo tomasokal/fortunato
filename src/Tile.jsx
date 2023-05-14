@@ -121,6 +121,12 @@ export default function Tile({ row, col, positionX, positionZ,
                         : models.push(debug_corner_r, debug_dead)
                 }
 
+            // Add in a condition for the first primary tile
+            if (primaryTile[1] === 7) {
+                models.length = 0
+                models.push(debug_pillar)
+            }
+
         // Anything not on edge can have any tile
         } else {
 

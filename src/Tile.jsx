@@ -59,14 +59,35 @@ export default function Tile({ row, col, positionX, positionZ,
 
             // If on the edge, we can have a corner, wall, deadend.
             models.length = 0
-            models.push(debug_pillar)
+            models.push(debug_dead, debug_wall_f, debug_corner_l, debug_corner_r)
 
-            // If the primary tile is on the edge as well, we can have a hall, deadend, corner, wall
-            if ( primaryTile[0] === 0 || primaryTile[0] === 6 || primaryTile[1] === 0 || primaryTile[1] === 6 ) {
-
-                // Check direction and if direction is left then 
+            // If primary tile is on left edge
+            if (primaryTile[0] === 0) {
                 models.length = 0
-                models.push(debug_pillar)
+                primaryTile[1] > col
+                        ? models.push(debug_corner_r, debug_hall, debug_wall_l)
+                        : models.push(debug_corner_l, debug_hall, debug_wall_r)
+            }
+            // If primary tile is on right edge
+            if (primaryTile[0] === 6) {
+                models.length = 0
+                primaryTile[1] > col
+                        ? models.push(debug_corner_l, debug_hall, debug_wall_r)
+                        : models.push(debug_corner_r, debug_hall, debug_wall_l)
+            }
+            // If primary tile is on top edge
+            if (primaryTile[1] === 0) {
+                models.length = 0
+                primaryTile[0] > row
+                        ? models.push(debug_corner_l, debug_hall, debug_wall_r)
+                        : models.push(debug_corner_r, debug_hall, debug_wall_l)
+            }
+            // If primary tile is on bottom edge
+            if (primaryTile[1] === 6) {
+                models.length = 0
+                primaryTile[0] > row
+                        ? models.push(debug_corner_r, debug_hall, debug_wall_l)
+                        : models.push(debug_corner_l, debug_hall, debug_wall_r)
             }
 
             // If on the corner, we can have a corner or a deadend

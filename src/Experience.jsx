@@ -10,7 +10,7 @@ export default function Experience()
 {
 
     const light = useRef()
-    useHelper(light, DirectionalLightHelper, 10)
+    // useHelper(light, DirectionalLightHelper, 10)
     
     return <>
     
@@ -22,6 +22,8 @@ export default function Experience()
             castShadow 
             intensity={2}
             position={[3, 6, 3]}
+            // make light go longer
+            shadow-mapSize={ [ 1024, 1024 ] }
             // TODO - tweak shadow map stuff and get meshes casting shadows
             // shadow-mapSize={ [ 64, 64 ] }
             // shadow-camera-near={ 1 }

@@ -25,8 +25,10 @@ export default function Tile({ row, col, positionX, positionZ,
     const model6 = useLoader(GLTFLoader, './dungeon-tile-markings.glb')
     const model7 = useLoader(GLTFLoader, './dungeon-tile-pillar.glb')
     const model8 = useLoader(GLTFLoader, './dungeon-tile-rubble.glb')
-    const model9 = useLoader(GLTFLoader, './dungeon-tile-wall.glb')
+    const model9 = useLoader(GLTFLoader, './dungeon-tile-wall2.glb')
     const model10 = useLoader(GLTFLoader, './dungeon-tile-wine.glb')
+    const model11 = useLoader(GLTFLoader, './dungeon-tile-wall-edge.glb')
+    const model12 = useLoader(GLTFLoader, './dungeon-tile-hall-edge.glb')
 
     // TODO -- set up traversion across all models
 
@@ -59,16 +61,54 @@ export default function Tile({ row, col, positionX, positionZ,
 
     // State for direction of tile
     const [ direction, setDirection ] = useState()
+
+    const getValidTiles = () => {
+
+        // Set up base set of tiles 
+        const models = []
+
+        // Check if tile is on the edge
+        if ( row === 0 || row === 6 || col === 0 || col === 6 ) {
+
+            // If on the edge, we can have a corner, wall, deadend.
+            models.length = 0
+            models.push(model2, model3, model9)
+
+            // If the primary tile is on the edge as well, we can have a hall, deadend, corner, wall
+            if ( primaryTile[0] === 0 || primaryTile[0] === 6 || primaryTile[1] === 0 || primaryTile[1] === 6 ) {
+                models.length = 0
+                models.push(model2, model3, model5, model11)
+            }
+
+            // If on the corner, we can have a corner or a deadend
+            if ( (row === 0 && col === 0) || (row === 0 && col === 6) || (row === 6 && col === 0) || (row === 6 && col === 6) ) {
+                models.length = 0
+                models.push(model2, model3)
+            }
+
+        // Anything not on edge can have any tile, but constrain to pillars for now.
+        } else {
+
+            models.push(model7)
+
+        }
+
+        return models
+
+    }
     
     // Create a function to sample a tile
     const sampleTile = () => {
 
+        // If base tile model, sample different one
         if (baseTile) {
-            const models = [ model2, model3, model5 ]
+            // Get valid tiles based on logic
+            const models = getValidTiles()
             const modelIndex = Math.floor(Math.random() * models.length)
             const sampledModel = models[modelIndex]
             setSelectedModel(sampledModel)
         } else {
+            // Set back to base tile model
             setSelectedModel(model1)
         }
 

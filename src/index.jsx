@@ -12,6 +12,9 @@ root.render(
     <StrictMode>
         <Canvas
             shadows
+            shadowMap
+            shadowCameraNear={0.5}
+            shadowCameraFar={50}
             camera={ {
                 fov: 45,
                 near: 0.1,

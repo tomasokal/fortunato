@@ -32,8 +32,21 @@ export default function Tile({ row, col, positionX, positionZ,
 
     const debug_dead = useLoader(GLTFLoader, './debug-deadend.glb')
 
+    const allmodels = {
+        model1: model1,
+        debug_pillar: debug_pillar,
+        debug_corner_l: debug_corner_l,
+        debug_corner_r: debug_corner_r,
+        debug_wall_l: debug_wall_l,
+        debug_wall_f: debug_wall_f,
+        debug_wall_r: debug_wall_r,
+        debug_hall: debug_hall,
+        debug_dead: debug_dead
+    }
+
     // States
     const [ selectedModel, setSelectedModel ] = useState(model1)
+    const [ selectedModelName, setSelectedModelName ] = useState('model1')
     const [ baseTile, setBaseTile ] = useState(true)
 
     // Creating state for hover and active
@@ -59,35 +72,35 @@ export default function Tile({ row, col, positionX, positionZ,
 
             // If on the edge, we can have a corner, wall, deadend.
             models.length = 0
-            models.push(debug_dead, debug_wall_f, debug_corner_l, debug_corner_r)
+            models.push('debug_dead', 'debug_wall_f', 'debug_corner_l', 'debug_corner_r')
 
             // If primary tile is on left edge
             if (primaryTile[0] === 0) {
                 models.length = 0
                 primaryTile[1] > col
-                        ? models.push(debug_corner_r, debug_hall, debug_wall_l)
-                        : models.push(debug_corner_l, debug_hall, debug_wall_r)
+                        ? models.push('debug_corner_r', 'debug_hall', 'debug_wall_l')
+                        : models.push('debug_corner_l', 'debug_hall', 'debug_wall_r')
             }
             // If primary tile is on right edge
             if (primaryTile[0] === 6) {
                 models.length = 0
                 primaryTile[1] > col
-                        ? models.push(debug_corner_l, debug_hall, debug_wall_r)
-                        : models.push(debug_corner_r, debug_hall, debug_wall_l)
+                        ? models.push('debug_corner_l', 'debug_hall', 'debug_wall_r')
+                        : models.push('debug_corner_r', 'debug_hall', 'debug_wall_l')
             }
             // If primary tile is on top edge
             if (primaryTile[1] === 0) {
                 models.length = 0
                 primaryTile[0] > row
-                        ? models.push(debug_corner_l, debug_hall, debug_wall_r)
-                        : models.push(debug_corner_r, debug_hall, debug_wall_l)
+                        ? models.push('debug_corner_l', 'debug_hall', 'debug_wall_r')
+                        : models.push('debug_corner_r', 'debug_hall', 'debug_wall_l')
             }
             // If primary tile is on bottom edge
             if (primaryTile[1] === 6) {
                 models.length = 0
                 primaryTile[0] > row
-                        ? models.push(debug_corner_r, debug_hall, debug_wall_l)
-                        : models.push(debug_corner_l, debug_hall, debug_wall_r)
+                        ? models.push('debug_corner_r', 'debug_hall', 'debug_wall_l')
+                        : models.push('debug_corner_l', 'debug_hall', 'debug_wall_r')
             }
 
             // If the primary tile is in the corner, it is annoying
@@ -96,31 +109,29 @@ export default function Tile({ row, col, positionX, positionZ,
                 if (primaryTile[0] === 0 && primaryTile[1] === 0) {
                     models.length = 0
                     primaryTile[1] === col
-                        ? models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
-                        : models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
+                        ? models.push('debug_corner_r', 'debug_hall', 'debug_wall_l', 'debug_dead')
+                        : models.push('debug_corner_l', 'debug_hall', 'debug_wall_r', 'debug_dead')
                 }
                 // Bottom Left
                 if (primaryTile[0] === 0 && primaryTile[1] === 6) {
-                    console.log('bottom left')
                     models.length = 0
                     primaryTile[1] === col
-                        ? models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
-                        : models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
+                        ? models.push('debug_corner_l', 'debug_hall', 'debug_wall_r', 'debug_dead')
+                        : models.push('debug_corner_r', 'debug_hall', 'debug_wall_l', 'debug_dead')
                 }
                 // Top Right
                 if (primaryTile[0] === 6 && primaryTile[1] === 0) {
-                    console.log('top right')
                     models.length = 0
                     primaryTile[0] === row
-                        ? models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
-                        : models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
+                        ? models.push('debug_corner_r', 'debug_hall', 'debug_wall_l', 'debug_dead')
+                        : models.push('debug_corner_l', 'debug_hall', 'debug_wall_r', 'debug_dead')
                 }
                 // Bottom Right
                 if (primaryTile[0] === 6 && primaryTile[1] === 6) {
                     models.length = 0
                     primaryTile[1] === col
-                        ? models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
-                        : models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
+                        ? models.push('debug_corner_r', 'debug_hall', 'debug_wall_l', 'debug_dead')
+                        : models.push('debug_corner_l', 'debug_hall', 'debug_wall_r', 'debug_dead')
                 }
 
             // If on the corner, we can have a corner or a deadend
@@ -129,46 +140,46 @@ export default function Tile({ row, col, positionX, positionZ,
                 if (row === 0 && col === 6) {
                     models.length = 0
                     primaryTile[0] === 0
-                        ? models.push(debug_corner_l, debug_dead)
-                        : models.push(debug_corner_r, debug_dead)
+                        ? models.push('debug_corner_l', 'debug_dead')
+                        : models.push('debug_corner_r', 'debug_dead')
                 }
                 // Bottom right
                 if (row === 6 && col === 6) {
                     models.length = 0
                     primaryTile[0] === 6
-                        ? models.push(debug_corner_r, debug_dead)
-                        : models.push(debug_corner_l, debug_dead)
+                        ? models.push('debug_corner_r', 'debug_dead')
+                        : models.push('debug_corner_l', 'debug_dead')
                 }
                 // Top left
                 if (row === 0 && col === 0) {
                     models.length = 0
                     primaryTile[0] === 0
-                        ? models.push(debug_corner_r, debug_dead)
-                        : models.push(debug_corner_l, debug_dead)
+                        ? models.push('debug_corner_r', 'debug_dead')
+                        : models.push('debug_corner_l', 'debug_dead')
                 }
                 // Top right
                 if (row === 6 && col === 0) {
                     models.length = 0
                     primaryTile[0] === 6
-                        ? models.push(debug_corner_l, debug_dead)
-                        : models.push(debug_corner_r, debug_dead)
+                        ? models.push('debug_corner_l', 'debug_dead')
+                        : models.push('debug_corner_r', 'debug_dead')
                 }
 
             // Add in a condition for the first primary tile
             if (primaryTile[1] === 7) {
                 models.length = 0
-                models.push(debug_pillar)
+                models.push('debug_pillar')
             }
 
         // Anything not on edge can have any tile
         } else {
 
             models.push(
-                debug_pillar, 
-                debug_dead, 
-                debug_hall, 
-                debug_corner_l, debug_corner_r, 
-                debug_wall_l, debug_wall_f, debug_wall_r
+                'debug_pillar', 
+                'debug_dead', 
+                'debug_hall', 
+                'debug_corner_l', 'debug_corner_r', 
+                'debug_wall_l', 'debug_wall_f', 'debug_wall_r'
             )
 
         }
@@ -184,9 +195,15 @@ export default function Tile({ row, col, positionX, positionZ,
         if (baseTile) {
             // Get valid tiles based on logic
             const models = getValidTiles()
+            // index based on length of valid model names
             const modelIndex = Math.floor(Math.random() * models.length)
-            const sampledModel = models[modelIndex]
-            setSelectedModel(sampledModel)
+            // name selected from lookup of all model names
+            const sampledModelName = models[modelIndex]
+            // actual model object given provided name
+            const modelObject = allmodels[sampledModelName]
+            // state for both the actual model to get loaded and the name to get used in other calcs
+            setSelectedModel(modelObject)
+            setSelectedModelName(sampledModelName)
         } else {
             // Set back to base tile model
             setSelectedModel(model1)
@@ -292,6 +309,9 @@ export default function Tile({ row, col, positionX, positionZ,
             const currentTile = [row, col]
             const allTiles = [...selectedTiles, primaryTile]
             const isNeighbor = allTiles.some(arr => arr.join(',') === currentTile.join(','))
+
+            // TODO -- handle based on selected model name
+            console.log(selectedModelName)
             
             if(isNeighbor) {
                 setPrimaryTile([row, col])

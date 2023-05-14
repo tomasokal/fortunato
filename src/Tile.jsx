@@ -76,6 +76,8 @@ export default function Tile({ row, col, positionX, positionZ,
 
             // If the primary tile is on the edge as well, we can have a hall, deadend, corner, wall
             if ( primaryTile[0] === 0 || primaryTile[0] === 6 || primaryTile[1] === 0 || primaryTile[1] === 6 ) {
+
+                // Check direction and if direction is left then 
                 models.length = 0
                 models.push(model2, model3, model5, model11)
             }

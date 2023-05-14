@@ -20,7 +20,7 @@ export default function Tile({ row, col, positionX, positionZ,
     const model1 = useLoader(GLTFLoader, './dungeon-tile-base.glb')
 
     const debug_pillar = useLoader(GLTFLoader, './debug-pillar.glb')
-
+    
     const debug_corner_l = useLoader(GLTFLoader, './debug-corner-left.glb')
     const debug_corner_r = useLoader(GLTFLoader, './debug-corner-right.glb')
 
@@ -70,10 +70,35 @@ export default function Tile({ row, col, positionX, positionZ,
             }
 
             // If on the corner, we can have a corner or a deadend
-            if ( (row === 0 && col === 0) || (row === 0 && col === 6) || (row === 6 && col === 0) || (row === 6 && col === 6) ) {
-                models.length = 0
-                models.push(model2, model3)
-            }
+
+                // Bottom left
+                if (row === 0 && col === 6) {
+                    models.length = 0
+                    primaryTile[0] === 0
+                        ? models.push(debug_corner_l, debug_dead)
+                        : models.push(debug_corner_r, debug_dead)
+                }
+                // Bottom right
+                if (row === 6 && col === 6) {
+                    models.length = 0
+                    primaryTile[0] === 6
+                        ? models.push(debug_corner_r, debug_dead)
+                        : models.push(debug_corner_l, debug_dead)
+                }
+                // Top left
+                if (row === 0 && col === 0) {
+                    models.length = 0
+                    primaryTile[0] === 0
+                        ? models.push(debug_corner_r, debug_dead)
+                        : models.push(debug_corner_l, debug_dead)
+                }
+                // Top right
+                if (row === 6 && col === 0) {
+                    models.length = 0
+                    primaryTile[0] === 6
+                        ? models.push(debug_corner_l, debug_dead)
+                        : models.push(debug_corner_r, debug_dead)
+                }
 
         // Anything not on edge can have any tile
         } else {

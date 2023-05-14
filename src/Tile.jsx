@@ -30,18 +30,18 @@ export default function Tile({ row, col, positionX, positionZ,
 
     // TODO -- set up traversion across all models
 
-    model2.scene.traverse((mesh) => {
-        mesh.receiveShadow = true
-        mesh.castShadow = true
-    })
-    model3.scene.traverse((mesh) => {
-        mesh.receiveShadow = true
-        mesh.castShadow = true
-    })
-    model4.scene.traverse((mesh) => {
-        mesh.receiveShadow = true
-        mesh.castShadow = true
-    })
+    // model2.scene.traverse((mesh) => {
+    //     mesh.receiveShadow = true
+    //     mesh.castShadow = true
+    // })
+    // model3.scene.traverse((mesh) => {
+    //     mesh.receiveShadow = true
+    //     mesh.castShadow = true
+    // })
+    // model4.scene.traverse((mesh) => {
+    //     mesh.receiveShadow = true
+    //     mesh.castShadow = true
+    // })
 
     // States
     const [ selectedModel, setSelectedModel ] = useState(model1)
@@ -56,12 +56,15 @@ export default function Tile({ row, col, positionX, positionZ,
 
     // state that stores the height of the spring for hovers or unique tiles
     const [springHeight, setSpringHeight] = useState(0)
+
+    // State for direction of tile
+    const [ direction, setDirection ] = useState()
     
     // Create a function to sample a tile
     const sampleTile = () => {
 
         if (baseTile) {
-            const models = [ model2, model3, model4, model5, model6, model7, model8, model9, model10 ]
+            const models = [ model2, model3, model5 ]
             const modelIndex = Math.floor(Math.random() * models.length)
             const sampledModel = models[modelIndex]
             setSelectedModel(sampledModel)
@@ -75,6 +78,7 @@ export default function Tile({ row, col, positionX, positionZ,
     // we resample the tile
     // sampling tile with set state for the tile model and flip it
     useEffect(()=> {
+        getDirection()
         sampleTile()
     }, [baseTile])
 
@@ -95,6 +99,35 @@ export default function Tile({ row, col, positionX, positionZ,
 
     // Creating a reference for the tile
     const tileRef = useRef()
+
+    // Create a function that 
+    const getDirection = () => {
+
+        // Early return if primaryTile
+        if(isPrimaryTile) return
+
+        const currentTile = [row, col]
+        const tileToPointTo = primaryTile
+
+        // Get elements of currentTile and tileToPointTo
+        const [currentTileRow, currentTileCol] = currentTile
+        const [tileToPointToRow, tileToPointToCol] = tileToPointTo
+
+        // Get the difference between the two tiles
+        const dx = tileToPointToCol - currentTileCol
+        const dy = tileToPointToRow - currentTileRow
+
+        if (dx === 0 && dy === -1) {
+            setDirection("left")
+        } else if (dx === 0 && dy === 1) {
+            setDirection("right")
+        } else if (dx === -1 && dy === 0) {
+            setDirection("up")
+        } else if (dx === 1 && dy === 0) {
+            setDirection("down")
+        }
+
+    }
 
     // Springs:
     
@@ -170,7 +203,7 @@ export default function Tile({ row, col, positionX, positionZ,
             position-z={positionZ}
             rotation={springRotation.rotation}
         >
-            <SelectedTile model={selectedModel} baseTile={baseTile}/>
+            <SelectedTile model={selectedModel} baseTile={baseTile} direction={direction}/>
         </animated.mesh>
 
     </>

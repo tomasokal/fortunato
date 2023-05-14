@@ -90,6 +90,39 @@ export default function Tile({ row, col, positionX, positionZ,
                         : models.push(debug_corner_l, debug_hall, debug_wall_r)
             }
 
+            // If the primary tile is in the corner, it is annoying
+
+                // Top left
+                if (primaryTile[0] === 0 && primaryTile[1] === 0) {
+                    models.length = 0
+                    primaryTile[1] === col
+                        ? models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
+                        : models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
+                }
+                // Bottom Left
+                if (primaryTile[0] === 0 && primaryTile[1] === 6) {
+                    console.log('bottom left')
+                    models.length = 0
+                    primaryTile[1] === col
+                        ? models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
+                        : models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
+                }
+                // Top Right
+                if (primaryTile[0] === 6 && primaryTile[1] === 0) {
+                    console.log('top right')
+                    models.length = 0
+                    primaryTile[0] === row
+                        ? models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
+                        : models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
+                }
+                // Bottom Right
+                if (primaryTile[0] === 6 && primaryTile[1] === 6) {
+                    models.length = 0
+                    primaryTile[1] === col
+                        ? models.push(debug_corner_r, debug_hall, debug_wall_l, debug_dead)
+                        : models.push(debug_corner_l, debug_hall, debug_wall_r, debug_dead)
+                }
+
             // If on the corner, we can have a corner or a deadend
 
                 // Bottom left

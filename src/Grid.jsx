@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Tile from './Tile.jsx'
+import PlayerCharacter from './PlayerCharacter.jsx'
 
 export default function Grid({ rows, columns })
 {
@@ -98,6 +99,7 @@ export default function Grid({ rows, columns })
 
         <group>
             {tiles}
+            <PlayerCharacter primaryTile={primaryTile} />
         </group>
     
     </>

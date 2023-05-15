@@ -18,26 +18,32 @@ export default function Grid({ rows, columns })
     // Create a function to check other tiles around it
     const checkNeighbors = (row, col) => {
 
-        var neighbors = []
+        let neighbors = {}
+        neighbors.coords = []
+        neighbors.directions = []
 
         // Check north neighbor
         if (row > 0) {
-            neighbors.push([row - 1, col])
-        }
-
-        // Check south neighbor
-        if (row < 6) {
-            neighbors.push([row + 1, col])
-        }
-
-        // Check west neighbor
-        if (col > 0) {
-            neighbors.push([row, col - 1])
+            neighbors.coords.push([row - 1, col])
+            neighbors.directions.push('up')
         }
 
         // Check east neighbor
         if (col < 6) {
-            neighbors.push([row, col + 1])
+            neighbors.coords.push([row, col + 1])
+            neighbors.directions.push('right')
+        }
+
+        // Check south neighbor
+        if (row < 6) {
+            neighbors.coords.push([row + 1, col])
+            neighbors.directions.push('down')
+        }
+
+        // Check west neighbor
+        if (col > 0) {
+            neighbors.coords.push([row, col - 1])
+            neighbors.directions.push('left')
         }
 
         return neighbors
@@ -45,7 +51,7 @@ export default function Grid({ rows, columns })
     }
 
     // Set up states for the tiles
-    const [selectedTiles, setSelectedTiles] = useState(checkNeighbors(3,7))
+    const [selectedTiles, setSelectedTiles] = useState(checkNeighbors(3,7)?.coords)
 
     // Create tile array to store tiles
     const tiles = []
@@ -54,13 +60,13 @@ export default function Grid({ rows, columns })
         for (let i = 0; i < totalTiles; i++)
         {
 
-            const x = i % columns * tileSize
-            const y = Math.floor(i / columns) * tileSize
+            let x = i % columns * tileSize
+            let y = Math.floor(i / columns) * tileSize
 
-            const row = x / tileSize
-            const col = y / tileSize
+            let row = x / tileSize
+            let col = y / tileSize
 
-            const neighbors = checkNeighbors(row, col)
+            let neighbors = checkNeighbors(row, col)
 
             tiles.push(
                 <Tile 

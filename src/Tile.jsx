@@ -65,7 +65,7 @@ export default function Tile({ row, col, positionX, positionZ,
     const getValidTiles = () => {
 
         // Set up base set of tiles 
-        const models = []
+        let models = []
 
         // Check if tile is on the edge
         if ( row === 0 || row === 6 || col === 0 || col === 6 ) {
@@ -194,13 +194,13 @@ export default function Tile({ row, col, positionX, positionZ,
         // If base tile model, sample different one
         if (baseTile) {
             // Get valid tiles based on logic
-            const models = getValidTiles()
+            let models = getValidTiles()
             // index based on length of valid model names
-            const modelIndex = Math.floor(Math.random() * models.length)
+            let modelIndex = Math.floor(Math.random() * models.length)
             // name selected from lookup of all model names
-            const sampledModelName = models[modelIndex]
+            let sampledModelName = models[modelIndex]
             // actual model object given provided name
-            const modelObject = allmodels[sampledModelName]
+            let modelObject = allmodels[sampledModelName]
             // state for both the actual model to get loaded and the name to get used in other calcs
             setSelectedModel(modelObject)
             setSelectedModelName(sampledModelName)
@@ -222,9 +222,9 @@ export default function Tile({ row, col, positionX, positionZ,
     // Run sampleTile whenever selectedTiles changes
     useEffect(() => {
 
-        const allTiles = [...selectedTiles, primaryTile]
-        const currentTile = [row, col]
-        const isPresent = allTiles.some(arr => arr.join(',') === currentTile.join(','))
+        let allTiles = [...selectedTiles, primaryTile]
+        let currentTile = [row, col]
+        let isPresent = allTiles.some(arr => arr.join(',') === currentTile.join(','))
         
         // check if the current tile is also the primary tile
         setIsPrimaryTile(currentTile.toString()==primaryTile.toString())
@@ -302,20 +302,72 @@ export default function Tile({ row, col, positionX, positionZ,
             }
         })
 
+    // TODO -- move to helper file and source or use as global state via zustand
+        const validNeighbors = {
+        // from top, right, bottom, left
+        model1: model1,
+        debug_pillar: [1, 1, 1, 1],
+        debug_corner_l: [0, 0, 1, 1],
+        debug_corner_r: [1,0, 0, 1],
+        debug_wall_l: [1, 1, 0, 1], //good
+        debug_wall_f: [1, 0, 1, 1], //good
+        debug_wall_r: [0, 1, 1, 1], //good
+        debug_dead: [0, 0, 0, 1],
+        debug_hall: [0, 1, 0, 1],
+
+    }
+
     // Creating a function for handling click, pointer over, and pointer out
-        const handleClick = (e) => {
+    let handleClick = (e) => {
             e.stopPropagation()
             if(isPrimaryTile) return
-            const currentTile = [row, col]
-            const allTiles = [...selectedTiles, primaryTile]
-            const isNeighbor = allTiles.some(arr => arr.join(',') === currentTile.join(','))
+            let currentTile = [row, col]
+            let allTiles = [...selectedTiles, primaryTile]
+            let isNeighbor = allTiles.some(arr => arr.join(',') === currentTile.join(','))
 
-            // TODO -- handle based on selected model name
-            console.log(selectedModelName)
-            
-            if(isNeighbor) {
-                setPrimaryTile([row, col])
-                setSelectedTiles([...neighbors, [row, col]])
+        // TODO -- handle based on selected model name
+        if(isNeighbor) {
+
+            // function that loops an array in either direction
+            function arrayRotate(arr, reverse) {
+                if (reverse) arr.unshift(arr.pop());
+                else arr.push(arr.shift());
+                return arr;
+            }
+
+            let newNeighbors = JSON.parse(JSON.stringify(neighbors))
+
+            let validDirections = validNeighbors[selectedModelName]
+
+            let newDirections = validDirections
+
+            if(direction=='right') newDirections = [...arrayRotate(validDirections, false)]
+
+            if(direction=='left') newDirections = [...arrayRotate(validDirections, true)]
+
+            if(direction=='down') newDirections = [...arrayRotate([...arrayRotate(validDirections)])]
+
+
+            // TODO -- use the references to neighbors.directions to handle this when the length is < 3
+            // const availableNeighbors = []
+
+            // for(let i = 0; i < neighbors.coords.length; i++) {
+            //     availableNeighbors.push(newDirections[i])
+            // }
+
+            // condition
+            if(neighbors.coords.length === 4) {
+
+                newNeighbors.coords = neighbors.coords.filter((item, index) => {
+                    return newDirections[index]
+                })
+
+            }
+
+            // set new primary and the new live tiles based on the valid ones
+            setPrimaryTile([row, col])
+            setSelectedTiles([...newNeighbors.coords, [row, col]])
+
             }
         }
 

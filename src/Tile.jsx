@@ -355,14 +355,21 @@ export default function Tile({ row, col, positionX, positionZ,
             //     availableNeighbors.push(newDirections[i])
             // }
 
-            // condition
-            if(neighbors.coords.length === 4) {
-
-                newNeighbors.coords = neighbors.coords.filter((item, index) => {
-                    return newDirections[index]
-                })
-
+            if(2 < neighbors.coords.length < 4) {
+                console.log(neighbors.directions)
+                if(!neighbors.directions.includes('right')) newDirections.splice(1, 1) //good
+                if(!neighbors.directions.includes('down')) newDirections.splice(4, 1) //good
+                if(!neighbors.directions.includes('left')) newDirections.splice(3, 1) //good
+                if(!neighbors.directions.includes('up')) newDirections.splice(2, 1) // ???
             }
+
+            // TODO -- handle corners
+            if(neighbors.coords.length < 3) {
+            }
+
+            newNeighbors.coords = newNeighbors.coords.filter((item, index) => {
+                return newDirections[index]
+            })
 
             // set new primary and the new live tiles based on the valid ones
             setPrimaryTile([row, col])

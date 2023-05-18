@@ -360,7 +360,7 @@ export default function Tile({ row, col, positionX, positionZ,
                 if(!neighbors.directions.includes('right')) newDirections.splice(1, 1) //good
                 if(!neighbors.directions.includes('down')) newDirections.splice(4, 1) //good
                 if(!neighbors.directions.includes('left')) newDirections.splice(3, 1) //good
-                if(!neighbors.directions.includes('up')) newDirections.splice(2, 1) // ???
+                if(!neighbors.directions.includes('up')) newDirections.splice(0, 1) // good
             }
 
             // TODO -- handle corners

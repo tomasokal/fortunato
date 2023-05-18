@@ -341,12 +341,13 @@ export default function Tile({ row, col, positionX, positionZ,
 
             let newDirections = validDirections
 
+            console.log(direction)
+
             if(direction=='right') newDirections = [...arrayRotate(validDirections, false)]
 
             if(direction=='left') newDirections = [...arrayRotate(validDirections, true)]
 
             if(direction=='down') newDirections = [...arrayRotate([...arrayRotate(validDirections)])]
-
 
             // TODO -- use the references to neighbors.directions to handle this when the length is < 3
             // const availableNeighbors = []
@@ -355,16 +356,17 @@ export default function Tile({ row, col, positionX, positionZ,
             //     availableNeighbors.push(newDirections[i])
             // }
 
-            if(2 < neighbors.coords.length < 4) {
-                console.log(neighbors.directions)
+            
+            // TODO -- handle corners
+
+            if(row==6) {
+                newDirections.splice(2, 1)
+
+            } else if(neighbors.coords.length < 4) {
                 if(!neighbors.directions.includes('right')) newDirections.splice(1, 1) //good
                 if(!neighbors.directions.includes('down')) newDirections.splice(4, 1) //good
                 if(!neighbors.directions.includes('left')) newDirections.splice(3, 1) //good
                 if(!neighbors.directions.includes('up')) newDirections.splice(0, 1) // good
-            }
-
-            // TODO -- handle corners
-            if(neighbors.coords.length < 3) {
             }
 
             newNeighbors.coords = newNeighbors.coords.filter((item, index) => {

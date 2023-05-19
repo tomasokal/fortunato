@@ -308,7 +308,7 @@ export default function Tile({ row, col, positionX, positionZ,
         model1: model1,
         debug_pillar: [1, 1, 1, 1],
         debug_corner_l: [0, 0, 1, 1],
-        debug_corner_r: [1,0, 0, 1],
+        debug_corner_r: [1, 0, 0, 1],
         debug_wall_l: [1, 1, 0, 1], //good
         debug_wall_f: [1, 0, 1, 1], //good
         debug_wall_r: [0, 1, 1, 1], //good
@@ -357,11 +357,22 @@ export default function Tile({ row, col, positionX, positionZ,
             // }
 
             
-            // TODO -- handle corners
-
-            if(row==6) {
+            // Handling guide
+            // If you are on bottom left corner (6, 6)
+            // you reset your newDirections to [1, 1, 0]
+            if(col==6 && row==6) {
+                newDirections = [1, 1, 0]
+                // Now you will always correctly show both tile to left and tile above
+                // However, if your selected tile is a deadend, need to not show one 
+                // tile depending on direction you are coming from.
+                if (selectedModelName === 'debug_dead') {
+                    if (direction==='up') newDirections = [0, 1, 0]
+                    if (direction==='left') newDirections = [1, 0, 0]
+                }
+            // If you are on the right most row
+            // We need to splice the 2nd element of new directions.
+            } else if(row==6) {
                 newDirections.splice(2, 1)
-
             } else if(neighbors.coords.length < 4) {
                 if(!neighbors.directions.includes('right')) newDirections.splice(1, 1) //good
                 if(!neighbors.directions.includes('down')) newDirections.splice(4, 1) //good

@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber'
 import { createRoot } from 'react-dom/client'
 
 import Experience from './Experience'
+import Interface from './Interface.jsx'
 
 const root = createRoot(document.querySelector('#root'))
 
@@ -25,5 +26,6 @@ root.render(
                 <Experience />
             </Suspense>  
         </Canvas>
+        <Interface />
     </StrictMode>
 )

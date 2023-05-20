@@ -3,6 +3,8 @@ import { useState } from 'react'
 import Tile from './Tile.jsx'
 import PlayerCharacter from './PlayerCharacter.jsx'
 
+import useGame from './stores/useGame.js'
+
 export default function Grid({ rows, columns })
 {
 
@@ -16,6 +18,8 @@ export default function Grid({ rows, columns })
 
     const [primaryTile, setPrimaryTile] = useState([3, 7])
     const [primaryTileType, setPrimaryTileType] = useState('')
+
+    const start = useGame((state) => state.start)
 
     // Create a function to check other tiles around it
     const checkNeighbors = (row, col) => {

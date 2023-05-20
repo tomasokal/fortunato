@@ -1,10 +1,9 @@
+import { useRef } from 'react'
+import { DirectionalLightHelper } from 'three'
 import { Center, OrbitControls, useHelper } from '@react-three/drei'
 
-
-import Interface from './Interface.jsx'
 import Grid from './Grid.jsx'
-import { DirectionalLightHelper } from 'three'
-import { useRef } from 'react'
+import useGame from './stores/useGame.js'
 
 export default function Experience()
 {
@@ -33,8 +32,6 @@ export default function Experience()
             // shadow-camera-bottom={ - 100 }
             // shadow-camera-left={ - 100 }
         />  
-
-        <Interface />
 
         <Center>
             <Grid rows={7} columns={7} />

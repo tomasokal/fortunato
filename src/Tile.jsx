@@ -12,7 +12,9 @@ export default function Tile({ row, col, positionX, positionZ,
     // neighbors and primary
     selectedTiles, setSelectedTiles,
     // primary tile and setter
-    primaryTile, setPrimaryTile
+    primaryTile, setPrimaryTile,
+    // info about the primary tile type for controlling game flow
+    primaryTileType, setPrimaryTileType
  })
 {
     
@@ -341,8 +343,6 @@ export default function Tile({ row, col, positionX, positionZ,
 
             let newDirections = validDirections
 
-            console.log(direction)
-
             if(direction=='right') newDirections = [...arrayRotate(validDirections, false)]
 
             if(direction=='left') newDirections = [...arrayRotate(validDirections, true)]
@@ -386,6 +386,7 @@ export default function Tile({ row, col, positionX, positionZ,
 
             // set new primary and the new live tiles based on the valid ones
             setPrimaryTile([row, col])
+            setPrimaryTileType(selectedModelName)
             setSelectedTiles([...newNeighbors.coords, [row, col]])
 
             }

@@ -15,6 +15,7 @@ export default function Grid({ rows, columns })
         const tileSize = 2.25
 
     const [primaryTile, setPrimaryTile] = useState([3, 7])
+    const [primaryTileType, setPrimaryTileType] = useState('')
 
     // Create a function to check other tiles around it
     const checkNeighbors = (row, col) => {
@@ -81,6 +82,8 @@ export default function Grid({ rows, columns })
                     setSelectedTiles={setSelectedTiles}
                     primaryTile={primaryTile}
                     setPrimaryTile={setPrimaryTile}
+                    primaryTileType={primaryTileType}
+                    setPrimaryTileType={setPrimaryTileType}
                 />
             )
 
@@ -98,6 +101,8 @@ export default function Grid({ rows, columns })
                 setSelectedTiles={setSelectedTiles}
                 primaryTile={primaryTile}
                 setPrimaryTile={setPrimaryTile}
+                primaryTileType={primaryTileType}
+                setPrimaryTileType={setPrimaryTileType}
             />
         )
 

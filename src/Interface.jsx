@@ -9,6 +9,7 @@ import './styles/interface.css'
 export default function Interface()
 {
     const phase = useGame((state) => state.phase)
+    const health = useGame((state)=> state.health)
 
     useEffect(()=>{
         // lets us tap into framerate of r3f even outside of canvas
@@ -26,7 +27,7 @@ export default function Interface()
 
     return <>
 
-    <div className="interface">{phase}</div>
+    <div className="interface">{health}</div>
 
     </>
 

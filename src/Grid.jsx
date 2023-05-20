@@ -4,6 +4,7 @@ import Tile from './Tile.jsx'
 import PlayerCharacter from './PlayerCharacter.jsx'
 
 import useGame from './stores/useGame.js'
+import { useEffect } from 'react'
 
 export default function Grid({ rows, columns })
 {
@@ -19,7 +20,15 @@ export default function Grid({ rows, columns })
     const [primaryTile, setPrimaryTile] = useState([3, 7])
     const [primaryTileType, setPrimaryTileType] = useState('')
 
+    // stores containing game logic
     const start = useGame((state) => state.start)
+    const health = useGame((state) => state.health)
+    const setHealth = useGame((state) => state.setHealth)
+
+    // set hp on move
+    useEffect(()=> {
+        setHealth(health - 1)
+    }, [primaryTile])
 
     // Create a function to check other tiles around it
     const checkNeighbors = (row, col) => {

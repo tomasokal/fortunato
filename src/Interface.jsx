@@ -1,16 +1,32 @@
-import { Html } from '@react-three/drei'
+import { useEffect } from "react"
+import { addEffect } from "@react-three/fiber"
+
+import useGame from "./stores/useGame.js"
+
+import './styles/interface.css'
+
 
 export default function Interface()
 {
+    const phase = useGame((state) => state.phase)
+
+    useEffect(()=>{
+        // lets us tap into framerate of r3f even outside of canvas
+        // get the unsubscriber
+        const unsubscribeEffect = addEffect(()=> {
+            // need to get current state, not state at beginning of render
+            const state = useGame.getState()
+
+        })
+
+        return () => {
+            unsubscribeEffect()
+        }
+    }, [])
 
     return <>
 
-        {/* <Html
-            as='div'
-            center
-        >
-            <button>Sphere</button>
-        </Html> */}
+    <div className="interface">{phase}</div>
 
     </>
 

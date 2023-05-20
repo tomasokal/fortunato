@@ -1,0 +1,24 @@
+.interface {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    font-size: 1rem;
+    z-index:999;
+}
+
+.interface > *:hover
+{
+    transition: all 0.5s ease-in-out;
+    transform: scale(1.25);
+}
+
+.interface > *:active
+{
+    transition: all 0s linear;
+    border: 0.15em solid #ffffff;
+    border-radius: 25px;
+}

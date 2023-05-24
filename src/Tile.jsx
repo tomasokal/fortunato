@@ -195,17 +195,27 @@ export default function Tile({ row, col, positionX, positionZ,
 
         // If base tile model, sample different one
         if (baseTile) {
-            // Get valid tiles based on logic
-            let models = getValidTiles()
-            // index based on length of valid model names
-            let modelIndex = Math.floor(Math.random() * models.length)
-            // name selected from lookup of all model names
-            let sampledModelName = models[modelIndex]
-            // actual model object given provided name
-            let modelObject = allmodels[sampledModelName]
-            // state for both the actual model to get loaded and the name to get used in other calcs
-            setSelectedModel(modelObject)
-            setSelectedModelName(sampledModelName)
+            if (row === 3 && col === 7) {
+                let modelObject = allmodels['debug_dead']
+                setSelectedModel(modelObject)
+                setSelectedModelName('debug_dead')
+            } else {
+                // Get valid tiles based on logic
+                let models = getValidTiles()
+                console.log(models)
+                // index based on length of valid model names
+                let modelIndex = Math.floor(Math.random() * models.length)
+                console.log(modelIndex)
+                // name selected from lookup of all model names
+                let sampledModelName = models[modelIndex]
+                console.log(sampledModelName)
+                // actual model object given provided name
+                let modelObject = allmodels[sampledModelName]
+                console.log(modelObject)
+                // state for both the actual model to get loaded and the name to get used in other calcs
+                setSelectedModel(modelObject)
+                setSelectedModelName(sampledModelName)
+            }
         } else {
             // Set back to base tile model
             setSelectedModel(model1)

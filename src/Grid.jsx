@@ -102,22 +102,25 @@ export default function Grid({ rows, columns })
 
         }
 
-        tiles.push(
-            <Tile 
-                key={-99}
-                row={3}
-                col={7}
-                positionX={6.75} 
-                positionZ={15.75}
-                neighbors={[3, 6]}
-                selectedTiles={selectedTiles}
-                setSelectedTiles={setSelectedTiles}
-                primaryTile={primaryTile}
-                setPrimaryTile={setPrimaryTile}
-                primaryTileType={primaryTileType}
-                setPrimaryTileType={setPrimaryTileType}
-            />
-        )
+        if(primaryTile[0] === 3 && primaryTile[1] === 7)
+        {
+
+            tiles.push(
+                <Tile 
+                    key={-99}
+                    row={3}
+                    col={7}
+                    positionX={6.75} 
+                    positionZ={15.75}
+                    neighbors={[3, 6]}
+                    selectedTiles={selectedTiles}
+                    setSelectedTiles={setSelectedTiles}
+                    primaryTile={primaryTile}
+                    setPrimaryTile={setPrimaryTile}
+                />
+            )
+
+        }
 
     return <>
 

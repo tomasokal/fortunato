@@ -9,6 +9,12 @@ import { useEffect } from 'react'
 export default function Grid({ rows, columns })
 {
 
+    // Pull in game state from stores
+    const phase = useGame((state) => state.phase)
+    const start = useGame((state) => state.start)
+    const health = useGame((state) => state.health)
+    const setHealth = useGame((state) => state.setHealth)
+
     // Configure grid
 
         // Set tile count based on row / column argument
@@ -17,15 +23,11 @@ export default function Grid({ rows, columns })
         // Set tile size to space out the tiles
         const tileSize = 2.25
 
+    // Set up states for primary tile and tile type
     const [primaryTile, setPrimaryTile] = useState([3, 7])
     const [primaryTileType, setPrimaryTileType] = useState('')
 
-    // stores containing game logic
-    const start = useGame((state) => state.start)
-    const health = useGame((state) => state.health)
-    const setHealth = useGame((state) => state.setHealth)
-
-    // set hp on move
+    // Update health on every primary tile change
     useEffect(()=> {
         setHealth(health - 1)
     }, [primaryTile])
@@ -67,6 +69,14 @@ export default function Grid({ rows, columns })
 
     // Set up states for the tiles
     const [selectedTiles, setSelectedTiles] = useState(checkNeighbors(3,7)?.coords)
+
+    useEffect(()=> {
+        if (phase === 'ended') {
+            setPrimaryTile([3, 7])
+            setSelectedTiles(checkNeighbors(3,7)?.coords)
+        }
+    }, [phase])
+    console.log(phase)
 
     // Create tile array to store tiles
     const tiles = []

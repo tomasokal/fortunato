@@ -10,6 +10,8 @@ export default function Interface()
 {
     const phase = useGame((state) => state.phase)
     const health = useGame((state)=> state.health)
+    const restart = useGame((state) => state.restart)
+    const end = useGame((state) => state.end)
 
     useEffect(()=>{
         // lets us tap into framerate of r3f even outside of canvas
@@ -27,7 +29,11 @@ export default function Interface()
 
     return <>
 
-    <div className="interface">{health}</div>
+        <div className="interface">
+            <button>Start</button>
+            <button onClick={restart}>Restart</button>
+            <button onClick={end}>End</button>
+        </div>
 
     </>
 

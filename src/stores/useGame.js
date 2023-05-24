@@ -8,7 +8,7 @@ export default create(subscribeWithSelector((set) =>
         blocksCount: 7,
         startTime: 0,
         endTime: 0,
-        phase: 'ready',
+        phase: 'playing',
         health: 10,
         // creates a method corresponding with the start property that calls that set function i.e. returns new state
         // here we return an update to phase
@@ -23,7 +23,7 @@ export default create(subscribeWithSelector((set) =>
         },
         restart: () => {
             set((state) => {
-                if(state.phase === 'playing' || state.phase === 'ended') return {phase: 'ready' }
+                if(state.phase === 'playing' || state.phase === 'ended') return {phase: 'playing' }
                 // return nothing default
                 return {}
             })

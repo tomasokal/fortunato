@@ -12,6 +12,7 @@ export default function Grid({ rows, columns })
     // Pull in game state from stores
     const phase = useGame((state) => state.phase)
     const start = useGame((state) => state.start)
+    const restart = useGame((state) => state.restart)
     const health = useGame((state) => state.health)
     const setHealth = useGame((state) => state.setHealth)
 
@@ -74,6 +75,8 @@ export default function Grid({ rows, columns })
         if (phase === 'ended') {
             setPrimaryTile([3, 7])
             setSelectedTiles(checkNeighbors(3,7)?.coords)
+            setHealth(10)
+            restart()
         }
     }, [phase])
     console.log(phase)
@@ -127,6 +130,8 @@ export default function Grid({ rows, columns })
                     setSelectedTiles={setSelectedTiles}
                     primaryTile={primaryTile}
                     setPrimaryTile={setPrimaryTile}
+                    primaryTileType={primaryTileType}
+                    setPrimaryTileType={setPrimaryTileType}
                 />
             )
 

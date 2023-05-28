@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client'
 
 import Experience from './Experience'
 import Interface from './Interface.jsx'
+import Dialog from './Dialog.jsx'
 
 const root = createRoot(document.querySelector('#root'))
 
@@ -27,5 +28,6 @@ root.render(
             </Suspense>  
         </Canvas>
         <Interface />
+        <Dialog />
     </StrictMode>
 )

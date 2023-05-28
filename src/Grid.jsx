@@ -31,6 +31,9 @@ export default function Grid({ rows, columns })
     // Update health on every primary tile change
     useEffect(()=> {
         setHealth(health - 1)
+        if (phase === "ready") {
+            start()
+        }
     }, [primaryTile])
 
     // Create a function to check other tiles around it
@@ -72,14 +75,11 @@ export default function Grid({ rows, columns })
     const [selectedTiles, setSelectedTiles] = useState(checkNeighbors(3,7)?.coords)
 
     useEffect(()=> {
-        if (phase === 'ended') {
+        if (phase === 'ready') {
             setPrimaryTile([3, 7])
             setSelectedTiles(checkNeighbors(3,7)?.coords)
-            setHealth(10)
-            restart()
         }
     }, [phase])
-    console.log(phase)
 
     // Create tile array to store tiles
     const tiles = []

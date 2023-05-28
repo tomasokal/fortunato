@@ -1,7 +1,8 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { addEffect } from "@react-three/fiber"
 
 import useGame from "./stores/useGame.js"
+import Dialog from "./Dialog.jsx"
 
 import './styles/interface.css'
 
@@ -34,6 +35,7 @@ export default function Interface()
             <button onClick={restart}>Restart</button>
             <button onClick={end}>End</button>
         </div>
+
 
     </>
 

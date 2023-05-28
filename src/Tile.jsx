@@ -220,16 +220,12 @@ export default function Tile({ row, col, positionX, positionZ,
             } else {
                 // Get valid tiles based on logic
                 let models = getValidTiles()
-                console.log(models)
                 // index based on length of valid model names
                 let modelIndex = Math.floor(Math.random() * models.length)
-                console.log(modelIndex)
                 // name selected from lookup of all model names
                 let sampledModelName = models[modelIndex]
-                console.log(sampledModelName)
                 // actual model object given provided name
                 let modelObject = allmodels[sampledModelName]
-                console.log(modelObject)
                 // state for both the actual model to get loaded and the name to get used in other calcs
                 setSelectedModel(modelObject)
                 setSelectedModelName(sampledModelName)

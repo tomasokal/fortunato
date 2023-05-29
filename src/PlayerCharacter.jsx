@@ -19,13 +19,29 @@ export default function PlayerCharacter({ primaryTile })
     const health = useGame((state) => state.health)
     const message = useGame((state) => state.message)
     const setMessage = useGame((state) => state.setMessage)
+    const tile = useGame((state) => state.tile)
+
+    const shownMessageCorner = useGame((state) => state.shownMessageCorner)
+    const setShownMessageCorner = useGame((state) => state.setShownMessageCorner)
 
     // Check health and when health reaches 0, update message state
     useEffect(() => {
         if(health === 0) {
-            setMessage('Your health reached 0 and you are dead. Please restart :)')
+            setMessage('End of the game.')
         }
     }, [health])
+
+    // Tile type dialog
+    useEffect(() => {
+        if(tile === "tileCornerBrickLeft" || tile === "tileCornerBrickRight") {
+            if(!shownMessageCorner) {
+                setMessage('Fortunato stumbles an alcove sealed shut, its inhabitant forever lost to the depths of darkness. Within this immured chamber, he hears the cries and murmurs of a soul condemned to eternal torment. He recoils from their pitiable pleas, unsure whether the voices comes from the walls or echoes from within his own troubled psyche.)')
+                setShownMessageCorner(shownMessageCorner)
+            } else {
+                setMessage('Fortunato presses on past the cries of the condemned.')
+            }
+        }
+    }, [tile])
 
     return <>
 

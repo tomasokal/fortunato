@@ -4,9 +4,9 @@ import { subscribeWithSelector } from 'zustand/middleware'
 export default create(subscribeWithSelector((set) => 
 {
     return {
+
+        // Game Phase Management
         phase: 'ready',
-        health: 10,
-        message: '',
         start: () => {
             set((state) => {
                 if(state.phase === 'ready') return { phase: 'playing' }
@@ -25,14 +25,44 @@ export default create(subscribeWithSelector((set) =>
                 return {}
             })
         },
+
+        // Player Health Management
+        health: 10,
+        setHealth: (value) => {
+            set((state) => {
+                return({health: value})
+            })
+        },
+
+        // Player Tile Type Management
+        tile: '',
+        setTile: (value) => {  
+            set((state) => {
+                return({tile: value})
+            })
+        },
+
+        // Message Management
+        message: '',
         setMessage: (value) => {
             set((state) => {
                 return({message: value})
             })
         },
-        setHealth: (value) => {
+
+        // Dialog Options
+            // When a tile is hit for the first time
+            // the full message is displayed
+            // When a tile is hit for the second and subsequent times
+            // the short message is displayed
+            // There are dialog options for the following tiles:
+                // Immured corner
+        
+        shownMessageCorner: false,
+        setShownMessageCorner: (value) => {
             set((state) => {
-                return({health: value})
+                if(value === false) return {shownMessageCorner: true}
+                return {}
             })
         }
     }

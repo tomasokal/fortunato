@@ -6,6 +6,7 @@ import { animated, useSpring } from '@react-spring/three'
 import * as THREE from 'three'
 
 import SelectedTile from './SelectedTile'
+import useGame from './stores/useGame'
 
 export default function Tile({ row, col, positionX, positionZ, 
     neighbors, 
@@ -72,6 +73,10 @@ export default function Tile({ row, col, positionX, positionZ,
     // Creating state for hover and active
     const [ hover, setHover ] = useState(false)
     const [ active, setActive ] = useState(false)
+
+    // Import the useGame hook and use it to get the message state and setMessage function
+    const tile = useGame((state) => state.tile)
+    const setTile = useGame((state) => state.setTile)
 
     // state to store if this tile is the primary one
     const [ isPrimaryTile, setIsPrimaryTile] = useState(false)
@@ -414,6 +419,7 @@ export default function Tile({ row, col, positionX, positionZ,
             // set new primary and the new live tiles based on the valid ones
             setPrimaryTile([row, col])
             setPrimaryTileType(selectedModelName)
+            setTile(selectedModelName)
             setSelectedTiles([...newNeighbors.coords, [row, col]])
 
             }

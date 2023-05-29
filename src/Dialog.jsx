@@ -33,9 +33,11 @@ export default function Dialog()
         // Clear the message
         useGame.setState({ message: '' })
 
-        // Logic for what happens based on the dialog type
-        // For now, we just want to restart the game
-        restart()
+        if(buttonLabel === '...') return
+
+        if(buttonLabel === 'OK') {
+            restart()
+        }
 
     }
 
@@ -47,7 +49,11 @@ export default function Dialog()
 
         // Update the message and button label states
         setDialogMessage(message)
-        setButtonLabel('OK')
+        if (message === 'End of the game.') {
+            setButtonLabel('OK')
+        } else {
+            setButtonLabel('...')
+        }
 
         // Show dialog by updating 
         setDialogOpen(true)

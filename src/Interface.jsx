@@ -35,6 +35,7 @@ export default function Interface()
             <button onClick={restart}>Restart</button>
             <button onClick={end}>End</button>
         </div>
+        <Dialog />
 
 
     </>

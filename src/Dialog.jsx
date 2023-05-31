@@ -64,9 +64,9 @@ export default function Dialog()
 
         {/* Return a dialog div where there is a message and a button with a label that when pressed will remove dialog */}
         <dialog className="dialog" open={dialogOpen}>
-            <form>
-                <label>{message}</label>
-                <button onClick={handleEvent}>{buttonLabel}</button>
+            <form onSubmit={handleEvent}>
+                <div>{message}</div>
+                <button type='submit'>{buttonLabel}</button>
             </form>
         </dialog>
 

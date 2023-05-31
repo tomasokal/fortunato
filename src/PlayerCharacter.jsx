@@ -35,7 +35,7 @@ export default function PlayerCharacter({ primaryTile })
     useEffect(() => {
         if(tile === "tileCornerBrickLeft" || tile === "tileCornerBrickRight") {
             if(!shownMessageCorner) {
-                setMessage('Fortunato stumbles an alcove sealed shut, its inhabitant forever lost to the depths of darkness. Within this immured chamber, he hears the cries and murmurs of a soul condemned to eternal torment. He recoils from their pitiable pleas, unsure whether the voices comes from the walls or echoes from within his own troubled psyche.)')
+                setMessage('Fortunato stumbles upon an alcove sealed shut, its inhabitant forever lost to the depths of darkness. Within this chamber, he hears the cries and murmurs of a soul condemned to eternal torment. He recoils from the pitiable pleas, unsure whether the voices comes from the walls or echo from within his own troubled psyche.')
                 setShownMessageCorner(shownMessageCorner)
             } else {
                 setMessage('Fortunato presses on past the cries of the condemned.')

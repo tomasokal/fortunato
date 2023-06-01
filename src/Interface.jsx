@@ -11,6 +11,7 @@ export default function Interface()
 {
     const phase = useGame((state) => state.phase)
     const health = useGame((state)=> state.health)
+    const start = useGame((state) => state.start)
     const restart = useGame((state) => state.restart)
     const end = useGame((state) => state.end)
 
@@ -31,7 +32,7 @@ export default function Interface()
     return <>
 
         <div className="interface">
-            <button>Start</button>
+            <button onClick={start}>Start</button>
             <button onClick={restart}>Restart</button>
             <button onClick={end}>End</button>
         </div>

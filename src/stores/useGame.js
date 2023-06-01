@@ -1,7 +1,7 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
 
-export default create(subscribeWithSelector((set) => 
+export default create((set) => 
 {
     return {
 
@@ -66,4 +66,4 @@ export default create(subscribeWithSelector((set) =>
             })
         }
     }
-}))
+})

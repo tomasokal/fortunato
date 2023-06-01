@@ -31,9 +31,6 @@ export default function Grid({ rows, columns })
     // Update health on every primary tile change
     useEffect(()=> {
         setHealth(health - 1)
-        if (phase === "ready") {
-            start()
-        }
     }, [primaryTile])
 
     // Create a function to check other tiles around it

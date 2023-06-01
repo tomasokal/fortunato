@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react"
 import { addEffect } from "@react-three/fiber"
-
-import useGame from "./stores/useGame.js"
-import Dialog from "./Dialog.jsx"
-import TitleScreen from "./interface/TitleScreen.jsx"
-
-import './styles/interface.css'
-
+import useGame from "../stores/useGame.js"
 
 export default function Interface()
 {
+
     const phase = useGame((state) => state.phase)
     const health = useGame((state)=> state.health)
     const start = useGame((state) => state.start)
@@ -31,15 +26,7 @@ export default function Interface()
     }, [])
 
     return <>
-
-        <div className="interface">
-            {phase==='ready' && <TitleScreen />}
-            {/* <button onClick={restart}>Restart</button>
-            <button onClick={end}>End</button> */}
-        </div>
-        <Dialog />
-
-
+        <button onClick={start}>Start</button>
     </>
 
 }

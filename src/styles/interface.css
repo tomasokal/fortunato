@@ -18,6 +18,7 @@
     left:0;
     font-family: 'Mountains of Christmas', cursive;
     color:white;
+    backdrop-filter:blur(6px);
 }
 
 .titleScreen {
@@ -36,4 +37,5 @@
     background:none;
     color:white;
     font-size:34px;
+    font-family: 'Mountains of Christmas', cursive;
 }

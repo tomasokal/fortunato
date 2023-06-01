@@ -35,6 +35,10 @@ export default function Dialog()
 
         if(buttonLabel === '...') return
 
+        if(buttonLabel === 'Walk up the stairs...') {
+            restart()
+        }
+
         if(buttonLabel === 'OK') {
             restart()
         }
@@ -51,6 +55,8 @@ export default function Dialog()
         setDialogMessage(message)
         if (message === 'End of the game.') {
             setButtonLabel('OK')
+        } else if (message.startsWith('At last')) {
+            setButtonLabel('Walk up the stairs...')
         } else {
             setButtonLabel('...')
         }

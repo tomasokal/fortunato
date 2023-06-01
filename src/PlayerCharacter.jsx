@@ -24,6 +24,12 @@ export default function PlayerCharacter({ primaryTile })
     const shownMessageCorner = useGame((state) => state.shownMessageCorner)
     const setShownMessageCorner = useGame((state) => state.setShownMessageCorner)
 
+    const shownBookCase = useGame((state) => state.shownBookCase)
+    const setShownBookCase = useGame((state) => state.setShownBookCase)
+
+    const foundClue = useGame((state) => state.foundClue)
+    const setFoundClue = useGame((state) => state.setFoundClue)
+
     // Check health and when health reaches 0, update message state
     useEffect(() => {
         if(health === 0) {
@@ -33,6 +39,7 @@ export default function PlayerCharacter({ primaryTile })
 
     // Tile type dialog
     useEffect(() => {
+
         if(tile === "tileCornerBrickLeft" || tile === "tileCornerBrickRight") {
             if(!shownMessageCorner) {
                 setMessage('Fortunato stumbles upon an alcove sealed shut, its inhabitant forever lost to the depths of darkness. Within this chamber, he hears the cries and murmurs of a soul condemned to eternal torment. He recoils from the pitiable pleas, unsure whether the voices comes from the walls or echo from within his own troubled psyche.')
@@ -41,6 +48,21 @@ export default function PlayerCharacter({ primaryTile })
                 setMessage('Fortunato presses on past the cries of the condemned.')
             }
         }
+
+        if(tile === "tileDeadBook") {
+            if(!shownBookCase) {
+                setMessage('Fortunato stumbles upon a series of books. He reaches out to grasp them, hoping to find solace in their pages. But as he opens them, his heart sinks. The words upon the pages writhe and shift, the letters dancing and rearranging themselves. They form a language that is alien to him, something beyond human comprehension. Though he cannot read the words, he hears the voices of the books whispering to him, guiding him towards an unseen path.')
+                setShownBookCase(shownBookCase)
+                setFoundClue(foundClue)
+            } else {
+                setMessage('The voices grow louder and more urgent, urging him onward.')
+            }
+        }
+
+        if(tile === "tileEnd") {
+            setMessage('At last, he stumbles upon a staircase, bathed in an eerie glow. The voices fall silent, leaving Fortunato standing before the enigmatic staircase. A surge of uncertainty grips him.')
+        }
+
     }, [tile])
 
     return <>

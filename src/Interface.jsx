@@ -32,13 +32,12 @@ export default function Interface()
 
     return <>
 
+        {phase==='ready' && <TitleScreen />}
         <div className="interface">
-            {phase==='ready' && <TitleScreen />}
             {/* <button onClick={restart}>Restart</button>
             <button onClick={end}>End</button> */}
         </div>
         <Dialog />
-
 
     </>
 

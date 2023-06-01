@@ -26,7 +26,12 @@ export default function Interface()
     }, [])
 
     return <>
-        <button onClick={start}>Start</button>
+        <div className='titleScreenWrapper'>
+            <div className='titleScreen'>
+                <h1>The Fate of Fortunato</h1>
+                <button onClick={start}>Start</button>
+            </div>
+        </div>
     </>
 
 }

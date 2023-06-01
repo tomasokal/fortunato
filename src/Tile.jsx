@@ -27,6 +27,9 @@ export default function Tile({ row, col, positionX, positionZ,
         // Start model
         const tileStart = useLoader(GLTFLoader, './tile-start.glb')
 
+        // End model
+        const tileEnd = useLoader(GLTFLoader, './tile-end.glb')
+
         // Pillar model
         const tilePillar = useLoader(GLTFLoader, './tile-pillar.glb')   
 
@@ -62,7 +65,8 @@ export default function Tile({ row, col, positionX, positionZ,
         tileHall: tileHall,
         tileDead: tileDead,
         tileDeadBook: tileDeadBook,
-        tileStart: tileStart
+        tileStart: tileStart,
+        tileEnd: tileEnd,
     }
 
     // States
@@ -77,6 +81,9 @@ export default function Tile({ row, col, positionX, positionZ,
     // Import the useGame hook and use it to get the message state and setMessage function
     const tile = useGame((state) => state.tile)
     const setTile = useGame((state) => state.setTile)
+    
+    // Import state for foundClue
+    const foundClue = useGame((state) => state.foundClue)
 
     // state to store if this tile is the primary one
     const [ isPrimaryTile, setIsPrimaryTile] = useState(false)
@@ -103,29 +110,29 @@ export default function Tile({ row, col, positionX, positionZ,
             if (primaryTile[0] === 0) {
                 models.length = 0
                 primaryTile[1] > col
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight')
+                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
+                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
             }
             // If primary tile is on right edge
             if (primaryTile[0] === 6) {
                 models.length = 0
                 primaryTile[1] > col
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft')
+                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
+                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
             }
             // If primary tile is on top edge
             if (primaryTile[1] === 0) {
                 models.length = 0
                 primaryTile[0] > row
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft')
+                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
+                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
             }
             // If primary tile is on bottom edge
             if (primaryTile[1] === 6) {
                 models.length = 0
                 primaryTile[0] > row
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight')
+                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
+                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
             }
 
             // If the primary tile is in the corner, it is annoying
@@ -204,9 +211,15 @@ export default function Tile({ row, col, positionX, positionZ,
                 'tileDead', 'tileDeadBook',
                 'tileHall', 
                 'tileCornerLeft', 'tileCornerBrickLeft', 'tileCornerRight', 'tileCornerBrickRight', 
-                'tileWallLeft', 'tileWallForward', 'tileWallRight'
+                'tileWallLeft', 'tileWallForward', 'tileWallRight',
+                'tileEnd'
             )
 
+        }
+
+        // If we have foundClue as TRUE, we add in file tileEnd
+        if (foundClue) {
+            models.push('tileEnd')
         }
 
         return models
@@ -348,6 +361,7 @@ export default function Tile({ row, col, positionX, positionZ,
         tileDead: [0, 0, 0, 1],
         tileDeadBook: [0, 0, 0, 1],
         tileHall: [0, 1, 0, 1],
+        tileEnd: [0, 0, 0, 1],
 
     }
 
@@ -397,7 +411,7 @@ export default function Tile({ row, col, positionX, positionZ,
                 // Now you will always correctly show both tile to left and tile above
                 // However, if your selected tile is a deadend, need to not show one 
                 // tile depending on direction you are coming from.
-                if (selectedModelName === 'tileDead' || selectedModelName === 'tileDeadBook') {
+                if (selectedModelName === 'tileDead' || selectedModelName === 'tileDeadBook' || selectedModelName === 'tileEnd') {
                     if (direction==='up') newDirections = [0, 1, 0]
                     if (direction==='left') newDirections = [1, 0, 0]
                 }

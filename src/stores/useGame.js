@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import create from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
 
 export default create((set) => 
@@ -15,7 +15,15 @@ export default create((set) =>
         },
         restart: () => {
             set((state) => {
-                if(state.phase === 'ready' || state.phase === 'playing' || state.phase === 'ended') return {phase: 'ready', health: 10, message: '' }
+                if(state.phase === 'ready' || state.phase === 'playing' || state.phase === 'ended') return {
+                    phase: 'ready', 
+                    health: 10, 
+                    message: '',
+                    tile: '', 
+                    shownMessageCorner: false,
+                    shownBookCase: false,
+                    foundClue: false
+                }
                 return {}
             })
         },
@@ -64,6 +72,23 @@ export default create((set) =>
                 if(value === false) return {shownMessageCorner: true}
                 return {}
             })
+        },
+
+        shownBookCase: false,
+        setShownBookCase: (value) => {
+            set((state) => {
+                if(value === false) return {shownBookCase: true}
+                return {}
+            })
+        },
+
+        foundClue: false,
+        setFoundClue: (value) => {
+            set((state) => {
+                if(value === false) return {foundClue: true}
+                return {}
+            })
         }
+
     }
 })

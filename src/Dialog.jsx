@@ -11,6 +11,10 @@ export default function Dialog()
     const message = useGame((state) => state.message)
     const setMessage = useGame((state) => state.setMessage)
 
+    // Import health and setHealth from useGame
+    const health = useGame((state) => state.health)
+    const setHealth = useGame((state) => state.setHealth)
+
     // Import the useGame hook and use it to get the restart function
     const restart = useGame((state) => state.restart)
 
@@ -39,6 +43,14 @@ export default function Dialog()
             restart()
         }
 
+        if(buttonLabel === 'Press on...') {
+            setHealth(health + 1)
+        }
+
+        if(buttonLabel === 'A flicker of renewed strength stirs...') {
+            setHealth(10)
+        }
+
         if(buttonLabel === 'OK') {
             restart()
         }
@@ -57,6 +69,10 @@ export default function Dialog()
             setButtonLabel('OK')
         } else if (message.startsWith('At last')) {
             setButtonLabel('Walk up the stairs...')
+        } else if (message.startsWith('Fortunato stumbles upon a bottle of Amontillado.')) {
+            setButtonLabel('Press on...')
+        } else if (message.startsWith('Amidst the shifting catacombs')) {
+            setButtonLabel('A flicker of renewed strength stirs...')
         } else {
             setButtonLabel('...')
         }

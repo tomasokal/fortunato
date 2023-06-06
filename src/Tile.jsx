@@ -51,6 +51,10 @@ export default function Tile({ row, col, positionX, positionZ,
         const tileDead = useLoader(GLTFLoader, './tile-deadend.glb') 
         const tileDeadBook = useLoader(GLTFLoader, './tile-deadend-book.glb')
 
+        // Health models
+        const tileBottle = useLoader(GLTFLoader, './tile-bottle.glb')
+        const tileBarrel = useLoader(GLTFLoader, './tile-barrel.glb')
+
     // Set up mappings for models
     const allmodels = {
         model1: model1,
@@ -65,6 +69,8 @@ export default function Tile({ row, col, positionX, positionZ,
         tileHall: tileHall,
         tileDead: tileDead,
         tileDeadBook: tileDeadBook,
+        tileBottle: tileBottle,
+        tileBarrel: tileBarrel,
         tileStart: tileStart,
         tileEnd: tileEnd,
     }
@@ -84,6 +90,12 @@ export default function Tile({ row, col, positionX, positionZ,
     
     // Import state for foundClue
     const foundClue = useGame((state) => state.foundClue)
+
+    // Import state for health
+    const health = useGame((state) => state.health)
+
+    // Import state for foundBarrel
+    const foundBarrel = useGame((state) => state.foundBarrel)
 
     // state to store if this tile is the primary one
     const [ isPrimaryTile, setIsPrimaryTile] = useState(false)
@@ -209,6 +221,7 @@ export default function Tile({ row, col, positionX, positionZ,
             models.push(
                 'tilePillar', 
                 'tileDead', 'tileDeadBook',
+                'tileBottle',
                 'tileHall', 
                 'tileCornerLeft', 'tileCornerBrickLeft', 'tileCornerRight', 'tileCornerBrickRight', 
                 'tileWallLeft', 'tileWallForward', 'tileWallRight',
@@ -220,6 +233,11 @@ export default function Tile({ row, col, positionX, positionZ,
         // If we have foundClue as TRUE, we add in file tileEnd
         if (foundClue) {
             models.push('tileEnd')
+        }
+
+        // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
+        if (!foundBarrel && health < 5) {
+            models.push('tileBarrel')
         }
 
         return models
@@ -360,6 +378,8 @@ export default function Tile({ row, col, positionX, positionZ,
         tileWallRight: [0, 1, 1, 1], //good
         tileDead: [0, 0, 0, 1],
         tileDeadBook: [0, 0, 0, 1],
+        tileBottle: [1, 1, 1, 1],
+        tileBarrel: [0, 0, 0, 1],
         tileHall: [0, 1, 0, 1],
         tileEnd: [0, 0, 0, 1],
 
@@ -411,7 +431,7 @@ export default function Tile({ row, col, positionX, positionZ,
                 // Now you will always correctly show both tile to left and tile above
                 // However, if your selected tile is a deadend, need to not show one 
                 // tile depending on direction you are coming from.
-                if (selectedModelName === 'tileDead' || selectedModelName === 'tileDeadBook' || selectedModelName === 'tileEnd') {
+                if (selectedModelName === 'tileDead' || selectedModelName === 'tileDeadBook' || selectedModelName === 'tileEnd' || selectedModelName === 'tileBarrel') {
                     if (direction==='up') newDirections = [0, 1, 0]
                     if (direction==='left') newDirections = [1, 0, 0]
                 }

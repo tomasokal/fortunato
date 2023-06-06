@@ -35,7 +35,7 @@ export default create((set) =>
         },
 
         // Player Health Management
-        health: 10,
+        health: 11,
         setHealth: (value) => {
             set((state) => {
                 return({health: value})
@@ -86,6 +86,14 @@ export default create((set) =>
         setFoundClue: (value) => {
             set((state) => {
                 if(value === false) return {foundClue: true}
+                return {}
+            })
+        },
+
+        foundBarrel: false,
+        setFoundBarrel: (value) => {
+            set((state) => {
+                if(value === false) return {foundBarrell: true}
                 return {}
             })
         }

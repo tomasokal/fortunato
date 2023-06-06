@@ -12,6 +12,7 @@ export default function PlayerCharacter({ primaryTile })
     // When primaryTile updates, update the playerPosition state
     useEffect(() => {
         setPlayerPosition([primaryTile[0] * 2.25, 2.5, primaryTile[1] * 2.25])
+        console.log('Health:', health)
     }, [primaryTile])
 
     // Import useGame hook and use it to get the health state
@@ -61,6 +62,14 @@ export default function PlayerCharacter({ primaryTile })
 
         if(tile === "tileEnd") {
             setMessage('At last, he stumbles upon a staircase, bathed in an eerie glow. The voices fall silent, leaving Fortunato standing before the enigmatic staircase. A surge of uncertainty grips him.')
+        }
+
+        if(tile === 'tileBottle') {
+            setMessage('Fortunato stumbles upon a bottle of Amontillado. Clinging to the only solace he can find in this stygian abyss, he drinks deeply, seeking respite from the encroaching shadows that gnaw at his sanity. The wine fuels his resolve, granting him a momentary reprieve from the mounting terror.')
+        }
+
+        if(tile === 'tileBarrel') {
+            setMessage('Amidst the shifting catacombs, Fortunatos sees a hidden alcove, veiled in darkness. There, in the gloom, barrels of Amontillado stand before him, their wooden exteriors weathered and worn. A fragile smile dances upon his lips as he realizes the temporary respite that lies within his grasp. With trembling hands, he reaches out to uncork one of the barrels, the sweet aroma of the prized wine wafting to his nostrils.')
         }
 
     }, [tile])

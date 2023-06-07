@@ -16,7 +16,9 @@ export default function Dialog()
     const setHealth = useGame((state) => state.setHealth)
 
     // Import the useGame hook and use it to get the restart function
-    const restart = useGame((state) => state.restart)
+    const end = useGame((state) => state.end)
+    const win = useGame((state) => state.win)
+    const lose = useGame((state) => state.lose)
 
     // Create a state for the message and button label
     const [ dialogMessage, setDialogMessage ] = useState('')
@@ -40,7 +42,7 @@ export default function Dialog()
         if(buttonLabel === '...') return
 
         if(buttonLabel === 'Walk up the stairs...') {
-            restart()
+            win()
         }
 
         if(buttonLabel === 'Press on...') {
@@ -52,7 +54,7 @@ export default function Dialog()
         }
 
         if(buttonLabel === 'OK') {
-            restart()
+            lose()
         }
 
     }

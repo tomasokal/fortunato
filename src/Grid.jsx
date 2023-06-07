@@ -72,7 +72,7 @@ export default function Grid({ rows, columns })
     const [selectedTiles, setSelectedTiles] = useState(checkNeighbors(3,7)?.coords)
 
     useEffect(()=> {
-        if (phase === 'ready') {
+        if (phase === 'playing') {
             setPrimaryTile([3, 7])
             setSelectedTiles(checkNeighbors(3,7)?.coords)
         }

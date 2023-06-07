@@ -7,6 +7,7 @@ export default create((set) =>
 
         // Game Phase Management
         phase: 'ready',
+        status: 'inprogress',
         start: () => {
             set((state) => {
                 if(state.phase === 'ready') return { phase: 'playing' }
@@ -16,13 +17,14 @@ export default create((set) =>
         restart: () => {
             set((state) => {
                 if(state.phase === 'ready' || state.phase === 'playing' || state.phase === 'ended') return {
-                    phase: 'ready', 
+                    phase: 'playing', 
                     health: 10, 
                     message: '',
                     tile: '', 
                     shownMessageCorner: false,
                     shownBookCase: false,
-                    foundClue: false
+                    foundClue: false,
+                    status: 'inprogress'
                 }
                 return {}
             })
@@ -33,7 +35,16 @@ export default create((set) =>
                 return {}
             })
         },
-
+        win: () => {
+            set((state) => {
+                return {status: 'won', phase: 'ended'}
+            })
+        },
+        lose: () => {
+            set((state) => {
+                return {status: 'lost', phase: 'ended'}
+            })
+        },
         // Player Health Management
         health: 11,
         setHealth: (value) => {

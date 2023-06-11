@@ -39,3 +39,17 @@
     font-size:34px;
     font-family: 'Mountains of Christmas', cursive;
 }
+
+.healthpointsWrapper {
+    position:absolute;
+    top:32px;
+    left:32px;
+    display:flex;
+    height:150px;
+    gap:14px;
+}
+
+.healthpointsWrapper svg {
+    height:100%;
+    width:100%;
+}

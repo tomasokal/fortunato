@@ -18,7 +18,7 @@ export default create((set) =>
             set((state) => {
                 if(state.phase === 'ready' || state.phase === 'playing' || state.phase === 'ended') return {
                     phase: 'playing', 
-                    health: 10, 
+                    health: 51, 
                     message: '',
                     tile: '', 
                     shownMessageCorner: false,
@@ -46,7 +46,7 @@ export default create((set) =>
             })
         },
         // Player Health Management
-        health: 11,
+        health: 51,
         setHealth: (value) => {
             set((state) => {
                 return({health: value})

@@ -1,22 +1,16 @@
 import { useEffect, useState } from "react"
 import { addEffect } from "@react-three/fiber"
 
-import useGame from "./stores/useGame.js"
-import Dialog from "./Dialog.jsx"
-import TitleScreen from "./interface/TitleScreen.jsx"
-import EndGameScreen from "/interface/EndGameScreen.jsx"
-import Hud from "/interface/Hud.jsx"
+import useGame from "../stores/useGame.js"
+import { range } from '../utils';
 
-import './styles/interface.css'
+import Health from './hud/Health.jsx'
 
-
-export default function Interface()
+export default function Hud()
 {
+
     const phase = useGame((state) => state.phase)
     const health = useGame((state)=> state.health)
-    const start = useGame((state) => state.start)
-    const restart = useGame((state) => state.restart)
-    const end = useGame((state) => state.end)
 
     useEffect(()=>{
         // lets us tap into framerate of r3f even outside of canvas
@@ -33,12 +27,6 @@ export default function Interface()
     }, [])
 
     return <>
-
-        {phase==='ready' && <TitleScreen />}
-        {phase==='ended' && <EndGameScreen />}
-        {phase==='playing' && <Hud />}
-        <Dialog />
-
+        <Health healthpoints={health}/>
     </>
-
 }

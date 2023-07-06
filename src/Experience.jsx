@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { DirectionalLightHelper } from 'three'
+import { DirectionalLightHelper, SpotLightHelper } from 'three'
 import { Center, OrbitControls, useHelper } from '@react-three/drei'
 
 import Grid from './Grid.jsx'
@@ -9,7 +9,6 @@ export default function Experience()
 {
 
     const light = useRef()
-    // useHelper(light, DirectionalLightHelper, 10)
     
     return <>
     
@@ -25,12 +24,12 @@ export default function Experience()
             shadow-mapSize={ [ 1024, 1024 ] }
             // TODO - tweak shadow map stuff and get meshes casting shadows
             // shadow-mapSize={ [ 64, 64 ] }
-            // shadow-camera-near={ 1 }
-            // shadow-camera-far={ 100 }
-            // shadow-camera-top={ 100 }
-            // shadow-camera-right={ 100 }
-            // shadow-camera-bottom={ - 100 }
-            // shadow-camera-left={ - 100 }
+            shadow-camera-near={ 1 }
+            shadow-camera-far={ 100 }
+            shadow-camera-top={ 100 }
+            shadow-camera-right={ 100 }
+            shadow-camera-bottom={ - 100 }
+            shadow-camera-left={ - 100 }
         />  
 
         <Center>

@@ -1,7 +1,3 @@
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import * as THREE from 'three'
-
 export default function SelectedTile({ model, baseTile, direction })
 {
 
@@ -23,10 +19,17 @@ export default function SelectedTile({ model, baseTile, direction })
     if(direction === 'right') {
         rotationAdjustment = 3 * Math.PI / 2
     }
+    
+    model.scene.traverse(child => {
+        child.castShadow = true
+        child.receiveShadow = true
+    })
 
     return <>
 
         <primitive 
+            castShadow
+            receiveShadow
             object={ model.scene.clone() } 
             rotation={[Math.PI, rotationAdjustment, 0]}
             position-y={positionAdjustment.y}

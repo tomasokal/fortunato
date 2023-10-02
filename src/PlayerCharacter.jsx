@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+import Character from "./CharacterModel.jsx"
+
 import useGame from "./stores/useGame.js"
 
 export default function PlayerCharacter({ primaryTile })
@@ -7,11 +9,11 @@ export default function PlayerCharacter({ primaryTile })
 
     // Set up states and refs
     const playerRef = useRef()
-    const [ playerPosition, setPlayerPosition ] = useState([3 * 2.25, 2.5, 7 * 2.25])
+    const [ playerPosition, setPlayerPosition ] = useState([3 * 2.25, 1, 7 * 2.25])
 
     // When primaryTile updates, update the playerPosition state
     useEffect(() => {
-        setPlayerPosition([primaryTile[0] * 2.25, 2.5, primaryTile[1] * 2.25])
+        setPlayerPosition([primaryTile[0] * 2.25, 1, primaryTile[1] * 2.25])
         console.log('Health:', health)
     }, [primaryTile])
 
@@ -76,13 +78,15 @@ export default function PlayerCharacter({ primaryTile })
 
     return <>
 
-        <mesh
+    <Character position={playerPosition} />
+
+        {/* <mesh
             castShadow
             ref={playerRef}
             position={playerPosition}
         >
             <sphereBufferGeometry args={[0.5, 32, 32]} />
-        </mesh>
+        </mesh> */}
     
     </>
 }

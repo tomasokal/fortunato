@@ -19,7 +19,7 @@ export default function Character({position, ...props}) {
 
     useFrame((state, delta)=> {
 
-        modelPrim.current.position.lerp(smoothedModelPosition, 0.012)
+        modelPrim.current.position.lerp(smoothedModelPosition, delta * 1.25)
 
     })
 
@@ -28,14 +28,14 @@ export default function Character({position, ...props}) {
 
         action
           .reset()
-          .fadeIn(0.1)
+          .fadeIn(0.02)
           .play()
 
         // this will make the idle animation fade from the run animation after certain amount of time
         setTimeout(()=> {
             animations.actions['DrunkIdle'].play()
             animations.actions['DrunkIdle'].crossFadeFrom(animations.actions['DrunkRun'], 1)
-        }, 400)
+        }, 1000)
         
         return() => {
             action.fadeOut(0.5)

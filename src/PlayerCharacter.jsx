@@ -11,6 +11,8 @@ export default function PlayerCharacter({ primaryTile })
     const playerRef = useRef()
     const [ playerPosition, setPlayerPosition ] = useState([3 * 2.25, 1, 7 * 2.25])
 
+    const [ playerRotation, setPlayerRotation ] = useState(0)
+
     // When primaryTile updates, update the playerPosition state
     useEffect(() => {
         setPlayerPosition([primaryTile[0] * 2.25, 1, primaryTile[1] * 2.25])
@@ -78,7 +80,7 @@ export default function PlayerCharacter({ primaryTile })
 
     return <>
 
-    <Character position={playerPosition} />
+    <Character position={playerPosition} rotation-y={Math.PI} />
 
         {/* <mesh
             castShadow

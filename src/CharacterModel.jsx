@@ -21,21 +21,27 @@ export default function Character({position, ...props}) {
 
         modelPrim.current.position.lerp(smoothedModelPosition, 0.012)
 
-
     })
 
     useEffect(()=> {
-        const action = animations.actions[animationName]
+        const action = animations.actions['DrunkRun']
+
         action
           .reset()
-          .fadeIn(0.5)
+          .fadeIn(0.1)
           .play()
+
+        // this will make the idle animation fade from the run animation after certain amount of time
+        setTimeout(()=> {
+            animations.actions['DrunkIdle'].play()
+            animations.actions['DrunkIdle'].crossFadeFrom(animations.actions['DrunkRun'], 1)
+        }, 400)
         
         return() => {
             action.fadeOut(0.5)
         }
 
-    }, [ animationName ])
+    }, [ position ])
 
     return <>
         {/* <Center> */}

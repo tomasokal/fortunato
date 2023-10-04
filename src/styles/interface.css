@@ -53,3 +53,18 @@
     height:100%;
     width:100%;
 }
+
+.cluesWrapper {
+    position:absolute;
+    top:46px;
+    left:400px;
+    display:flex;
+    height:150px;
+    gap:14px;
+}
+
+.cluesWrapper svg {
+    height:80%;
+    width:100%;
+}
+

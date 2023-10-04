@@ -8,6 +8,7 @@ import EndGameScreen from "/interface/EndGameScreen.jsx"
 import Hud from "/interface/Hud.jsx"
 
 import './styles/interface.css'
+import DialogRefactor from "./DialogRefactor.jsx"
 
 
 export default function Interface()
@@ -38,6 +39,7 @@ export default function Interface()
         {phase==='ended' && <EndGameScreen />}
         {phase==='playing' && <Hud />}
         <Dialog />
+        {/* <DialogRefactor /> */}
 
     </>
 

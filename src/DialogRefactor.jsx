@@ -9,10 +9,13 @@ export default function DialogRefactor()
     function handleEvent(event)
     {
         event.preventDefault()
-        // console.log('event handled:', currentDialogue.button.action)
-        currentDialogue.button.action()
+
     }
 
+    // Subscribe to game state tile
+    // When on game state tile, run handleEvent using the event
+    // This should pass text, button text, and set that game state to yes
+    
     return <>
 
         <dialog className="dialog" open={true}>

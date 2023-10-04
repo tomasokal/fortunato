@@ -1,0 +1,26 @@
+{
+  "clueOne": {
+    "text": "Text for clue one",
+    "button":
+    {
+      "text": "Yes",
+      "action": "Action for clue one"
+    }
+  },
+  "clueTwo": {
+    "text": "Text for clue two",
+    "button":
+    {
+      "text": "Maybe",
+      "action": "Action for clue two"
+    }
+  },
+  "clueThree": {
+    "text": "Text for clue three",
+    "button":
+    {
+      "text": "No",
+      "action": "Action for clue three"
+    }
+  }
+}

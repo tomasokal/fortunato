@@ -11,10 +11,27 @@ export default function PlayerCharacter({ primaryTile })
     const playerRef = useRef()
     const [ playerPosition, setPlayerPosition ] = useState([3 * 2.25, 1, 7 * 2.25])
 
+    const [ playerRotation, setPlayerRotation ] = useState(Math.PI)
+
+    const [ playerTile, setPlayerTile ] = useState([0, 0])
+
+
     // When primaryTile updates, update the playerPosition state
+    // also update the rotation of the play based on comparision between current and previous tile
     useEffect(() => {
         setPlayerPosition([primaryTile[0] * 2.25, 1, primaryTile[1] * 2.25])
-        console.log('Health:', health)
+
+        let xDiff = primaryTile[0] - playerTile[0]
+        let yDiff = primaryTile[1] - playerTile[1]
+
+        if(!xDiff==0) { 
+            if(Math.abs(xDiff)==1) setPlayerRotation(Math.PI / 2 * xDiff)
+        } else if(!yDiff==0) {
+            setPlayerRotation(yDiff==1 ? 0 : Math.PI)
+        }
+
+        setPlayerTile(primaryTile)
+
     }, [primaryTile])
 
     // Import useGame hook and use it to get the health state
@@ -78,7 +95,7 @@ export default function PlayerCharacter({ primaryTile })
 
     return <>
 
-    <Character position={playerPosition} />
+    <Character position={playerPosition} rotation-y={playerRotation} />
 
         {/* <mesh
             castShadow

@@ -14,7 +14,7 @@ export default function Experience()
     
         <OrbitControls makeDefault />
 
-        <ambientLight intensity={1.2} />
+        <ambientLight intensity={0.1} />
 
         <directionalLight ref={light} 
             castShadow 

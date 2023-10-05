@@ -107,7 +107,31 @@ export default create((set) =>
                 if(value === false) return {foundBarrell: true}
                 return {}
             })
-        }
+        },
+
+        foundClueOne: false,
+        setFoundClueOne: (value) => {
+            set((state) => {
+                if(value === true) return {foundClueOne: true}
+                return {}
+            })
+        },
+
+        foundClueTwo: false,
+        setFoundClueTwo: (value) => {
+            set((state) => {
+                if(value === true) return {foundClueTwo: true}
+                return {}
+            })
+        },
+
+        foundClueThree: false,
+        setFoundClueThree: (value) => {
+            set((state) => {
+                if(value === true) return {foundClueThree: true}
+                return {}
+            })
+        },
 
     }
 })

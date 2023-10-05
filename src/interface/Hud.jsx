@@ -12,8 +12,8 @@ export default function Hud()
 
     const phase = useGame((state) => state.phase)
     const health = useGame((state)=> state.health)
-    const book = useGame((state)=> state.foundClue)
-    const skull = useGame((state)=> state.shownMessageCorner)
+    const book = useGame((state)=> state.foundClueOne)
+    const skull = useGame((state)=> state.foundClueTwo)
 
     useEffect(()=>{
         // lets us tap into framerate of r3f even outside of canvas

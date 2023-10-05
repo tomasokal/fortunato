@@ -10,8 +10,10 @@ export default function DialogRefactor()
     const tile = useGame((state) => state.tile)
 
     const foundClueOne = useGame((state) => state.foundClueOne)
+    const foundClueTwo = useGame((state) => state.foundClueTwo)
 
     const setFoundClueOne = useGame((state) => state.setFoundClueOne)
+    const setFoundClueTwo = useGame((state) => state.setFoundClueTwo)
 
     const [ showDialog, setShowDialog ] = useState(false)
 
@@ -28,12 +30,20 @@ export default function DialogRefactor()
         
         // Check if tile is tileDeadBook and whether clue has been found
         // If not, set clue found to true
-        if (tile === 'tileDeadBook' && foundClueOne === false)
-        {   
-            setCurrentDialogue(dialog[dialogNodes['gameStateClueOne']])
-            setShowDialog(true)
-            setFoundClueOne(true)
-        }
+        setTimeout(()=>{
+
+            if (tile === 'tileDeadBook' && foundClueOne === false)
+            {   
+                setCurrentDialogue(dialog[dialogNodes['gameStateClueOne']])
+                setShowDialog(true)
+                setFoundClueOne(true)
+            } else if((tile === "tileCornerBrickLeft" || tile === "tileCornerBrickRight") && foundClueTwo === false) {
+                setCurrentDialogue(dialog[dialogNodes['gameStateClueTwo']])
+                setShowDialog(true)
+                setFoundClueTwo(true)
+            }
+
+        }, 1000)
 
     }, [tile])
     

@@ -38,8 +38,7 @@ export default function Interface()
         {phase==='ready' && <TitleScreen />}
         {phase==='ended' && <EndGameScreen />}
         {phase==='playing' && <Hud />}
-        <Dialog />
-        {/* <DialogRefactor /> */}
+        <DialogRefactor />
 
     </>
 

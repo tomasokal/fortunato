@@ -236,7 +236,7 @@ export default function Tile({ row, col, positionX, positionZ,
         }
 
         // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
-        if (!foundBarrel && health < 5) {
+        if (!foundBarrel && health < 15) {
             models.push('tileBarrel')
         }
 

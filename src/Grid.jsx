@@ -15,6 +15,8 @@ export default function Grid({ rows, columns })
     const restart = useGame((state) => state.restart)
     const health = useGame((state) => state.health)
     const setHealth = useGame((state) => state.setHealth)
+    const turn = useGame((state) => state.turn)
+    const setTurn = useGame((state) => state.setTurn)
 
     // Configure grid
 
@@ -31,6 +33,7 @@ export default function Grid({ rows, columns })
     // Update health on every primary tile change
     useEffect(()=> {
         setHealth(health - 1)
+        setTurn(turn + 1)
     }, [primaryTile])
 
     // Create a function to check other tiles around it

@@ -52,6 +52,13 @@ export default create((set) =>
                 return({health: value})
             })
         },
+        // turn counter to ensure barrels dont spawn too frequently
+        turn: 0,
+        setTurn: (value) => {
+            set((state) => {
+                return({turn: value})
+            })
+        },
 
         // Player Tile Type Management
         tile: '',
@@ -101,11 +108,10 @@ export default create((set) =>
             })
         },
 
-        foundBarrel: false,
+        foundBarrel: 10,
         setFoundBarrel: (value) => {
             set((state) => {
-                if(value === false) return {foundBarrell: true}
-                return {}
+                return {foundBarrel: value}
             })
         },
 

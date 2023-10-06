@@ -87,6 +87,9 @@ export default function Tile({ row, col, positionX, positionZ,
     // Import the useGame hook and use it to get the message state and setMessage function
     const tile = useGame((state) => state.tile)
     const setTile = useGame((state) => state.setTile)
+
+    const turn = useGame((state) => state.turn)
+    const setTurn = useGame((state) => state.setTurn)
     
     // Import state for foundClue
     const foundClue = useGame((state) => state.foundClue)
@@ -236,7 +239,7 @@ export default function Tile({ row, col, positionX, positionZ,
         }
 
         // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
-        if (!foundBarrel && health < 15) {
+        if ((turn - foundBarrel > 10) && health < 50) {
             models.push('tileBarrel')
         }
 

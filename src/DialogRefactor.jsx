@@ -11,9 +11,16 @@ export default function DialogRefactor()
 
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
+    const foundBarrel = useGame((state) => state.foundBarrel)
 
     const setFoundClueOne = useGame((state) => state.setFoundClueOne)
     const setFoundClueTwo = useGame((state) => state.setFoundClueTwo)
+    const setFoundBarrel = useGame((state) => state.setFoundBarrel)
+
+    const health = useGame((state) => state.health)
+    const setHealth = useGame((state) => state.setHealth)
+
+    const turn = useGame((state) => state.turn)
 
     const [ showDialog, setShowDialog ] = useState(false)
 
@@ -41,6 +48,12 @@ export default function DialogRefactor()
                 setCurrentDialogue(dialog[dialogNodes['gameStateClueTwo']])
                 setShowDialog(true)
                 setFoundClueTwo(true)
+            } else if(tile==='tileBarrel') {
+                // setCurrentDialogue(dialog[dialogNodes['gameStateClueTwo']])
+                // setShowDialog(true)
+                console.log(turn - foundBarrel)
+                if(turn - foundBarrel > 10) setHealth(health + 20)
+                setFoundBarrel(turn)
             }
 
         }, 1000)

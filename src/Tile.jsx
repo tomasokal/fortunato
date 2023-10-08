@@ -253,7 +253,7 @@ export default function Tile({ row, col, positionX, positionZ,
     // Create a function to sample a tile
     const sampleTile = () => {
 
-        console.log(row, col)
+        // console.log(row, col)
 
         // If base tile model, sample different one
         if (baseTile) {
@@ -425,6 +425,7 @@ export default function Tile({ row, col, positionX, positionZ,
     // Creating a function for handling click, pointer over, and pointer out
     let handleClick = (e) => {
             e.stopPropagation()
+            setHover(false)
             if(isPrimaryTile) return
             let currentTile = [row, col]
             let allTiles = [...selectedTiles, primaryTile]

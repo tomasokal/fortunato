@@ -90,6 +90,10 @@ export default function Tile({ row, col, positionX, positionZ,
 
     const turn = useGame((state) => state.turn)
     const setTurn = useGame((state) => state.setTurn)
+
+    // States for clues and objectives
+    const foundClueOne = useGame((state) => state.foundClueOne)
+    const foundClueTwo = useGame((state) => state.foundClueTwo)
     
     // Import state for foundClue
     const foundClue = useGame((state) => state.foundClue)
@@ -119,35 +123,35 @@ export default function Tile({ row, col, positionX, positionZ,
 
             // If on the edge, we can have a corner, wall, deadend.
             models.length = 0
-            models.push('tileDead', 'tileDeadBook', 'tileWallForward', 'tileCornerLeft', 'tileCornerBrickLeft', 'tileCornerRight', 'tileCornerBrickRight')
+            models.push('tileDead', 'tileWallForward', 'tileCornerLeft', 'tileCornerRight')
 
             // If primary tile is on left edge
             if (primaryTile[0] === 0) {
                 models.length = 0
                 primaryTile[1] > col
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
+                        : models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
             }
             // If primary tile is on right edge
             if (primaryTile[0] === 6) {
                 models.length = 0
                 primaryTile[1] > col
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead')
+                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead')
             }
             // If primary tile is on top edge
             if (primaryTile[1] === 0) {
                 models.length = 0
                 primaryTile[0] > row
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
+                        : models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
             }
             // If primary tile is on bottom edge
             if (primaryTile[1] === 6) {
                 models.length = 0
                 primaryTile[0] > row
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
+                        : models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
             }
 
             // If the primary tile is in the corner, it is annoying
@@ -156,29 +160,29 @@ export default function Tile({ row, col, positionX, positionZ,
                 if (primaryTile[0] === 0 && primaryTile[1] === 0) {
                     models.length = 0
                     primaryTile[1] === col
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
+                        : models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
                 }
                 // Bottom Left
                 if (primaryTile[0] === 0 && primaryTile[1] === 6) {
                     models.length = 0
                     primaryTile[1] === col
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
+                        : models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
                 }
                 // Top Right
                 if (primaryTile[0] === 6 && primaryTile[1] === 0) {
                     models.length = 0
                     primaryTile[0] === row
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
+                        : models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
                 }
                 // Bottom Right
                 if (primaryTile[0] === 6 && primaryTile[1] === 6) {
                     models.length = 0
                     primaryTile[1] === col
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
+                        : models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
                 }
 
             // If on the corner, we can have a corner or a deadend
@@ -187,29 +191,29 @@ export default function Tile({ row, col, positionX, positionZ,
                 if (row === 0 && col === 6) {
                     models.length = 0
                     primaryTile[0] === 0
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerLeft', 'tileDead')
+                        : models.push('tileCornerRight', 'tileDead')
                 }
                 // Bottom right
                 if (row === 6 && col === 6) {
                     models.length = 0
                     primaryTile[0] === 6
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerRight', 'tileDead')
+                        : models.push('tileCornerLeft', 'tileDead')
                 }
                 // Top left
                 if (row === 0 && col === 0) {
                     models.length = 0
                     primaryTile[0] === 0
-                        ? models.push('tileCornerRight', 'tileCornerBrickRight', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerRight', 'tileDead')
+                        : models.push('tileCornerLeft', 'tileDead')
                 }
                 // Top right
                 if (row === 6 && col === 0) {
                     models.length = 0
                     primaryTile[0] === 6
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileDead', 'tileDeadBook')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileDead', 'tileDeadBook')
+                        ? models.push('tileCornerLeft', 'tileDead')
+                        : models.push('tileCornerRight', 'tileDead')
                 }
 
             // Add in a condition for the first primary tile
@@ -223,19 +227,13 @@ export default function Tile({ row, col, positionX, positionZ,
 
             models.push(
                 'tilePillar', 
-                'tileDead', 'tileDeadBook',
+                'tileDead',
                 'tileBottle',
                 'tileHall', 
-                'tileCornerLeft', 'tileCornerBrickLeft', 'tileCornerRight', 'tileCornerBrickRight', 
-                'tileWallLeft', 'tileWallForward', 'tileWallRight',
-                'tileEnd'
+                'tileCornerLeft', 'tileCornerRight',
+                'tileWallLeft', 'tileWallForward', 'tileWallRight'
             )
 
-        }
-
-        // If we have foundClue as TRUE, we add in file tileEnd
-        if (foundClue) {
-            models.push('tileEnd')
         }
 
         // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
@@ -250,13 +248,44 @@ export default function Tile({ row, col, positionX, positionZ,
     // Create a function to sample a tile
     const sampleTile = () => {
 
+        console.log(row, col)
+
         // If base tile model, sample different one
         if (baseTile) {
-            if (row === 3 && col === 7) {
+
+            // Specific start tile
+            if (row === 3 && col === 7) 
+            {
                 let modelObject = allmodels['tileStart']
                 setSelectedModel(modelObject)
                 setSelectedModelName('tileStart')
-            } else {
+            } 
+            
+            // Specific clue one tile
+            else if (row === 5 && col === 5)
+            {
+                let modelObject = allmodels['tileDeadBook']
+                setSelectedModel(modelObject)
+                setSelectedModelName('tileDeadBook')
+            }
+
+            // Specific clue two tile
+            else if (foundClueOne && row === 1 && col === 1 )
+            {
+                let modelObject = allmodels['tileCornerBrickLeft']
+                setSelectedModel(modelObject)
+                setSelectedModelName('tileCornerBrickLeft')
+            }
+
+            // End tile
+            else if (foundClueOne && foundClueTwo && row === 3 && col === 3 )
+            {
+                let modelObject = allmodels['tileEnd']
+                setSelectedModel(modelObject)
+                setSelectedModelName('tileEnd')
+            }
+
+            else {
                 // Get valid tiles based on logic
                 let models = getValidTiles()
                 // index based on length of valid model names

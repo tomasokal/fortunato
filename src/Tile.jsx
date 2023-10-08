@@ -253,8 +253,6 @@ export default function Tile({ row, col, positionX, positionZ,
     // Create a function to sample a tile
     const sampleTile = () => {
 
-        console.log(row, col)
-
         // If base tile model, sample different one
         if (baseTile) {
 

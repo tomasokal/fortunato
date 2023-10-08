@@ -237,12 +237,12 @@ export default function Tile({ row, col, positionX, positionZ,
         }
 
         // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
-        if ((turn - foundBarrel > 10) && health < 25) {
+        if ((turn - foundBarrel > 10) && health < 25 && !( row === 0 || row === 6 || col === 0 || col === 6 )) {
             models.push('tileBarrel')
         }
 
         // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
-        if ((turn - foundBottle > 10) && health < 40) {
+        if ((turn - foundBottle > 10) && health < 40 && !( row === 0 || row === 6 || col === 0 || col === 6 )) {
             models.push('tileBottle')
         }
 

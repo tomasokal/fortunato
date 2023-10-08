@@ -1,5 +1,10 @@
 {
   "gameStateClueOne": "clueOne",
   "gameStateClueTwo": "clueTwo",
-  "gameStateClueThree": "clueThree"
+  "gameStateClueThree": "clueThree",
+  "healthBarrelOne": "barrelEncounter",
+  "barrelTooSoon": "barrelTooSoon",
+  "healthBottleOne": "healthBottleOne",
+  "healthBottleTooSoon": "healthBottleTooSoon",
+  "gameStartTile": "gameStartTile"
 }

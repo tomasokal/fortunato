@@ -1,4 +1,12 @@
 {
+  "gameStartTile": {
+    "text": "You awake after the first night of being trapped in Montressor's cellar. His masonry is sloppy though. Some of the mortar is soft and you might be able to break free.",
+    "button":
+    {
+      "text": "Begin",
+      "action": "Action for clue one"
+    }
+  },
   "clueOne": {
     "text": "Text for clue one",
     "button":
@@ -21,6 +29,38 @@
     {
       "text": "No",
       "action": "Action for clue three"
+    }
+  },
+  "barrelEncounter": {
+    "text": "You find an oak barrel filled with one of Montressor's nicest amontillados. You take a large sip and feel revitalized, but know you can't live on wine forever. You must find your way out.",
+    "button":
+    {
+      "text": "Continue",
+      "action": "Action for barrel"
+    }
+  },
+  "barrelTooSoon": {
+    "text": "You were just here at this barrel. You are a little too drunk to remember the path behind. Let's keep moving.",
+    "button":
+    {
+      "text": "Leave",
+      "action": "Action for barrel"
+    }
+  },
+  "healthBottleOne": {
+    "text": "You come across a single bottle of wine in a nook in the cellar. You're not usually a fan of oloroso, but a sip can't hurt? This will give you some stamina to keep moving.",
+    "button":
+    {
+      "text": "Continue",
+      "action": "Action for bottle"
+    }
+  },
+  "healthBottleTooSoon": {
+    "text": "You're a little sick of oloroso. You keep moving.",
+    "button":
+    {
+      "text": "Continue",
+      "action": "Action for bottle"
     }
   }
 }

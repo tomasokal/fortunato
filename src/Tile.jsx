@@ -103,6 +103,7 @@ export default function Tile({ row, col, positionX, positionZ,
 
     // Import state for foundBarrel
     const foundBarrel = useGame((state) => state.foundBarrel)
+    const foundBottle = useGame((state) => state.foundBottle)
 
     // state to store if this tile is the primary one
     const [ isPrimaryTile, setIsPrimaryTile] = useState(false)
@@ -228,7 +229,6 @@ export default function Tile({ row, col, positionX, positionZ,
             models.push(
                 'tilePillar', 
                 'tileDead',
-                'tileBottle',
                 'tileHall', 
                 'tileCornerLeft', 'tileCornerRight',
                 'tileWallLeft', 'tileWallForward', 'tileWallRight'
@@ -237,8 +237,13 @@ export default function Tile({ row, col, positionX, positionZ,
         }
 
         // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
-        if ((turn - foundBarrel > 10) && health < 50) {
+        if ((turn - foundBarrel > 10) && health < 25) {
             models.push('tileBarrel')
+        }
+
+        // If we have not found the barrel yet, we add in tileBarrel, but only if health is below 5
+        if ((turn - foundBottle > 10) && health < 40) {
+            models.push('tileBottle')
         }
 
         return models

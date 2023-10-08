@@ -8,14 +8,17 @@ export default function DialogRefactor()
 {
 
     const tile = useGame((state) => state.tile)
+    const phase = useGame((state) => state.phase)
 
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
     const foundBarrel = useGame((state) => state.foundBarrel)
+    const foundBottle = useGame((state) => state.foundBottle)
 
     const setFoundClueOne = useGame((state) => state.setFoundClueOne)
     const setFoundClueTwo = useGame((state) => state.setFoundClueTwo)
     const setFoundBarrel = useGame((state) => state.setFoundBarrel)
+    const setFoundBottle = useGame((state) => state.setFoundBottle)
 
     const health = useGame((state) => state.health)
     const setHealth = useGame((state) => state.setHealth)
@@ -39,7 +42,14 @@ export default function DialogRefactor()
         // If not, set clue found to true
         setTimeout(()=>{
 
-            if (tile === 'tileDeadBook' && foundClueOne === false)
+            if(tile === 'tileStart') {
+
+                if(phase==='playing') {
+                    setCurrentDialogue(dialog[dialogNodes['gameStartTile']])
+                    setShowDialog(true)
+                }
+
+            } else if (tile === 'tileDeadBook' && foundClueOne === false)
             {   
                 setCurrentDialogue(dialog[dialogNodes['gameStateClueOne']])
                 setShowDialog(true)
@@ -49,16 +59,33 @@ export default function DialogRefactor()
                 setShowDialog(true)
                 setFoundClueTwo(true)
             } else if(tile==='tileBarrel') {
-                // setCurrentDialogue(dialog[dialogNodes['gameStateClueTwo']])
-                // setShowDialog(true)
-                console.log(turn - foundBarrel)
-                if(turn - foundBarrel > 10) setHealth(health + 20)
-                setFoundBarrel(turn)
+
+                if(turn - foundBarrel > 10) {
+                    setHealth(health + 20)
+                    setCurrentDialogue(dialog[dialogNodes['healthBarrelOne']])
+                    setShowDialog(true)
+                    setFoundBarrel(turn)
+                } else {
+                    setCurrentDialogue(dialog[dialogNodes['barrelTooSoon']])
+                    setShowDialog(true)
+                }
+            } else if(tile=='tileBottle') {
+
+                if(turn - foundBottle > 10) {
+                    setHealth(health + 10)
+                    setCurrentDialogue(dialog[dialogNodes['healthBottleOne']])
+                    setShowDialog(true)
+                    setFoundBottle(turn)
+                } else {
+                    setCurrentDialogue(dialog[dialogNodes['healthBottleTooSoon']])
+                    setShowDialog(true)
+                }
+
             }
 
         }, 1000)
 
-    }, [tile])
+    }, [tile, phase])
     
     return <>
 

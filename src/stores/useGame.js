@@ -64,7 +64,7 @@ export default create((set) =>
         },
 
         // Player Tile Type Management
-        tile: '',
+        tile: 'tileStart',
         setTile: (value) => {  
             set((state) => {
                 return({tile: value})
@@ -119,6 +119,13 @@ export default create((set) =>
         setFoundBarrel: (value) => {
             set((state) => {
                 return {foundBarrel: value}
+            })
+        },
+        
+        foundBottle: 5,
+        setFoundBottle: (value) => {
+            set((state) => {
+                return {foundBottle: value}
             })
         },
 

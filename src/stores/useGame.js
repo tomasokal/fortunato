@@ -21,9 +21,12 @@ export default create((set) =>
                     health: 51, 
                     message: '',
                     tile: '', 
-                    shownMessageCorner: false,
-                    shownBookCase: false,
-                    foundClue: false,
+                    foundClueOne: false,
+                    foundClueTwo: false,
+                    foundBarrel: false,
+                    // shownMessageCorner: false,
+                    // shownBookCase: false,
+                    // foundClue: false,
                     status: 'inprogress'
                 }
                 return {}
@@ -68,6 +71,7 @@ export default create((set) =>
             })
         },
 
+        // REMOVE THIS
         // Message Management
         message: '',
         setMessage: (value) => {
@@ -84,6 +88,7 @@ export default create((set) =>
             // There are dialog options for the following tiles:
                 // Immured corner
         
+        // REMOVE THIS
         shownMessageCorner: false,
         setShownMessageCorner: (value) => {
             set((state) => {
@@ -92,6 +97,7 @@ export default create((set) =>
             })
         },
 
+        // REMOVE THIS
         shownBookCase: false,
         setShownBookCase: (value) => {
             set((state) => {
@@ -100,6 +106,7 @@ export default create((set) =>
             })
         },
 
+        // REMOVE THIS
         foundClue: false,
         setFoundClue: (value) => {
             set((state) => {
@@ -127,14 +134,6 @@ export default create((set) =>
         setFoundClueTwo: (value) => {
             set((state) => {
                 if(value === true) return {foundClueTwo: true}
-                return {}
-            })
-        },
-
-        foundClueThree: false,
-        setFoundClueThree: (value) => {
-            set((state) => {
-                if(value === true) return {foundClueThree: true}
                 return {}
             })
         },

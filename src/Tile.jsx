@@ -501,11 +501,15 @@ export default function Tile({ row, col, positionX, positionZ,
 
         const handlePointerOver = (e) => {
             e.stopPropagation()
+            const doc = document.querySelector('body')
+            doc.style.cursor = 'pointer'
             setHover(true)
         }
 
         const handlePointerOut = (e) => {
             e.stopPropagation()
+            const doc = document.querySelector('body')
+            doc.style.cursor = 'initial'
             setHover(false)
         }
 

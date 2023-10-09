@@ -30,6 +30,12 @@ export default function Interface()
             <div className='titleScreen'>
                 <h1>The Fate of Fortunato</h1>
                 <button onClick={start}>Start</button>
+                <div className='wrapperImgGrid'>
+                    <div><img className='delayOne' src='./images/bookicon.svg'></img></div>
+                    <div><img src='./images/bottlefilled.svg'></img></div>
+                    <div><img src='./images/bottlefilled.svg'></img></div>
+                    <div><img src='./images/skullocon.svg'></img></div>
+                </div>
             </div>
         </div>
     </>

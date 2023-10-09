@@ -19,6 +19,7 @@
     font-family: 'Mountains of Christmas', cursive;
     color:white;
     backdrop-filter:blur(6px);
+    background-color:black;
 }
 
 .titleScreen {
@@ -68,3 +69,40 @@
     width:100%;
 }
 
+@keyframes opacity {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+
+.wrapperImgGrid {
+    width:600px;
+    display:flex;
+    flex-wrap:wrap;
+    width:426px;
+    margin:auto;
+    background-color:white;
+    gap:2px;
+    margin-top:64px;
+}
+
+.wrapperImgGrid div {
+    width:200px;
+    height:200px;
+    background-color:black;
+    padding:6px;
+}
+
+.wrapperImgGrid div img {
+    height:190px;
+    margin-top:5px;
+    width:auto;
+    /* opacity:0; */
+}
+
+.delayOne {
+    animation: opacity 2s ease-in 1;
+}

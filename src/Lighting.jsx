@@ -48,8 +48,6 @@ export default function Lighting()
         }
     }, [ foundClueTwo ])
 
-    console.log(startTileLight, clueOneLight, clueTwoLight, endLight, turn, lightDelay)
-
     const hintLightOne = useRef()
     useHelper(hintLightOne, PointLightHelper, 1, 'hotpink')
 

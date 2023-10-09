@@ -157,7 +157,7 @@ export default function Lighting()
 
         <directionalLight
             castShadow 
-            intensity={1}
+            intensity={1.6}
             position={[3, 6, 3]}
             // make light go longer
             shadow-mapSize={ [ 1024, 1024 ] }

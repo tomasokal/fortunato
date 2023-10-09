@@ -11,7 +11,7 @@ export default function AudioPlayer() {
 
     const phase = useGame((state) => state.phase)
 
-    const src = 'https://storage.googleapis.com/joshwcomeau/bvrnout-take-it-easy-short.mp3'
+    const src = './sounds/8-bit-halloween-story-166454.mp3'
 
     useEffect(() => {
         if (isMute) {

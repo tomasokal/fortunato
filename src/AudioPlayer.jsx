@@ -31,6 +31,7 @@ export default function AudioPlayer() {
             <audio
                 ref={audioRef}
                 src={src}
+                loop
                 onEnded={() => {
                     setIsPlaying(false);
                 }}

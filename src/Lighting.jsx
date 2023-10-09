@@ -25,10 +25,10 @@ export default function Lighting()
             setStartTileLight(false)
             setClueOneLight(true)
         }
-        if(lightDelay > 5 && foundClueOne && foundClueTwo === false) {
+        if(lightDelay > 15 && foundClueOne && foundClueTwo === false) {
             setClueTwoLight(true)
         }
-        if(lightDelay > 10 && foundClueTwo) {
+        if(lightDelay > 20 && foundClueTwo) {
             setEndLight(true)
         }
         setLightDelay(lightDelay + 1)

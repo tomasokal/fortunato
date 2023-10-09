@@ -95,7 +95,7 @@ export default function DialogRefactor()
         {showDialog && <dialog className="dialog" open={showDialog}>
             <form onSubmit={handleEvent}>
                 <p>{currentDialogue.text}</p>
-                <button type='submit'>{currentDialogue.button.text}</button>
+                <button type='submit' autoFocus>{currentDialogue.button.text}</button>
             </form>
         </dialog>}
 

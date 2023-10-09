@@ -62,5 +62,13 @@
       "text": "Continue",
       "action": "Action for bottle"
     }
+  },
+  "turnTwoInstructions": {
+    "text": "You've made it free from your prison ... for now. A small bit of light is coming from around one of these corners. Maybe there is a path out of here.'",
+    "button":
+    {
+      "text": "Continue",
+      "action": "Action for bottle"
+    }
   }
 }

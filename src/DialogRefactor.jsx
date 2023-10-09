@@ -81,6 +81,9 @@ export default function DialogRefactor()
                     setShowDialog(true)
                 }
 
+            } else if(turn === 2) {
+                setCurrentDialogue(dialog[dialogNodes['turnTwoInstructions']])
+                setShowDialog(true)
             }
 
         }, 1000)

@@ -6,5 +6,6 @@
   "barrelTooSoon": "barrelTooSoon",
   "healthBottleOne": "healthBottleOne",
   "healthBottleTooSoon": "healthBottleTooSoon",
-  "gameStartTile": "gameStartTile"
+  "gameStartTile": "gameStartTile",
+  "turnTwoInstructions": "turnTwoInstructions"
 }

@@ -43,6 +43,11 @@ export default function Character({position, ...props}) {
 
     }, [ position ])
 
+    jester.scene.traverse(child => {
+        child.castShadow = true
+        child.receiveShadow = true
+    })
+
     return <>
         {/* <Center> */}
             <primitive 
@@ -51,6 +56,8 @@ export default function Character({position, ...props}) {
                 object={jester.scene} 
                 // rotation-y={ 0.3 }
                 scale={50}
+                recieveShadow
+                castShadow
             />
         {/* </Center> */}
     </>

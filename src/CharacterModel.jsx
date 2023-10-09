@@ -1,4 +1,4 @@
-import { Center, useAnimations, useGLTF } from '@react-three/drei'
+import { useAnimations, useGLTF } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { useControls } from 'leva'
 import { useFrame } from '@react-three/fiber';
@@ -68,20 +68,15 @@ export default function Character({position, ...props}) {
 
     jester.scene.traverse(child => {
         child.castShadow = true
-        child.receiveShadow = true
     })
 
     return <>
-        {/* <Center> */}
             <primitive 
                 ref={modelPrim}
                 {...props} 
                 object={jester.scene} 
-                // rotation-y={ 0.3 }
-                scale={50}
-                recieveShadow
                 castShadow
+                scale={50}
             />
-        {/* </Center> */}
     </>
 }

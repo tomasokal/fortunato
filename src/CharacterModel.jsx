@@ -11,6 +11,7 @@ export default function Character({position, ...props}) {
     const modelPrim = useRef()
 
     const tile = useGame((state) => state.tile)
+    const health = useGame((state)=> state.health)
 
     const jester = useGLTF('./jester/jester-imported-textured.gltf')
     const animations = useAnimations(jester.animations, jester.scene)
@@ -31,6 +32,9 @@ export default function Character({position, ...props}) {
         const action = animations.actions['DrunkRun']
         const drinkAnimation = animations.actions['Drinking']
         const idleAnimation = animations.actions['DrunkIdle']
+        const dyingAnimation = animations.actions['Dying']
+
+        // const action = animations.actions[animationName]
         
         action
           .reset()
@@ -42,6 +46,11 @@ export default function Character({position, ...props}) {
             if(tile=='tileBarrel' || tile=='tileBottle') {
                 drinkAnimation.reset().fadeIn(0.02).play()
                 drinkAnimation.crossFadeFrom(action, 2.2)
+            } else if(health < 1) {
+                dyingAnimation.reset().fadeIn(0.02).play()
+                dyingAnimation.crossFadeFrom(action, 2.2)
+                dyingAnimation.clampWhenFinished = true
+                dyingAnimation.setLoop(THREE.LoopOnce, 1)
             } else {
                 idleAnimation.reset().fadeIn(0.02).play()
                 idleAnimation.crossFadeFrom(action, 2.2)
@@ -52,6 +61,7 @@ export default function Character({position, ...props}) {
             action.fadeOut(0.5)
             drinkAnimation.fadeOut(0.5)
             idleAnimation.fadeOut(0.5)
+            dyingAnimation.fadeOut(0.5)
         }
 
     }, [ position ])

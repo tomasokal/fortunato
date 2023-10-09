@@ -121,3 +121,29 @@
 .delayOne {
     animation: opacity 2s ease-in 1;
 }
+
+input[type=range][orient=vertical] {
+    appearance: slider-vertical;
+    width: 8px;
+    height: 75px;
+    padding: 0 5px;
+    margin:auto;
+}
+
+.audioWrapper {
+    background-color:transparent;
+    position:absolute;
+    bottom:20px;
+    right:20px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap:14px;
+}
+
+.muteButton {
+    background-color:transparent;
+    color:white;
+    box-shadow: revert;
+    border:none;
+}

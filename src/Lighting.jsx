@@ -12,26 +12,43 @@ export default function Lighting()
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
 
-    const [ clueOneLight, setClueOneLight ] = useState(true)
+    const [ startTileLight, setStartTileLight ] = useState(true)
+    const [ clueOneLight, setClueOneLight ] = useState(false)
     const [ clueTwoLight, setClueTwoLight ] = useState(false)
     const [ endLight, setEndLight ] = useState(false)
 
+    const turn = useGame((state) => state.turn)
+    const [ lightDelay, setLightDelay ] = useState(0)
+
     useEffect(()=> {
-        if(foundClueOne) {
-            setClueOneLight(false)
+        if(turn > 2 && foundClueOne === false) {
+            setStartTileLight(false)
+            setClueOneLight(true)
+        }
+        if(lightDelay > 5 && foundClueOne && foundClueTwo === false) {
             setClueTwoLight(true)
         }
-    }, [ foundClueOne, foundClueTwo ])
+        if(lightDelay > 10 && foundClueTwo) {
+            setEndLight(true)
+        }
+        setLightDelay(lightDelay + 1)
+    }, [ turn ])
+
+    useEffect(()=> {
+        if(foundClueOne) {
+            setClueOneLight(false)           
+            setLightDelay(0)
+        }
+    }, [ foundClueOne ])
 
     useEffect(()=> {
         if(foundClueTwo) {
             setClueTwoLight(false)
-            setEndLight(true)
+            setLightDelay(0)
         }
-    }, [ foundClueOne, foundClueTwo ])
+    }, [ foundClueTwo ])
 
-    console.log('foundClueOne:', foundClueOne, 'foundClueTwo:', foundClueTwo)
-    console.log('clueOneLight:', clueOneLight, 'clueTwoLight:', clueTwoLight, 'endLight:', endLight)
+    console.log(startTileLight, clueOneLight, clueTwoLight, endLight, turn, lightDelay)
 
     const hintLightOne = useRef()
     useHelper(hintLightOne, PointLightHelper, 1, 'hotpink')
@@ -76,6 +93,21 @@ export default function Lighting()
     return <>
 
         {/* Add a pointlight at 5, 2, 5 */}
+        {startTileLight && <pointLight
+            castShadow
+            position={[0.0, 2.7, 5.4]}
+            intensity={30}
+            color={'green'}
+            distance={3.2}
+            // decay={LightDecay}
+            // shadow-camera-near={ 1 }
+            // shadow-camera-far={ 100 }
+            // shadow-camera-top={ 100 }
+            // shadow-camera-right={ 100 }
+            // shadow-camera-bottom={ - 100 }
+            // shadow-camera-left={ - 100 }
+        />}
+
         {clueOneLight && <pointLight
             castShadow
             position={[4.4, 2.7, 3.4]}

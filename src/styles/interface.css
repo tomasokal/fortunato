@@ -24,9 +24,15 @@
 
 .titleScreen {
     display:block;
-    margin:20% auto;
+    margin: auto;
     width:600px;
     text-align: center;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .titleScreen h1 {

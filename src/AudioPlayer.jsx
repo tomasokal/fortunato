@@ -19,11 +19,11 @@ export default function AudioPlayer() {
         } else {
             setVolume(0.15)
         }
+        audioRef.current.play()
       }, [isMute, phase]);
 
       useEffect(()=> {
         audioRef.current.volume = volume
-        audioRef.current.play()
       }, [volume])
 
     return(

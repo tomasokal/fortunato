@@ -35,10 +35,20 @@
 
 .titleScreen button {
     width:200px;
-    background:none;
+    /* background:none; */
+    background-color:darkred;
     color:white;
     font-size:34px;
     font-family: 'Mountains of Christmas', cursive;
+    border:1px solid firebrick;
+}
+
+.titleScreen button:hover {
+    border:1px solid cornsilk;
+    transform:translateY(4px);
+    font-weight:700;
+    cursor:pointer;
+    box-shadow: rgba(200, 200, 111, 0.3) 0px 7px 29px 0px;
 }
 
 .healthpointsWrapper {
@@ -101,6 +111,11 @@
     margin-top:5px;
     width:auto;
     /* opacity:0; */
+}
+
+.wrapperImgGrid div img:hover {
+    transform:scale(1.05);
+    transition: transform 0.2s;
 }
 
 .delayOne {

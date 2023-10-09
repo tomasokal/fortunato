@@ -23,6 +23,10 @@ export default function DialogRefactor()
     const health = useGame((state) => state.health)
     const setHealth = useGame((state) => state.setHealth)
 
+    // specific stores to track if dialog is open in other places
+    const dialogOpen = useGame((state) => state.dialogOpen)
+    const setDialogOpen = useGame((state) => state.setDialogOpen)
+
     const turn = useGame((state) => state.turn)
 
     const [ showDialog, setShowDialog ] = useState(false)
@@ -33,6 +37,7 @@ export default function DialogRefactor()
     {
         event.preventDefault()
         setShowDialog(false)
+        setDialogOpen(false)
         setCurrentDialogue({})
     }
 
@@ -89,6 +94,10 @@ export default function DialogRefactor()
         }, 1000)
 
     }, [tile, phase])
+
+    useEffect(()=> {
+        if(showDialog) setDialogOpen(true)
+    }, [showDialog])
     
     return <>
 

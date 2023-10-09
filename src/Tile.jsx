@@ -91,6 +91,9 @@ export default function Tile({ row, col, positionX, positionZ,
     const turn = useGame((state) => state.turn)
     const setTurn = useGame((state) => state.setTurn)
 
+    // checks if dialog is open to prevent click when there is dialog
+    const dialogOpen = useGame((state) => state.dialogOpen)
+
     // States for clues and objectives
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
@@ -424,6 +427,7 @@ export default function Tile({ row, col, positionX, positionZ,
     let handleClick = (e) => {
             e.stopPropagation()
             setHover(false)
+            if(dialogOpen) return
             if(isPrimaryTile) return
             let currentTile = [row, col]
             let allTiles = [...selectedTiles, primaryTile]

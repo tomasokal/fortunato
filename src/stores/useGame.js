@@ -115,6 +115,14 @@ export default create((set) =>
             })
         },
 
+        // for tracking dialog state
+        dialogOpen: false,
+        setDialogOpen: (value) => {
+            set((state) => {
+                return {dialogOpen: value}
+            })
+        },
+
         foundBarrel: 10,
         setFoundBarrel: (value) => {
             set((state) => {

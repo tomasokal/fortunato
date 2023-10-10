@@ -14,11 +14,13 @@ export default function DialogRefactor()
 
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
+    const foundClueThree = useGame((state) => state.foundClueThree)
     const foundBarrel = useGame((state) => state.foundBarrel)
     const foundBottle = useGame((state) => state.foundBottle)
 
     const setFoundClueOne = useGame((state) => state.setFoundClueOne)
     const setFoundClueTwo = useGame((state) => state.setFoundClueTwo)
+    const setFoundClueThree = useGame((state) => state.setFoundClueThree)
     const setFoundBarrel = useGame((state) => state.setFoundBarrel)
     const setFoundBottle = useGame((state) => state.setFoundBottle)
 
@@ -72,6 +74,10 @@ export default function DialogRefactor()
                 setCurrentDialogue(dialog[dialogNodes['gameStateClueTwo']])
                 setShowDialog(true)
                 setFoundClueTwo(true)
+            } else if(tile === 'tileKey' && foundClueThree === false) {
+                setCurrentDialogue(dialog[dialogNodes['gameStateClueThree']])
+                setShowDialog(true)
+                setFoundClueThree(true)
             } else if(tile==='tileBarrel') {
 
                 if(turn - foundBarrel > 10) {

@@ -70,5 +70,21 @@
       "text": "Continue",
       "action": "Action for bottle"
     }
+  },
+  "gameWon": {
+    "text": "You finally reach a stairwell out of the cellar. The bright sun shines down into the entrance, leading you to freedom.'",
+    "button":
+    {
+      "text": "Exit",
+      "action": "Action for bottle"
+    }
+  },
+  "gameLost": {
+    "text": "Your body gives out from fatigue. You succumb to the catacombs to haunt future visitors.",
+    "button":
+    {
+      "text": "Sleep",
+      "action": "Action for bottle"
+    }
   }
 }

@@ -7,5 +7,7 @@
   "healthBottleOne": "healthBottleOne",
   "healthBottleTooSoon": "healthBottleTooSoon",
   "gameStartTile": "gameStartTile",
-  "turnTwoInstructions": "turnTwoInstructions"
+  "turnTwoInstructions": "turnTwoInstructions",
+  "gameWon": "gameWon",
+  "gameLost": "gameLost"
 }

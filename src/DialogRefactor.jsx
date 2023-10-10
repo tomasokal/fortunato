@@ -9,6 +9,8 @@ export default function DialogRefactor()
 
     const tile = useGame((state) => state.tile)
     const phase = useGame((state) => state.phase)
+    const win = useGame((state) => state.win)
+    const lose = useGame((state) => state.lose)
 
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
@@ -39,6 +41,13 @@ export default function DialogRefactor()
         setShowDialog(false)
         setDialogOpen(false)
         setCurrentDialogue({})
+
+        if(tile == 'tileEnd') {
+            win()
+        }
+        if(health < 1) {
+            lose()
+        }
     }
 
     useEffect(()=> {
@@ -88,6 +97,12 @@ export default function DialogRefactor()
 
             } else if(turn === 2) {
                 setCurrentDialogue(dialog[dialogNodes['turnTwoInstructions']])
+                setShowDialog(true)
+            } else if(health<2 && phase!='ended') {
+                setCurrentDialogue(dialog[dialogNodes['gameLost']])
+                setShowDialog(true)
+            } else if(tile==='tileEnd' && phase!='ended') {
+                setCurrentDialogue(dialog[dialogNodes['gameWon']])
                 setShowDialog(true)
             }
 

@@ -13,7 +13,11 @@ export default function Experience()
     
     return <>
     
-        <OrbitControls makeDefault />
+        <OrbitControls 
+            makeDefault 
+            maxPolarAngle={Math.PI / 2.05}
+            minPolarAngle={Math.PI / 6}
+        />
 
         <Lighting />
 

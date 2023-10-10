@@ -21,8 +21,10 @@ export default create((set) =>
                     health: 51, 
                     message: '',
                     tile: '', 
+                    turn: 0,
                     foundClueOne: false,
                     foundClueTwo: false,
+                    foundClueThree: false,
                     foundBarrel: false,
                     // shownMessageCorner: false,
                     // shownBookCase: false,
@@ -149,6 +151,14 @@ export default create((set) =>
         setFoundClueTwo: (value) => {
             set((state) => {
                 if(value === true) return {foundClueTwo: true}
+                return {}
+            })
+        },
+
+        foundClueThree: false,
+        setFoundClueThree: (value) => {
+            set((state) => {
+                if(value === true) return {foundClueThree: true}
                 return {}
             })
         },

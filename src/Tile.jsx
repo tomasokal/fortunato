@@ -43,6 +43,7 @@ export default function Tile({ row, col, positionX, positionZ,
         const tileWallLeft = useLoader(GLTFLoader, './tile-wall-left.glb')
         const tileWallForward = useLoader(GLTFLoader, './tile-wall-forward.glb')
         const tileWallRight = useLoader(GLTFLoader, './tile-wall-right.glb')
+        const tileKey = useLoader(GLTFLoader, './tile-key.glb')
 
         // Hall models
         const tileHall = useLoader(GLTFLoader, './tile-hall.glb') 
@@ -73,6 +74,7 @@ export default function Tile({ row, col, positionX, positionZ,
         tileBarrel: tileBarrel,
         tileStart: tileStart,
         tileEnd: tileEnd,
+        tileKey: tileKey
     }
 
     // States
@@ -97,6 +99,7 @@ export default function Tile({ row, col, positionX, positionZ,
     // States for clues and objectives
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
+    const foundClueThree = useGame((state) => state.foundClueThree)
     
     // Import state for foundClue
     const foundClue = useGame((state) => state.foundClue)
@@ -140,8 +143,8 @@ export default function Tile({ row, col, positionX, positionZ,
             if (primaryTile[0] === 6) {
                 models.length = 0
                 primaryTile[1] > col
-                        ? models.push('tileCornerLeft', 'tileCornerBrickLeft', 'tileHall', 'tileWallRight', 'tileDead')
-                        : models.push('tileCornerRight', 'tileCornerBrickRight', 'tileHall', 'tileWallLeft', 'tileDead')
+                        ? models.push('tileCornerLeft', 'tileHall', 'tileWallRight', 'tileDead')
+                        : models.push('tileCornerRight', 'tileHall', 'tileWallLeft', 'tileDead')
             }
             // If primary tile is on top edge
             if (primaryTile[1] === 0) {
@@ -283,8 +286,16 @@ export default function Tile({ row, col, positionX, positionZ,
                 setSelectedModelName('tileCornerBrickLeft')
             }
 
+            // Specific clue two tile
+            else if (foundClueOne && foundClueTwo && row === 1 && col === 5 )
+            {
+                let modelObject = allmodels['tileKey']
+                setSelectedModel(modelObject)
+                setSelectedModelName('tileKey')
+            }
+
             // End tile
-            else if (foundClueOne && foundClueTwo && row === 3 && col === 3 )
+            else if (foundClueOne && foundClueTwo && foundClueThree && row === 3 && col === 3 )
             {
                 let modelObject = allmodels['tileEnd']
                 setSelectedModel(modelObject)
@@ -420,6 +431,7 @@ export default function Tile({ row, col, positionX, positionZ,
         tileBarrel: [0, 0, 0, 1],
         tileHall: [0, 1, 0, 1],
         tileEnd: [0, 0, 0, 1],
+        tileKey: [1, 0, 1, 1]
 
     }
 

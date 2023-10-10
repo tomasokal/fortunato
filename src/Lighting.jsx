@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { DirectionalLightHelper, SpotLightHelper, PointLightHelper } from 'three'
-import { SpotLight } from '@react-three/drei'
 import { useHelper } from '@react-three/drei'
+import { DirectionalLightHelper, SpotLightHelper, PointLightHelper } from 'three'
+import { useSpring } from '@react-spring/core'
 
 import useGame from './stores/useGame'
 import { useControls } from 'leva'
@@ -11,6 +11,7 @@ export default function Lighting()
 
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
+    const foundClueThree = useGame((state) => state.foundClueThree)
 
     const [ startTileLight, setStartTileLight ] = useState(true)
     const [ clueOneLight, setClueOneLight ] = useState(false)
@@ -21,6 +22,10 @@ export default function Lighting()
     const [ lightDelay, setLightDelay ] = useState(0)
 
     useEffect(()=> {
+        if(turn > 0 && foundClueOne === false) {
+            setStartTileLight(true)
+            setClueOneLight(false)
+        }
         if(turn > 2 && foundClueOne === false) {
             setStartTileLight(false)
             setClueOneLight(true)
@@ -48,8 +53,8 @@ export default function Lighting()
         }
     }, [ foundClueTwo ])
 
-    const hintLightOne = useRef()
-    useHelper(hintLightOne, PointLightHelper, 1, 'hotpink')
+    // const hintLightOne = useRef()
+    // useHelper(hintLightOne, PointLightHelper, 1, 'hotpink')
 
     const { 
         LightingIntensity, 

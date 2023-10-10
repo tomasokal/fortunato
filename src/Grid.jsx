@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useLoader } from '@react-three/fiber'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 import Tile from './Tile.jsx'
 import PlayerCharacter from './PlayerCharacter.jsx'
 
 import useGame from './stores/useGame.js'
 import { useEffect } from 'react'
+import { useControls } from 'leva'
 
 export default function Grid({ rows, columns })
 {
@@ -137,11 +140,29 @@ export default function Grid({ rows, columns })
 
         }
 
+    // Pull in game board?
+    const gameBoard = useLoader(GLTFLoader, './board.glb')
+
+    const {adjustX, adjustZ} = useControls({
+        adjustX: {value: 0, min: -10, max: 10},
+        adjustZ: {value: 0, min: -10, max: 10}
+    })
+
     return <>
 
         <group>
             {tiles}
             <PlayerCharacter primaryTile={primaryTile} />
+            <primitive 
+                castShadow
+                receiveShadow
+                object={ gameBoard.scene.clone() } 
+                // rotation={[Math.PI, rotationAdjustment, 0]}
+                // position-y={positionAdjustment.y}
+                position-x={6.8}
+                position-y={0.5}
+                position-z={6.8}
+            />
         </group>
     
     </>

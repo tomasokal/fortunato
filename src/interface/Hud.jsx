@@ -14,6 +14,7 @@ export default function Hud()
     const health = useGame((state)=> state.health)
     const book = useGame((state)=> state.foundClueOne)
     const skull = useGame((state)=> state.foundClueTwo)
+    const key = useGame((state)=> state.foundClueThree)
 
     useEffect(()=>{
         // lets us tap into framerate of r3f even outside of canvas
@@ -31,6 +32,6 @@ export default function Hud()
 
     return <>
         <Health healthpoints={health}/>
-        <Clues foundBook={book} foundSkull={skull} />
+        <Clues foundBook={book} foundSkull={skull} foundKey={key} />
     </>
 }

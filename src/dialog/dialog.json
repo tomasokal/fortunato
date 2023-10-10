@@ -8,26 +8,26 @@
     }
   },
   "clueOne": {
-    "text": "Text for clue one",
+    "text": "On the shelf in front of you is a ledger of sorts, filled with names. Scribed in the last spot is yours. At your feet are candles, still warm. Are others down here?",
     "button":
     {
-      "text": "Yes",
+      "text": "Continue",
       "action": "Action for clue one"
     }
   },
   "clueTwo": {
-    "text": "Text for clue two",
+    "text": "Before you is an alcove, at the back of which is a crypt set into the wall, containing one of Montressor's less fortunate guests. Away from which are a set of footsteps.",
     "button":
     {
-      "text": "Maybe",
+      "text": "Follow Steps",
       "action": "Action for clue two"
     }
   },
   "clueThree": {
-    "text": "Text for clue three",
+    "text": "Hanging before you is a set of keys! You recognize these as Montressor's garden keys used to access outbuilding behind his house. Perhaps there is a stairway out of these wretched catacombs.",
     "button":
     {
-      "text": "No",
+      "text": "Continue",
       "action": "Action for clue three"
     }
   },
@@ -59,7 +59,7 @@
     "text": "You're a little sick of oloroso. You keep moving.",
     "button":
     {
-      "text": "Continue",
+      "text": "Leave",
       "action": "Action for bottle"
     }
   },
@@ -72,7 +72,7 @@
     }
   },
   "gameWon": {
-    "text": "You finally reach a stairwell out of the cellar. The bright sun shines down into the entrance, leading you to freedom.'",
+    "text": "You finally reach a stairwell out of the cellar. The bright sun shines down into the entrance, leading you to freedom.",
     "button":
     {
       "text": "Exit",

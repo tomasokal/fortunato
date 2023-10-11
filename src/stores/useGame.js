@@ -3,6 +3,20 @@ import { subscribeWithSelector } from 'zustand/middleware'
 
 export default create((set) => 
 {
+
+    const coordinates = [
+        [[1, 5], [3, 3], [1, 1], [5, 3]],
+        [[6, 0], [1, 5], [5, 4], [1, 1]],
+        [[5, 5], [1, 1], [1, 5], [3, 3]],
+        [[3, 1], [5, 4], [1, 4], [3, 5]],
+        [[6, 5], [3, 1], [1, 4], [3, 6]],
+    ]
+
+    const setClues = () => {
+        const setClueSelection = Math.floor(Math.random() * coordinates.length)
+        return coordinates[setClueSelection]
+    }
+
     return {
 
         // Game Phase Management
@@ -10,26 +24,33 @@ export default create((set) =>
         status: 'inprogress',
         start: () => {
             set((state) => {
-                if(state.phase === 'ready') return { phase: 'playing' }
+                if(state.phase === 'ready') { 
+                    const clueSelection = setClues()
+                    return { 
+                        clueSelection: clueSelection,
+                        phase: 'playing',
+                    }
+                }
                 return {}
             })
         },
         restart: () => {
             set((state) => {
-                if(state.phase === 'ready' || state.phase === 'playing' || state.phase === 'ended') return {
-                    phase: 'playing', 
-                    health: 51, 
-                    message: '',
-                    tile: 'tileStart', 
-                    turn: 0,
-                    foundClueOne: false,
-                    foundClueTwo: false,
-                    foundClueThree: false,
-                    foundBarrel: false,
-                    // shownMessageCorner: false,
-                    // shownBookCase: false,
-                    // foundClue: false,
-                    status: 'inprogress'
+                if(state.phase === 'ready' || state.phase === 'playing' || state.phase === 'ended') {
+                    const clueSelection = setClues()
+                    return {
+                        phase: 'playing', 
+                        health: 51, 
+                        message: '',
+                        tile: '', 
+                        turn: 0,
+                        foundClueOne: false,
+                        foundClueTwo: false,
+                        foundClueThree: false,
+                        foundBarrel: false,
+                        clueSelection: clueSelection,
+                        status: 'inprogress'
+                    }
                 }
                 return {}
             })
@@ -168,6 +189,8 @@ export default create((set) =>
                 return {}
             })
         },
+
+        clueSelection: [],
 
     }
 })

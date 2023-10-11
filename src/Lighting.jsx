@@ -12,10 +12,12 @@ export default function Lighting()
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
     const foundClueThree = useGame((state) => state.foundClueThree)
+    const clueSelection = useGame((state) => state.clueSelection)
 
     const [ startTileLight, setStartTileLight ] = useState(true)
     const [ clueOneLight, setClueOneLight ] = useState(false)
     const [ clueTwoLight, setClueTwoLight ] = useState(false)
+    const [ clueThreeLight, setClueThreeLight ] = useState(false)
     const [ endLight, setEndLight ] = useState(false)
 
     const turn = useGame((state) => state.turn)
@@ -25,16 +27,25 @@ export default function Lighting()
         if(turn > 0 && foundClueOne === false) {
             setStartTileLight(true)
             setClueOneLight(false)
+            setEndLight(false)
         }
         if(turn > 2 && foundClueOne === false) {
             setStartTileLight(false)
             setClueOneLight(true)
         }
-        if(lightDelay > 15 && foundClueOne && foundClueTwo === false) {
+        // if(lightDelay > 15 && foundClueOne && foundClueTwo === false) {
+        if(foundClueOne && foundClueTwo === false) {
             setClueTwoLight(true)
+            setClueOneLight(false)
         }
-        if(lightDelay > 20 && foundClueTwo) {
+        if(foundClueOne && foundClueTwo && foundClueThree === false) {
+            setClueThreeLight(true)
+            setClueTwoLight(false)
+        }
+        // if(lightDelay > 20 && foundClueTwo) {
+        if(foundClueThree) {
             setEndLight(true)
+            setClueThreeLight(false)
         }
         setLightDelay(lightDelay + 1)
     }, [ turn ])
@@ -53,109 +64,81 @@ export default function Lighting()
         }
     }, [ foundClueTwo ])
 
-    // const hintLightOne = useRef()
-    // useHelper(hintLightOne, PointLightHelper, 1, 'hotpink')
-
-    const { 
-        LightingIntensity, 
-        LightPosX, LightPosY, LightPosZ,
-        LightDistance
-     } = useControls({
-        LightingIntensity: {
-            value: 1,
-            min: 0,
-            max: 50,
-            step: 0.1
-        },
-        LightPosX : {
-            value: 5,
-            min: -10,
-            max: 10,
-            step: 0.1
-        },
-        LightPosY : {
-            value: 5,
-            min: -10,
-            max: 10,
-            step: 0.1
-        },
-        LightPosZ : {
-            value: 5,
-            min: -10,
-            max: 10,
-            step: 0.1
-        },
-        LightDistance: {
-            value: 2,
-            min: 0,
-            max: 50,
-            step: 0.1
+    useEffect(()=> {
+        if(foundClueThree) {
+            setClueTwoLight(false)
+            setLightDelay(0)
         }
-    })
+    }, [ foundClueThree ])
+
+    const convertTileToX = (tile) => {
+        return tile * 2.25
+    }
+
+    const convertTileToZ = (tile) => {
+        return tile * 2.25
+    }
+
+    if(clueSelection.length > 0) {
+        console.log(clueSelection)
+    }
 
     return <>
 
         {/* Add a pointlight at 5, 2, 5 */}
         {startTileLight && <pointLight
             castShadow
-            position={[0.0, 2.7, 5.4]}
+            position-x={convertTileToX(3)}
+            position-y={2.7}
+            position-z={convertTileToX(6)}
+            // position={[0.0, 2.7, 5.4]}
             intensity={30}
             color={'green'}
             distance={3.2}
-            // decay={LightDecay}
-            // shadow-camera-near={ 1 }
-            // shadow-camera-far={ 100 }
-            // shadow-camera-top={ 100 }
-            // shadow-camera-right={ 100 }
-            // shadow-camera-bottom={ - 100 }
-            // shadow-camera-left={ - 100 }
         />}
 
         {clueOneLight && <pointLight
             castShadow
-            position={[4.4, 2.7, 3.4]}
+            position-x={convertTileToX(clueSelection[0][0])}
+            position-y={2.7}
+            position-z={convertTileToZ(clueSelection[0][1])}
+            // position={[4.4, 2.7, 3.4]}
             intensity={30}
-            color={'green'}
+            color={'red'}
             distance={3.2}
-            // decay={LightDecay}
-            // shadow-camera-near={ 1 }
-            // shadow-camera-far={ 100 }
-            // shadow-camera-top={ 100 }
-            // shadow-camera-right={ 100 }
-            // shadow-camera-bottom={ - 100 }
-            // shadow-camera-left={ - 100 }
         />}
 
         {clueTwoLight && <pointLight
             castShadow
-            ref={hintLightOne}
-            position={[-4.5, 2.7, -5.7]}
+            position-x={convertTileToX(clueSelection[1][0])}
+            position-y={2.7}
+            position-z={convertTileToZ(clueSelection[1][1])}
+            // position={[-4.5, 2.7, -5.7]}
             intensity={30}
             color={'purple'}
             distance={3.2}
-            // decay={LightDecay}
-            // shadow-camera-near={ 1 }
-            // shadow-camera-far={ 100 }
-            // shadow-camera-top={ 100 }
-            // shadow-camera-right={ 100 }
-            // shadow-camera-bottom={ - 100 }
-            // shadow-camera-left={ - 100 }
+        />}
+
+        {clueThreeLight && <pointLight
+            castShadow
+            position-x={convertTileToX(clueSelection[2][0])}
+            position-y={2.7}
+            position-z={convertTileToZ(clueSelection[2][1])}
+            // position={[-4.5, 2.7, -5.7]}
+            intensity={30}
+            color={'blue'}
+            distance={3.2}
         />}
 
         {endLight && <pointLight
             castShadow
-            // ref={hintLightOne}
+            position-x={convertTileToX(clueSelection[3][0])}
+            position-y={2.7}
+            position-z={convertTileToZ(clueSelection[3][1])}
             position={[0.0, 2.7, -1.0]}
             intensity={30}
-            color={'cyan'}
+            color={'white'}
             distance={3.2}
-            // decay={LightDecay}
-            // shadow-camera-near={ 1 }
-            // shadow-camera-far={ 100 }
-            // shadow-camera-top={ 100 }
-            // shadow-camera-right={ 100 }
-            // shadow-camera-bottom={ - 100 }
-            // shadow-camera-left={ - 100 }
         />}
 
         <ambientLight intensity={0.1} />

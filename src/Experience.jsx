@@ -19,10 +19,9 @@ export default function Experience()
             minPolarAngle={Math.PI / 6}
         />
 
-        <Lighting />
-
         <Center>
             <Grid rows={7} columns={7} />
+            <Lighting />
         </Center>
 
     </>

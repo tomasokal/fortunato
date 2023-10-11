@@ -20,7 +20,7 @@ export default create((set) =>
                     phase: 'playing', 
                     health: 51, 
                     message: '',
-                    tile: '', 
+                    tile: 'tileStart', 
                     turn: 0,
                     foundClueOne: false,
                     foundClueTwo: false,
@@ -64,7 +64,13 @@ export default create((set) =>
                 return({turn: value})
             })
         },
-
+        // menu stores prop on escape key
+        menuOpen: false,
+        toggleMenuOpen: (menuOpen) => {
+            set((state) => {
+                return({menuOpen: !menuOpen})
+            })
+        },
         // Player Tile Type Management
         tile: 'tileStart',
         setTile: (value) => {  

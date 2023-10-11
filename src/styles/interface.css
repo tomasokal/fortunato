@@ -7,7 +7,7 @@
     right: 0;
     color: white;
     font-size: 1rem;
-    z-index:999;
+    z-index:99;
 }
 
 .titleScreenWrapper {
@@ -49,7 +49,7 @@
     border:1px solid firebrick;
 }
 
-.titleScreen button:hover {
+.titleScreen button:hover, .menu button:hover {
     border:1px solid cornsilk;
     transform:translateY(4px);
     font-weight:700;
@@ -153,3 +153,83 @@ input[type=range][orient=vertical] {
     box-shadow: revert;
     border:none;
 }
+
+.menuwrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.menu {
+    position: absolute;
+    width:600px;
+    height: 700px;
+    /* border:1px solid #760303; */
+    /* background-color:rgb(7,7,7); */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap:32px;
+    padding:32px 12px;
+}
+
+.menu button, .menu a {
+    width: 200px;
+    /* background: none; */
+    background-color: darkred;
+    color: white;
+    font-size: 34px;
+    font-family: 'Mountains of Christmas', cursive;
+    border: 1px solid firebrick;
+    text-align: center;
+    text-decoration: none;
+}
+
+.brightness {
+    color: white;
+    font-size: 34px;
+    font-family: 'Mountains of Christmas', cursive;
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .menu input[type='range'] {
+      overflow: hidden;
+      width: 200px;
+      -webkit-appearance: none;
+      background-color: lightslategray;
+      border:1px solid firebrick;
+    }
+    
+    .menu input[type='range']::-webkit-slider-runnable-track {
+      height: 14px;
+      -webkit-appearance: none;
+      color: #13bba4;
+      margin-top: -1px;
+    }
+    
+    .menu input[type='range']::-webkit-slider-thumb {
+      width: 20px;
+      -webkit-appearance: none;
+      height: 14px;
+      cursor: ew-resize;
+      background: black;
+      box-shadow: -100px 0 0 100px darkred;
+    }

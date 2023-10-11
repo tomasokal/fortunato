@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { addEffect } from "@react-three/fiber"
 import useGame from "../stores/useGame.js"
 
-export default function Interface()
+export default function EndGameScreen()
 {
 
     const phase = useGame((state) => state.phase)

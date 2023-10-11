@@ -6,6 +6,7 @@ import Dialog from "./Dialog.jsx"
 import TitleScreen from "./interface/TitleScreen.jsx"
 import EndGameScreen from "/interface/EndGameScreen.jsx"
 import Hud from "/interface/Hud.jsx"
+import Menu from "/interface/Menu.jsx"
 
 import './styles/interface.css'
 import DialogRefactor from "./DialogRefactor.jsx"
@@ -37,6 +38,7 @@ export default function Interface()
 
         {phase==='ready' && <TitleScreen />}
         {phase==='ended' && <EndGameScreen />}
+        {phase==='playing' && <Menu />}
         {phase==='playing' && <Hud />}
         <DialogRefactor />
 

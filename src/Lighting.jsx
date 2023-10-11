@@ -53,9 +53,6 @@ export default function Lighting()
         }
     }, [ foundClueTwo ])
 
-    // const hintLightOne = useRef()
-    // useHelper(hintLightOne, PointLightHelper, 1, 'hotpink')
-
     const { 
         LightingIntensity, 
         LightPosX, LightPosY, LightPosZ,
@@ -128,7 +125,6 @@ export default function Lighting()
 
         {clueTwoLight && <pointLight
             castShadow
-            ref={hintLightOne}
             position={[-4.5, 2.7, -5.7]}
             intensity={30}
             color={'purple'}
@@ -144,7 +140,6 @@ export default function Lighting()
 
         {endLight && <pointLight
             castShadow
-            // ref={hintLightOne}
             position={[0.0, 2.7, -1.0]}
             intensity={30}
             color={'cyan'}

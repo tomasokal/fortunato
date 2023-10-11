@@ -100,6 +100,8 @@ export default function Tile({ row, col, positionX, positionZ,
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
     const foundClueThree = useGame((state) => state.foundClueThree)
+
+    const clueSelection = useGame((state) => state.clueSelection)
     
     // Import state for foundClue
     const foundClue = useGame((state) => state.foundClue)
@@ -270,7 +272,8 @@ export default function Tile({ row, col, positionX, positionZ,
             } 
             
             // Specific clue one tile
-            else if (row === 5 && col === 5)
+            else if (clueSelection.length > 0 && row === clueSelection[0][0] && col === clueSelection[0][1])
+            // else if (row === 5 && col === 5)
             {
                 let modelObject = allmodels['tileDeadBook']
                 setSelectedModel(modelObject)
@@ -278,7 +281,8 @@ export default function Tile({ row, col, positionX, positionZ,
             }
 
             // Specific clue two tile
-            else if (foundClueOne && row === 1 && col === 1 )
+            else if (foundClueOne && row === clueSelection[1][0] && col === clueSelection[1][1])
+            // else if (foundClueOne && row === 1 && col === 1 )
             {
                 let modelObject = allmodels['tileCornerBrickLeft']
                 setSelectedModel(modelObject)
@@ -286,7 +290,8 @@ export default function Tile({ row, col, positionX, positionZ,
             }
 
             // Specific clue two tile
-            else if (foundClueOne && foundClueTwo && row === 1 && col === 5 )
+            else if (foundClueOne && foundClueTwo && row === clueSelection[2][0] && col === clueSelection[2][1])
+            // else if (foundClueOne && foundClueTwo && row === 1 && col === 5 )
             {
                 let modelObject = allmodels['tileKey']
                 setSelectedModel(modelObject)
@@ -294,7 +299,8 @@ export default function Tile({ row, col, positionX, positionZ,
             }
 
             // End tile
-            else if (foundClueOne && foundClueTwo && foundClueThree && row === 3 && col === 3 )
+            else if (foundClueOne && foundClueTwo && foundClueThree && row === clueSelection[3][0] && col === clueSelection[3][1])
+            // else if (foundClueOne && foundClueTwo && foundClueThree && row === 3 && col === 3 )
             {
                 let modelObject = allmodels['tileEnd']
                 setSelectedModel(modelObject)

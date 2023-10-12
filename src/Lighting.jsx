@@ -55,8 +55,6 @@ export default function Lighting()
             setClueThreeLight(false)
         }
         setLightDelay(lightDelay + 1)
-        console.log('lightDelay', lightDelay)
-        console.log('sawClueThree', sawClueThree)
     }, [ turn, sawClueTwo, sawClueThree, sawEnd ])
 
     useEffect(()=> {

@@ -81,10 +81,6 @@ export default function Lighting()
         return tile * 2.25
     }
 
-    if(clueSelection.length > 0) {
-        console.log(clueSelection)
-    }
-
     return <>
 
         {/* Add a pointlight at 5, 2, 5 */}

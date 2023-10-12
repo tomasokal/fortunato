@@ -35,15 +35,15 @@ export default function Tile({ row, col, positionX, positionZ,
 
         // Corner models
         const tileCornerLeft = useLoader(GLTFLoader, './tile-corner-l.glb')
-        const tileCornerBrickLeft = useLoader(GLTFLoader, './tile-corner-l-brick.glb')
+        // const tileCornerBrickLeft = useLoader(GLTFLoader, './tile-corner-l-brick.glb')
         const tileCornerRight = useLoader(GLTFLoader, './tile-corner-r.glb')
-        const tileCornerBrickRight = useLoader(GLTFLoader, './tile-corner-r-brick.glb')
+        // const tileCornerBrickRight = useLoader(GLTFLoader, './tile-corner-r-brick.glb')
 
         // Wall models
         const tileWallLeft = useLoader(GLTFLoader, './tile-wall-left.glb')
         const tileWallForward = useLoader(GLTFLoader, './tile-wall-forward.glb')
         const tileWallRight = useLoader(GLTFLoader, './tile-wall-right.glb')
-        const tileKey = useLoader(GLTFLoader, './tile-key.glb')
+        // const tileKey = useLoader(GLTFLoader, './tile-key.glb')
 
         // Hall models
         const tileHall = useLoader(GLTFLoader, './tile-hall.glb') 
@@ -51,6 +51,8 @@ export default function Tile({ row, col, positionX, positionZ,
         // Deadend models
         // const tileDead = useLoader(GLTFLoader, './tile-deadend.glb') 
         const tileDeadBook = useLoader(GLTFLoader, './tile-deadend-book.glb')
+        const tileClueTwo = useLoader(GLTFLoader, './tile-clue-two.glb')
+        const tileClueThree = useLoader(GLTFLoader, './tile-clue-three.glb')
 
         // Health models
         const tileBottle = useLoader(GLTFLoader, './tile-bottle.glb')
@@ -61,9 +63,9 @@ export default function Tile({ row, col, positionX, positionZ,
         model1: model1,
         tilePillar: tilePillar,
         tileCornerLeft: tileCornerLeft,
-        tileCornerBrickLeft: tileCornerBrickLeft,
+        // tileCornerBrickLeft: tileCornerBrickLeft,
         tileCornerRight: tileCornerRight,
-        tileCornerBrickRight: tileCornerBrickRight,
+        // tileCornerBrickRight: tileCornerBrickRight,
         tileWallLeft: tileWallLeft,
         tileWallForward: tileWallForward,
         tileWallRight: tileWallRight,
@@ -74,7 +76,9 @@ export default function Tile({ row, col, positionX, positionZ,
         tileBarrel: tileBarrel,
         tileStart: tileStart,
         tileEnd: tileEnd,
-        tileKey: tileKey
+        // tileKey: tileKey,
+        tileClueTwo: tileClueTwo,
+        tileClueThree: tileClueThree
     }
 
     // States
@@ -284,18 +288,18 @@ export default function Tile({ row, col, positionX, positionZ,
             else if (foundClueOne && row === clueSelection[1][0] && col === clueSelection[1][1])
             // else if (foundClueOne && row === 1 && col === 1 )
             {
-                let modelObject = allmodels['tileCornerBrickLeft']
+                let modelObject = allmodels['tileClueTwo']
                 setSelectedModel(modelObject)
-                setSelectedModelName('tileCornerBrickLeft')
+                setSelectedModelName('tileClueTwo')
             }
 
             // Specific clue two tile
             else if (foundClueOne && foundClueTwo && row === clueSelection[2][0] && col === clueSelection[2][1])
             // else if (foundClueOne && foundClueTwo && row === 1 && col === 5 )
             {
-                let modelObject = allmodels['tileKey']
+                let modelObject = allmodels['tileClueThree']
                 setSelectedModel(modelObject)
-                setSelectedModelName('tileKey')
+                setSelectedModelName('tileClueThree')
             }
 
             // End tile
@@ -436,7 +440,9 @@ export default function Tile({ row, col, positionX, positionZ,
         tileBarrel: [0, 0, 0, 1],
         tileHall: [0, 1, 0, 1],
         tileEnd: [0, 0, 0, 1],
-        tileKey: [1, 0, 1, 1]
+        // tileKey: [1, 0, 1, 1],
+        tileClueTwo: [0, 0, 0, 1],
+        tileClueThree: [0, 0, 0, 1]
 
     }
 

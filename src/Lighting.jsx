@@ -16,6 +16,8 @@ export default function Lighting()
     const foundClueThree = useGame((state) => state.foundClueThree)
     const clueSelection = useGame((state) => state.clueSelection)
 
+    const health = useGame((state) => state.health)
+
     const [ startTileLight, setStartTileLight ] = useState(true)
     const [ clueOneLight, setClueOneLight ] = useState(false)
     const [ clueTwoLight, setClueTwoLight ] = useState(false)
@@ -91,7 +93,7 @@ export default function Lighting()
             position-z={convertTileToX(6)}
             // position={[0.0, 2.7, 5.4]}
             intensity={30}
-            color={'green'}
+            color={'Orange'}
             distance={3.2}
         />}
 
@@ -102,7 +104,7 @@ export default function Lighting()
             position-z={convertTileToZ(clueSelection[0][1])}
             // position={[4.4, 2.7, 3.4]}
             intensity={30}
-            color={'red'}
+            color={'green'}
             distance={3.2}
         />}
 
@@ -124,7 +126,7 @@ export default function Lighting()
             position-z={convertTileToZ(clueSelection[2][1])}
             // position={[-4.5, 2.7, -5.7]}
             intensity={30}
-            color={'blue'}
+            color={'tomato'}
             distance={3.2}
         />}
 
@@ -135,7 +137,7 @@ export default function Lighting()
             position-z={convertTileToZ(clueSelection[3][1])}
             position={[0.0, 2.7, -1.0]}
             intensity={30}
-            color={'white'}
+            color={'cyan'}
             distance={3.2}
         />}
 

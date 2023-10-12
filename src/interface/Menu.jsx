@@ -9,8 +9,8 @@ export default function Hud()
 
     const restart = useGame((state) => state.restart)
     const phase = useGame((state) => state.phase)
-    const menuOpen = useGame((state) => state.menuOpen)
-    const toggleMenuOpen = useGame((state) => state.toggleMenuOpen)
+
+    const [menuOpen, setMenuOpen] = useState(false)
 
     const brightness = useGame((state) => state.brightness)
     const setBrightness = useGame((state) => state.setBrightness)
@@ -18,26 +18,30 @@ export default function Hud()
     const handleRestart = () => {
         restart()
     }
+    
+    const handleResume = () => {
+        setMenuOpen(!menuOpen)
+    }
 
 
     useEffect(() => {
         const onESC = (event) => {
             if (event.key === "Escape") {
-                toggleMenuOpen()
+                setMenuOpen(!menuOpen)
             }
         };
         window.addEventListener("keyup", onESC, false);
         return () => {
-            window.addEventListener("keyup", onESC, false);
+            window.removeEventListener("keyup", onESC, false);
         };
-    }, []);
+    }, [menuOpen]);
 
 
     return <>
         {phase=='playing' && menuOpen &&
         <div className='menuwrapper'>
             <div className="menu">
-                <button onClick={toggleMenuOpen}>Resume</button>
+                <button onClick={handleResume}>Resume</button>
                 <a href="javascript:window.location.reload(true)">Restart</a>
                 <div className='brightness'>
                     <label htmlFor='brightnessrange'>Brightness</label>

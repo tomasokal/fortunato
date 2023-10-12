@@ -93,12 +93,6 @@ export default create((set) =>
             })
         },
         // menu stores prop on escape key
-        menuOpen: false,
-        toggleMenuOpen: (menuOpen) => {
-            set((state) => {
-                return({menuOpen: !menuOpen})
-            })
-        },
         // Player Tile Type Management
         tile: 'tileStart',
         setTile: (value) => {  

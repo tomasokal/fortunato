@@ -78,6 +78,13 @@ export default create((set) =>
                 return({health: value})
             })
         },
+        // Player Health Management
+        brightness: 1.6,
+        setBrightness: (value) => {
+            set((state) => {
+                return({brightness: value})
+            })
+        },
         // turn counter to ensure barrels dont spawn too frequently
         turn: 0,
         setTurn: (value) => {

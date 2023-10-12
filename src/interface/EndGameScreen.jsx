@@ -31,7 +31,7 @@ export default function EndGameScreen()
             <div className='titleScreen'>
                 {status=='lost' && <h1>You lost</h1>}
                 {status=='won' && <h1>You won!</h1>}
-                <button onClick={restart}>Restart</button>
+                <a href='javascript:window.location.reload(true)'>Home</a>
             </div>
         </div>
     </>

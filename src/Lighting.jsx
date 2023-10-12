@@ -9,6 +9,8 @@ import { useControls } from 'leva'
 export default function Lighting()
 {
 
+    const brightness = useGame((state) => state.brightness)
+
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
     const foundClueThree = useGame((state) => state.foundClueThree)
@@ -145,7 +147,7 @@ export default function Lighting()
 
         <directionalLight
             castShadow 
-            intensity={1.6}
+            intensity={brightness}
             position={[3, 6, 3]}
             // make light go longer
             shadow-mapSize={ [ 1024, 1024 ] }

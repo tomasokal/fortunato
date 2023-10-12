@@ -7,12 +7,13 @@ import useGame from "../stores/useGame.js"
 export default function Hud()
 {
 
-    const [brightness, setBrightness] = useState(0.15);
-
     const restart = useGame((state) => state.restart)
     const phase = useGame((state) => state.phase)
     const menuOpen = useGame((state) => state.menuOpen)
     const toggleMenuOpen = useGame((state) => state.toggleMenuOpen)
+
+    const brightness = useGame((state) => state.brightness)
+    const setBrightness = useGame((state) => state.setBrightness)
 
     const handleRestart = () => {
         restart()
@@ -37,16 +38,16 @@ export default function Hud()
         <div className='menuwrapper'>
             <div className="menu">
                 <button onClick={toggleMenuOpen}>Resume</button>
-                <button onClick={handleRestart}>Restart</button>
+                <a href="javascript:window.location.reload(true)">Restart</a>
                 <div className='brightness'>
                     <label htmlFor='brightnessrange'>Brightness</label>
                     <br></br>
                     <input
                         id='brightnessrange'
                         type="range" 
-                        min={0}
-                        max={0.4}
-                        step={0.01}
+                        min={0.3}
+                        max={2.5}
+                        step={0.05}
                         value={brightness}
                         onChange={event => {
                             setBrightness(event.target.value)

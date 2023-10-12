@@ -276,7 +276,7 @@ export default function Tile({ row, col, positionX, positionZ,
             } 
             
             // Specific clue one tile
-            else if (clueSelection.length > 0 && row === clueSelection[0][0] && col === clueSelection[0][1])
+            else if (!foundClueOne && clueSelection.length > 0 && row === clueSelection[0][0] && col === clueSelection[0][1])
             // else if (row === 5 && col === 5)
             {
                 let modelObject = allmodels['tileDeadBook']
@@ -285,7 +285,7 @@ export default function Tile({ row, col, positionX, positionZ,
             }
 
             // Specific clue two tile
-            else if (foundClueOne && row === clueSelection[1][0] && col === clueSelection[1][1])
+            else if (!foundClueTwo && foundClueOne && row === clueSelection[1][0] && col === clueSelection[1][1])
             // else if (foundClueOne && row === 1 && col === 1 )
             {
                 let modelObject = allmodels['tileClueTwo']
@@ -294,7 +294,7 @@ export default function Tile({ row, col, positionX, positionZ,
             }
 
             // Specific clue two tile
-            else if (foundClueOne && foundClueTwo && row === clueSelection[2][0] && col === clueSelection[2][1])
+            else if (!foundClueThree && foundClueOne && foundClueTwo && row === clueSelection[2][0] && col === clueSelection[2][1])
             // else if (foundClueOne && foundClueTwo && row === 1 && col === 5 )
             {
                 let modelObject = allmodels['tileClueThree']

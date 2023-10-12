@@ -7,7 +7,7 @@ export default function AudioPlayer() {
     const audioRef = useRef();
 
     const [isMute, setIsMute] = useState(false);
-    const [volume, setVolume] = useState(0.15);
+    const [volume, setVolume] = useState(0.1);
 
     const phase = useGame((state) => state.phase)
 
@@ -17,13 +17,18 @@ export default function AudioPlayer() {
         if (isMute) {
             setVolume(0)
         } else {
-            setVolume(0.15)
+            setVolume(0.1)
         }
         audioRef.current.play()
       }, [isMute, phase]);
 
       useEffect(()=> {
         audioRef.current.volume = volume
+        if(volume==0) {
+            setIsMute(true) 
+        } else {
+            setIsMute(false)
+        }
       }, [volume])
 
     return(
@@ -40,7 +45,7 @@ export default function AudioPlayer() {
                 type="range" 
                 orient="vertical" 
                 min={0}
-                max={0.4}
+                max={0.25}
                 step={0.01}
                 value={volume}
                 onChange={event => {

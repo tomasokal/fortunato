@@ -70,11 +70,11 @@ export default function DialogRefactor()
                 setCurrentDialogue(dialog[dialogNodes['gameStateClueOne']])
                 setShowDialog(true)
                 setFoundClueOne(true)
-            } else if((tile === "tileCornerBrickLeft" || tile === "tileCornerBrickRight") && foundClueTwo === false) {
+            } else if((tile === "tileClueTwo") && foundClueTwo === false) {
                 setCurrentDialogue(dialog[dialogNodes['gameStateClueTwo']])
                 setShowDialog(true)
                 setFoundClueTwo(true)
-            } else if(tile === 'tileKey' && foundClueThree === false) {
+            } else if(tile === 'tileClueThree' && foundClueThree === false) {
                 setCurrentDialogue(dialog[dialogNodes['gameStateClueThree']])
                 setShowDialog(true)
                 setFoundClueThree(true)

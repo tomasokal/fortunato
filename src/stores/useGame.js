@@ -191,6 +191,30 @@ export default create((set) =>
             })
         },
 
+        sawClueTwo: false,
+        setSawClueTwo: (value) => {
+            set((state) => {
+                if(value === true) return {sawClueTwo: true}
+                return {}
+            })
+        },
+
+        sawClueThree: false,
+        setSawClueThree: (value) => {
+            set((state) => {
+                if(value === true) return {sawClueThree: true}
+                return {}
+            })
+        },
+
+        sawEnd: false,
+        setSawEnd: (value) => {
+            set((state) => {
+                if(value === true) return {sawEnd: true}
+                return {}
+            })
+        },
+
         clueSelection: [],
 
     }

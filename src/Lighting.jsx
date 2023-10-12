@@ -14,6 +14,11 @@ export default function Lighting()
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
     const foundClueThree = useGame((state) => state.foundClueThree)
+
+    const sawClueTwo = useGame((state) => state.sawClueTwo)
+    const sawClueThree = useGame((state) => state.sawClueThree)
+    const sawEnd = useGame((state) => state.sawEnd)
+
     const clueSelection = useGame((state) => state.clueSelection)
 
     const health = useGame((state) => state.health)
@@ -37,22 +42,22 @@ export default function Lighting()
             setStartTileLight(false)
             setClueOneLight(true)
         }
-        // if(lightDelay > 15 && foundClueOne && foundClueTwo === false) {
-        if(foundClueOne && foundClueTwo === false) {
+        if((sawClueTwo | lightDelay > 10) && foundClueOne && foundClueTwo === false) {
             setClueTwoLight(true)
             setClueOneLight(false)
         }
-        if(foundClueOne && foundClueTwo && foundClueThree === false) {
+        if((sawClueThree | lightDelay > 15) && foundClueOne && foundClueTwo && foundClueThree === false) {
             setClueThreeLight(true)
             setClueTwoLight(false)
         }
-        // if(lightDelay > 20 && foundClueTwo) {
-        if(foundClueThree) {
+        if((sawEnd | lightDelay > 20) && foundClueThree) {
             setEndLight(true)
             setClueThreeLight(false)
         }
         setLightDelay(lightDelay + 1)
-    }, [ turn ])
+        console.log('lightDelay', lightDelay)
+        console.log('sawClueThree', sawClueThree)
+    }, [ turn, sawClueTwo, sawClueThree, sawEnd ])
 
     useEffect(()=> {
         if(foundClueOne) {
@@ -70,7 +75,7 @@ export default function Lighting()
 
     useEffect(()=> {
         if(foundClueThree) {
-            setClueTwoLight(false)
+            setClueThreeLight(false)
             setLightDelay(0)
         }
     }, [ foundClueThree ])

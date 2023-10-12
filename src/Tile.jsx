@@ -105,6 +105,10 @@ export default function Tile({ row, col, positionX, positionZ,
     const foundClueTwo = useGame((state) => state.foundClueTwo)
     const foundClueThree = useGame((state) => state.foundClueThree)
 
+    const setSawClueTwo = useGame((state) => state.setSawClueTwo)
+    const setSawClueThree = useGame((state) => state.setSawClueThree)
+    const setSawEnd = useGame((state) => state.setSawEnd)
+
     const clueSelection = useGame((state) => state.clueSelection)
     
     // Import state for foundClue
@@ -286,11 +290,11 @@ export default function Tile({ row, col, positionX, positionZ,
 
             // Specific clue two tile
             else if (!foundClueTwo && foundClueOne && row === clueSelection[1][0] && col === clueSelection[1][1])
-            // else if (foundClueOne && row === 1 && col === 1 )
             {
                 let modelObject = allmodels['tileClueTwo']
                 setSelectedModel(modelObject)
                 setSelectedModelName('tileClueTwo')
+                setSawClueTwo(true)
             }
 
             // Specific clue two tile
@@ -300,6 +304,7 @@ export default function Tile({ row, col, positionX, positionZ,
                 let modelObject = allmodels['tileClueThree']
                 setSelectedModel(modelObject)
                 setSelectedModelName('tileClueThree')
+                setSawClueThree(true)
             }
 
             // End tile
@@ -309,6 +314,7 @@ export default function Tile({ row, col, positionX, positionZ,
                 let modelObject = allmodels['tileEnd']
                 setSelectedModel(modelObject)
                 setSelectedModelName('tileEnd')
+                setSawEnd(true)
             }
 
             else {

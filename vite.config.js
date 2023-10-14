@@ -9,7 +9,7 @@ export default {
     ],
     root: 'src/',
     publicDir: "../public/",
-    base: '/cube-2/',
+    base: '/fortunato/',
     // server:
     // {
     //     host: true,

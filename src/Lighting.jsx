@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { useHelper } from '@react-three/drei'
-import { DirectionalLightHelper, SpotLightHelper, PointLightHelper } from 'three'
-import { useSpring } from '@react-spring/core'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 
 import useGame from './stores/useGame'
-import { useControls } from 'leva'
 
 export default function Lighting()
 {
@@ -32,6 +30,8 @@ export default function Lighting()
     const turn = useGame((state) => state.turn)
     const [ lightDelay, setLightDelay ] = useState(0)
 
+    const clueOneLightRef = useRef()
+
     useEffect(()=> {
         if(turn > 0 && foundClueOne === false) {
             setStartTileLight(true)
@@ -55,7 +55,8 @@ export default function Lighting()
             setClueThreeLight(false)
         }
         setLightDelay(lightDelay + 1)
-    }, [ turn, sawClueTwo, sawClueThree, sawEnd ])
+    // }, [ turn, sawClueTwo, sawClueThree, sawEnd ])
+    }, [ turn])
 
     useEffect(()=> {
         if(foundClueOne) {
@@ -86,6 +87,16 @@ export default function Lighting()
         return tile * 2.25
     }
 
+    // useFrame((state, delta) => {
+    //     if(clueOneLightRef.current) {
+    //         clueOneLightRef.current.intensity = THREE.MathUtils.lerp(
+    //             clueOneLightRef.current.intensity,
+    //             clueOneLight ? 30 : 0,
+    //             0.01
+    //         )
+    //     }
+    // })
+
     return <>
 
         {/* Add a pointlight at 5, 2, 5 */}
@@ -94,18 +105,17 @@ export default function Lighting()
             position-x={convertTileToX(3)}
             position-y={2.7}
             position-z={convertTileToX(6)}
-            // position={[0.0, 2.7, 5.4]}
             intensity={30}
-            color={'Orange'}
+            color={'orange'}
             distance={3.2}
         />}
 
         {clueOneLight && <pointLight
+            ref={clueOneLightRef}
             castShadow
             position-x={convertTileToX(clueSelection[0][0])}
             position-y={2.7}
             position-z={convertTileToZ(clueSelection[0][1])}
-            // position={[4.4, 2.7, 3.4]}
             intensity={30}
             color={'green'}
             distance={3.2}
@@ -116,7 +126,6 @@ export default function Lighting()
             position-x={convertTileToX(clueSelection[1][0])}
             position-y={2.7}
             position-z={convertTileToZ(clueSelection[1][1])}
-            // position={[-4.5, 2.7, -5.7]}
             intensity={30}
             color={'purple'}
             distance={3.2}
@@ -127,7 +136,6 @@ export default function Lighting()
             position-x={convertTileToX(clueSelection[2][0])}
             position-y={2.7}
             position-z={convertTileToZ(clueSelection[2][1])}
-            // position={[-4.5, 2.7, -5.7]}
             intensity={30}
             color={'tomato'}
             distance={3.2}
@@ -150,10 +158,7 @@ export default function Lighting()
             castShadow 
             intensity={brightness}
             position={[3, 6, 3]}
-            // make light go longer
             shadow-mapSize={ [ 1024, 1024 ] }
-            // TODO - tweak shadow map stuff and get meshes casting shadows
-            // shadow-mapSize={ [ 64, 64 ] }
             shadow-camera-near={ 1 }
             shadow-camera-far={ 100 }
             shadow-camera-top={ 100 }

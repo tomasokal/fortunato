@@ -1,8 +1,8 @@
 {
-  "name": "cube-2",
+  "name": "fortunato",
   "private": true,
   "version": "0.0.1",
-  "homepage": "https://tomasokal.com/cube-2",
+  "homepage": "https://tomasokal.com/fortunato",
   "type": "module",
   "scripts": {
     "dev": "vite",

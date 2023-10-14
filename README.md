@@ -15,4 +15,12 @@
 - [ ] TODO 2
 - [ ] TODO 3
 
-
+new tile for clue 3 DONE
+add clue 3 to game DONE
+add delay to light on and off
+sound DONE
+game menu DONE
+dialog
+add some indication to player that tiles and path are not constant
+add some indicaiton to player that health tile should be something you get
+remove dead ends unless special tile DONE

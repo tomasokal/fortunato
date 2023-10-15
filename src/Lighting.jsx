@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { a, useSpring } from '@react-spring/three'
 import * as THREE from 'three'
 
 import useGame from './stores/useGame'
@@ -7,64 +8,87 @@ import useGame from './stores/useGame'
 export default function Lighting()
 {
 
+    // Global ambient light
     const brightness = useGame((state) => state.brightness)
 
+    // State for which clues have been found
     const foundClueOne = useGame((state) => state.foundClueOne)
     const foundClueTwo = useGame((state) => state.foundClueTwo)
     const foundClueThree = useGame((state) => state.foundClueThree)
 
+    // State for which clues have been seen
     const sawClueTwo = useGame((state) => state.sawClueTwo)
     const sawClueThree = useGame((state) => state.sawClueThree)
     const sawEnd = useGame((state) => state.sawEnd)
 
+    // State for objective layout
     const clueSelection = useGame((state) => state.clueSelection)
 
-    const health = useGame((state) => state.health)
-
+    // State for light intensity for each clue
     const [ startTileLight, setStartTileLight ] = useState(true)
     const [ clueOneLight, setClueOneLight ] = useState(false)
     const [ clueTwoLight, setClueTwoLight ] = useState(false)
     const [ clueThreeLight, setClueThreeLight ] = useState(false)
     const [ endLight, setEndLight ] = useState(false)
 
+    // State for turn increments
     const turn = useGame((state) => state.turn)
     const [ lightDelay, setLightDelay ] = useState(0)
 
-    const clueOneLightRef = useRef()
+    // State for pulsing light effect
+    const [ lightPulse, setLightPulse ] = useState(-10)
 
+    // Set up spring for light intensity for each clue
+    const { lightStartIntensity } = useSpring({
+        lightStartIntensity: startTileLight ? lightPulse + 30 : 0,
+        config: { mass: 1, tension: 280, friction: 60, precision: 0.001, velocity: 0 }
+    })
+
+    const { lightOneIntensity } = useSpring({
+        lightOneIntensity: clueOneLight ? lightPulse + 30 : 0,
+        config: { mass: 1, tension: 280, friction: 60, precision: 0.001, velocity: 0 }
+    })
+
+    const { lightTwoIntensity } = useSpring({
+        lightTwoIntensity: clueTwoLight ? lightPulse + 30 : 0,
+        config: { mass: 1, tension: 280, friction: 60, precision: 0.001, velocity: 0 }
+    })
+
+    const { lightThreeIntensity } = useSpring({
+        lightThreeIntensity: clueThreeLight ? lightPulse + 30 : 0,
+        config: { mass: 1, tension: 280, friction: 60, precision: 0.001, velocity: 0 }
+    })
+
+    const { lightEndIntensity } = useSpring({
+        lightEndIntensity: endLight ? lightPulse + 30 : 0,
+        config: { mass: 1, tension: 280, friction: 60, precision: 0.001, velocity: 0 }
+    })
+
+    // On every turn, increment the light delay
+    // If second turn, also turn on first clue light and turn off start tile light
     useEffect(()=> {
-        if(turn > 0 && foundClueOne === false) {
-            setStartTileLight(true)
-            setClueOneLight(false)
-            setEndLight(false)
-        }
+
+        setLightDelay(lightDelay + 1)
+
+        // Make sure to turn off start tile light on turn 1 which is actually turn 2
         if(turn > 2 && foundClueOne === false) {
             setStartTileLight(false)
             setClueOneLight(true)
         }
-        if((sawClueTwo | lightDelay > 10) && foundClueOne && foundClueTwo === false) {
-            setClueTwoLight(true)
-            setClueOneLight(false)
-        }
-        if((sawClueThree | lightDelay > 15) && foundClueOne && foundClueTwo && foundClueThree === false) {
-            setClueThreeLight(true)
-            setClueTwoLight(false)
-        }
-        if((sawEnd | lightDelay > 20) && foundClueThree) {
-            setEndLight(true)
-            setClueThreeLight(false)
-        }
-        setLightDelay(lightDelay + 1)
-    // }, [ turn, sawClueTwo, sawClueThree, sawEnd ])
-    }, [ turn])
 
+    }, [ turn ])
+
+    // Turn off clue lights when they are found
+    // Reset light delay to 0
+    // Clue one
     useEffect(()=> {
         if(foundClueOne) {
-            setClueOneLight(false)           
+            setClueOneLight(false)
             setLightDelay(0)
         }
     }, [ foundClueOne ])
 
+    // Clue two
     useEffect(()=> {
         if(foundClueTwo) {
             setClueTwoLight(false)
@@ -72,6 +96,7 @@ export default function Lighting()
         }
     }, [ foundClueTwo ])
 
+    // Clue three
     useEffect(()=> {
         if(foundClueThree) {
             setClueThreeLight(false)
@@ -79,78 +104,102 @@ export default function Lighting()
         }
     }, [ foundClueThree ])
 
-    const convertTileToX = (tile) => {
-        return tile * 2.25
-    }
+    // When clue tile is seen by player, turn on light
+    // Also turn on if light delay is greater than 4
+    // This corresponds to turn 5
+    useEffect(()=> {
+        if((sawClueTwo | lightDelay > 4) && foundClueOne && foundClueTwo === false) {
+            setClueTwoLight(true)
+        }
+    }, [ sawClueTwo, lightDelay ])
 
-    const convertTileToZ = (tile) => {
-        return tile * 2.25
-    }
+    // When clue tile is seen by player, turn on light
+    // Also turn on if light delay is greater than 9
+    // This corresponds to turn 10
+    useEffect(()=> {
+        if((sawClueThree | lightDelay > 9) && foundClueTwo && foundClueThree === false) {
+            setClueThreeLight(true)
+        }
+    }, [ sawClueThree, lightDelay ])
 
-    // useFrame((state, delta) => {
-    //     if(clueOneLightRef.current) {
-    //         clueOneLightRef.current.intensity = THREE.MathUtils.lerp(
-    //             clueOneLightRef.current.intensity,
-    //             clueOneLight ? 30 : 0,
-    //             0.01
-    //         )
-    //     }
-    // })
+    // When clue tile is seen by player, turn on light
+    // Also turn on if light delay is greater than 14
+    // This corresponds to turn 15
+    useEffect(()=> {
+        if((sawEnd | lightDelay > 14) && foundClueThree) {
+            setEndLight(true)
+        }
+    }, [ sawEnd, lightDelay ])
+
+    // Pulsing light effect
+    useFrame((state, delta)=> {
+        const newVal = -10 * Math.sin(2 * state.clock.elapsedTime)
+        setLightPulse(newVal)
+    })
+
+    // Functions to convert tile coordinates to world coordinates
+
+        // X is the horizontal axis
+        const convertTileToX = (tile) => {
+            return tile * 2.25
+        }
+
+        // Z is the vertical axis
+        const convertTileToZ = (tile) => {
+            return tile * 2.25
+        }
 
     return <>
 
-        {/* Add a pointlight at 5, 2, 5 */}
-        {startTileLight && <pointLight
+        <a.pointLight
             castShadow
             position-x={convertTileToX(3)}
             position-y={2.7}
             position-z={convertTileToX(6)}
-            intensity={30}
+            intensity={lightStartIntensity}
             color={'orange'}
             distance={3.2}
-        />}
+        />
 
-        {clueOneLight && <pointLight
-            ref={clueOneLightRef}
+        <a.pointLight
             castShadow
-            position-x={convertTileToX(clueSelection[0][0])}
+            position-x={clueSelection[0] ? convertTileToX(clueSelection[0][0]) : 0}
             position-y={2.7}
-            position-z={convertTileToZ(clueSelection[0][1])}
-            intensity={30}
+            position-z={clueSelection[0] ? convertTileToZ(clueSelection[0][1]) : 0}
+            intensity={lightOneIntensity}
             color={'green'}
             distance={3.2}
-        />}
+        />
 
-        {clueTwoLight && <pointLight
+        <a.pointLight
             castShadow
-            position-x={convertTileToX(clueSelection[1][0])}
+            position-x={clueSelection[1] ? convertTileToX(clueSelection[1][0]) : 0}
             position-y={2.7}
-            position-z={convertTileToZ(clueSelection[1][1])}
-            intensity={30}
+            position-z={clueSelection[1] ? convertTileToZ(clueSelection[1][1]) : 0}
+            intensity={lightTwoIntensity}
             color={'purple'}
             distance={3.2}
-        />}
+        />
 
-        {clueThreeLight && <pointLight
+        <a.pointLight
             castShadow
-            position-x={convertTileToX(clueSelection[2][0])}
+            position-x={clueSelection[2] ? convertTileToX(clueSelection[2][0]) : 0}
             position-y={2.7}
-            position-z={convertTileToZ(clueSelection[2][1])}
-            intensity={30}
+            position-z={clueSelection[2] ? convertTileToZ(clueSelection[2][1]) : 0}
+            intensity={lightThreeIntensity}
             color={'tomato'}
             distance={3.2}
-        />}
+        />
 
-        {endLight && <pointLight
+        <a.pointLight
             castShadow
-            position-x={convertTileToX(clueSelection[3][0])}
+            position-x={clueSelection[3] ? convertTileToX(clueSelection[3][0]) : 0}
             position-y={2.7}
-            position-z={convertTileToZ(clueSelection[3][1])}
-            position={[0.0, 2.7, -1.0]}
-            intensity={30}
+            position-z={clueSelection[3] ? convertTileToZ(clueSelection[3][1]) : 0}
+            intensity={lightEndIntensity}
             color={'cyan'}
             distance={3.2}
-        />}
+        />
 
         <ambientLight intensity={0.1} />
 

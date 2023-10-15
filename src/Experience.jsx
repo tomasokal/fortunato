@@ -5,7 +5,6 @@ import { Center, OrbitControls, useHelper } from '@react-three/drei'
 import Grid from './Grid.jsx'
 import Lighting from './Lighting.jsx'
 import Effects from './Effects.jsx'
-import useGame from './stores/useGame.js'
 
 export default function Experience()
 {

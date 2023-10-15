@@ -4,6 +4,8 @@ import { StrictMode, Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { createRoot } from 'react-dom/client'
 
+import { Leva } from 'leva'
+
 import Experience from './Experience'
 import Interface from './Interface.jsx'
 import AudioPlayer from './AudioPlayer.jsx'
@@ -25,6 +27,7 @@ root.render(
                 <Experience />
             </Suspense>
         </Canvas>
+        <Leva hidden />
         <Interface />
         <AudioPlayer />
     </StrictMode>

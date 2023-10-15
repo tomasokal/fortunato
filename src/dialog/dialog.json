@@ -12,7 +12,7 @@
     "text": "On the shelf in front of you is a ledger of sorts, filled with names. Scribed in the last spot is yours. At your feet are candles, still warm. Are others down here?",
     "button":
     {
-      "text": "Continue",
+      "text": "Keep searching",
       "action": "Action for clue one"
     },
     "title": "A Ledger of Sorts"

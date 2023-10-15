@@ -124,7 +124,8 @@ export default function DialogRefactor()
 
         {showDialog && <dialog className="dialog" open={showDialog}>
             <form onSubmit={handleEvent}>
-                <p>{currentDialogue.text}</p>
+                <h2 className='dialogtitle'>{currentDialogue.title}</h2>
+                <p><span dangerouslySetInnerHTML={{__html: currentDialogue.text}}></span></p>
                 <button type='submit' autoFocus>{currentDialogue.button.text}</button>
             </form>
         </dialog>}

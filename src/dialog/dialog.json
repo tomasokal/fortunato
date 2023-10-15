@@ -5,7 +5,8 @@
     {
       "text": "Begin",
       "action": "Action for clue one"
-    }
+    },
+    "title": "Awakening"
   },
   "clueOne": {
     "text": "On the shelf in front of you is a ledger of sorts, filled with names. Scribed in the last spot is yours. At your feet are candles, still warm. Are others down here?",
@@ -13,7 +14,8 @@
     {
       "text": "Continue",
       "action": "Action for clue one"
-    }
+    },
+    "title": "A Ledger of Sorts"
   },
   "clueTwo": {
     "text": "Before you is an alcove, at the back of which is a crypt set into the wall, containing one of Montressor's less fortunate guests. Away from which are a set of footsteps.",
@@ -21,7 +23,8 @@
     {
       "text": "Follow Steps",
       "action": "Action for clue two"
-    }
+    },
+    "title": "The Alcove"
   },
   "clueThree": {
     "text": "Hanging before you is a set of keys! You recognize these as Montressor's garden keys used to access the outbuilding behind his house. Perhaps there is a stairway out of these wretched catacombs.",
@@ -29,7 +32,8 @@
     {
       "text": "Continue",
       "action": "Action for clue three"
-    }
+    },
+    "title": "The Keys"
   },
   "barrelEncounter": {
     "text": "You find an oak barrel filled with one of Montressor's nicest amontillados. You take a large sip and feel revitalized, but know you can't live on wine forever. You must find your way out.",
@@ -37,7 +41,8 @@
     {
       "text": "Continue",
       "action": "Action for barrel"
-    }
+    },
+    "title": "A Barrel of Wine"
   },
   "barrelTooSoon": {
     "text": "You were just here at this barrel. You are a little too drunk to remember the path behind. Let's keep moving.",
@@ -45,7 +50,8 @@
     {
       "text": "Leave",
       "action": "Action for barrel"
-    }
+    },
+    "title": ""
   },
   "healthBottleOne": {
     "text": "You come across a single bottle of wine in a nook in the cellar. You're not usually a fan of oloroso, but a sip can't hurt? This will give you some stamina to keep moving.",
@@ -53,7 +59,8 @@
     {
       "text": "Continue",
       "action": "Action for bottle"
-    }
+    },
+    "title": "A Bottle of Wine"
   },
   "healthBottleTooSoon": {
     "text": "You're a little sick of oloroso. You keep moving.",
@@ -61,15 +68,17 @@
     {
       "text": "Leave",
       "action": "Action for bottle"
-    }
+    },
+    "title": ""
   },
   "turnTwoInstructions": {
-    "text": "You've made it free from your prison ... for now. A small bit of light is coming from around one of these corners. Maybe there is a path out of here.'",
+    "text": "You've made it free from your prison ... for now. A small bit of light is coming from around one of these corners. Maybe there is a path out of here.",
     "button":
     {
       "text": "Continue",
       "action": "Action for bottle"
-    }
+    },
+    "title": "Time to Explore"
   },
   "gameWon": {
     "text": "You finally reach a stairwell out of the cellar. The bright sun shines down into the entrance, leading you to freedom.",
@@ -77,7 +86,8 @@
     {
       "text": "Exit",
       "action": "Action for bottle"
-    }
+    },
+    "title": "Freedom"
   },
   "gameLost": {
     "text": "Your body gives out from fatigue. You succumb to the catacombs to haunt future visitors.",
@@ -85,6 +95,7 @@
     {
       "text": "Sleep",
       "action": "Action for bottle"
-    }
+    },
+    "title": "Death"
   }
 }

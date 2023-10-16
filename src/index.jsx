@@ -27,7 +27,7 @@ root.render(
                 <Experience />
             </Suspense>
         </Canvas>
-        <Leva hidden />
+        {/* <Leva hidden /> */}
         <Interface />
         <AudioPlayer />
     </StrictMode>

@@ -1,12 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { a, useSpring } from '@react-spring/three'
+import { useControls } from 'leva'
+import { DirectionalLightHelper } from 'three'
+import { useHelper } from '@react-three/drei'
 import * as THREE from 'three'
 
 import useGame from './stores/useGame'
 
 export default function Lighting()
 {
+
+    // Set up usecontrols for x, y, z position of light
+    const { myFooColor, intensity } = useControls({
+        // add color picker
+        myFooColor: '#1900ff',
+        intensity: 0.5
+    })
+
+    // set up ref to light and add directional light helper
+    const light = useRef()
+    useHelper(light, DirectionalLightHelper, 0.2, 'cyan')
 
     // Global ambient light
     const brightness = useGame((state) => state.brightness)
@@ -204,7 +218,9 @@ export default function Lighting()
         <ambientLight intensity={0.1} />
 
         <directionalLight
+            ref={light}
             castShadow 
+            color={'white'}
             intensity={brightness}
             position={[3, 6, 3]}
             shadow-mapSize={ [ 1024, 1024 ] }
@@ -215,6 +231,38 @@ export default function Lighting()
             shadow-camera-bottom={ - 100 }
             shadow-camera-left={ - 100 }
         />  
+
+        <directionalLight
+            color={myFooColor}
+            intensity={intensity}
+            position-x={convertTileToX(3)}
+            position-y={-2}
+            position-z={convertTileToZ(9)}
+        />
+
+        <directionalLight
+            color={myFooColor}
+            intensity={intensity}
+            position-x={convertTileToX(3)}
+            position-y={-2}
+            position-z={convertTileToZ(-3)}
+        />
+
+        <directionalLight
+            color={myFooColor}
+            intensity={intensity}
+            position-x={convertTileToX(9)}
+            position-y={-2}
+            position-z={convertTileToZ(3)}
+        />
+
+        <directionalLight
+            color={myFooColor}
+            intensity={intensity}
+            position-x={convertTileToX(-3)}
+            position-y={-2}
+            position-z={convertTileToZ(-3)}
+        />
     
     </>
 

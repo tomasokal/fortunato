@@ -7,6 +7,7 @@ import * as THREE from 'three'
 
 import SelectedTile from './SelectedTile'
 import useGame from './stores/useGame'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
 
 export default function Tile({ row, col, positionX, positionZ, 
     neighbors, 
@@ -22,7 +23,21 @@ export default function Tile({ row, col, positionX, positionZ,
     // Loading in all of the tiles
 
         // Base model
-        const model1 = useLoader(GLTFLoader, './dungeon-tile-base.glb')
+        const model2 = useLoader(
+            GLTFLoader,
+            './dungeon-tile-base.glb'
+            ,
+            (loader) => {
+                const dracoLoader = new DRACOLoader()
+                dracoLoader.setDecoderPath('./draco/')
+                loader.setDRACOLoader(dracoLoader)
+            }
+        )
+
+        const model1 = useLoader(
+            GLTFLoader,
+            './dungeon-tile-base.glb'
+        )
 
         // Start model
         const tileStart = useLoader(GLTFLoader, './tile-start.glb')

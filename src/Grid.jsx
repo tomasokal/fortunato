@@ -160,7 +160,7 @@ export default function Grid({ rows, columns })
                 // rotation={[Math.PI, rotationAdjustment, 0]}
                 // position-y={positionAdjustment.y}
                 position-x={6.8}
-                position-y={0.5}
+                position-y={0.49}
                 position-z={6.8}
             />
         </group>

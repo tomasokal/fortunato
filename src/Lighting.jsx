@@ -20,7 +20,7 @@ export default function Lighting()
 
     // set up ref to light and add directional light helper
     const light = useRef()
-    useHelper(light, DirectionalLightHelper, 0.2, 'cyan')
+    // useHelper(light, DirectionalLightHelper, 0.2, 'cyan')
 
     // Global ambient light
     const brightness = useGame((state) => state.brightness)

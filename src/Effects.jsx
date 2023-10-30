@@ -10,8 +10,8 @@ export default function Effects() {
     const hpMax = 51;
     const hpMin = 0;
 
-    const chromMax = 0.002;
-    const chromMin = 0.0002;
+    const chromMax = 0.001;
+    const chromMin = 0.00002;
     const percentScale = 1 - (health - hpMin) / (hpMax - hpMin);
     const outputChrom = percentScale * (chromMax - chromMin) + chromMin;
 

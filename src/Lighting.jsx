@@ -14,8 +14,8 @@ export default function Lighting()
     // Set up usecontrols for x, y, z position of light
     const { myFooColor, intensity } = useControls({
         // add color picker
-        myFooColor: '#1900ff',
-        intensity: 0.5
+        myFooColor: '#3e2ed1',
+        intensity: 0.3
     })
 
     // set up ref to light and add directional light helper
@@ -166,7 +166,7 @@ export default function Lighting()
     return <>
 
         <a.pointLight
-            castShadow
+            // castShadow
             position-x={convertTileToX(3)}
             position-y={2.7}
             position-z={convertTileToX(6)}
@@ -176,7 +176,7 @@ export default function Lighting()
         />
 
         <a.pointLight
-            castShadow
+            // castShadow
             position-x={clueSelection[0] ? convertTileToX(clueSelection[0][0]) : 0}
             position-y={2.7}
             position-z={clueSelection[0] ? convertTileToZ(clueSelection[0][1]) : 0}
@@ -186,7 +186,7 @@ export default function Lighting()
         />
 
         <a.pointLight
-            castShadow
+            // castShadow
             position-x={clueSelection[1] ? convertTileToX(clueSelection[1][0]) : 0}
             position-y={2.7}
             position-z={clueSelection[1] ? convertTileToZ(clueSelection[1][1]) : 0}
@@ -196,7 +196,7 @@ export default function Lighting()
         />
 
         <a.pointLight
-            castShadow
+            // castShadow
             position-x={clueSelection[2] ? convertTileToX(clueSelection[2][0]) : 0}
             position-y={2.7}
             position-z={clueSelection[2] ? convertTileToZ(clueSelection[2][1]) : 0}
@@ -206,7 +206,7 @@ export default function Lighting()
         />
 
         <a.pointLight
-            castShadow
+            // castShadow
             position-x={clueSelection[3] ? convertTileToX(clueSelection[3][0]) : 0}
             position-y={2.7}
             position-z={clueSelection[3] ? convertTileToZ(clueSelection[3][1]) : 0}
@@ -233,32 +233,32 @@ export default function Lighting()
         />  
 
         <directionalLight
-            color={myFooColor}
-            intensity={intensity}
+            color={'#3e2ed1'}
+            intensity={0.3}
             position-x={convertTileToX(3)}
             position-y={-2}
             position-z={convertTileToZ(9)}
         />
 
         <directionalLight
-            color={myFooColor}
-            intensity={intensity}
+            color={'#3e2ed1'}
+            intensity={0.3}
             position-x={convertTileToX(3)}
             position-y={-2}
             position-z={convertTileToZ(-3)}
         />
 
         <directionalLight
-            color={myFooColor}
-            intensity={intensity}
+            color={'#3e2ed1'}
+            intensity={0.3}
             position-x={convertTileToX(9)}
             position-y={-2}
             position-z={convertTileToZ(3)}
         />
 
         <directionalLight
-            color={myFooColor}
-            intensity={intensity}
+            color={'#3e2ed1'}
+            intensity={0.3}
             position-x={convertTileToX(-3)}
             position-y={-2}
             position-z={convertTileToZ(-3)}
